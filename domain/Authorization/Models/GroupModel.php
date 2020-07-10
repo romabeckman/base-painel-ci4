@@ -2,14 +2,14 @@
 
 namespace Authorization\Models;
 
-use \CodeIgniter\Model;
+use \App\Models\BaseModel;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class GroupModel extends Model {
+class GroupModel extends BaseModel {
 
     protected $table = 'auth_group';
     protected $primaryKey = 'id';

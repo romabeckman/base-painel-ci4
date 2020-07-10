@@ -2,14 +2,14 @@
 
 namespace Authorization\Models;
 
-use \CodeIgniter\Model;
+use \App\Models\BaseModel;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class PermissionModel extends Model {
+class PermissionModel extends BaseModel {
 
     protected $table = 'auth_permission';
     protected $primaryKey = null;

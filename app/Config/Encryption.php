@@ -22,6 +22,7 @@ class Encryption extends BaseConfig
 	 */
 
 	public $key = '';
+        public $salt = '';
 
 	/*
 	  |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ class Encryption extends BaseConfig
 	  | The default driver, if you don't specify one, is 'OpenSSL'.
 	 */
 	public $driver = 'OpenSSL';
-
-        public $passwordAlgo = 'sha256';
+        public $digest = 'SHA512';
+        public $cipher = 'AES-256-CTR';
 
 }

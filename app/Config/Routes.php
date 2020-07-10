@@ -19,7 +19,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
-$routes->setTranslateURIDashes(false);
+$routes->setTranslateURIDashes(true);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
@@ -50,8 +50,4 @@ if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 }
 
 
-$routes->group('api/authentication', ['namespace' => 'Authorization\Controllers'], function($routes) {
-    $routes->post('/login', 'Auth::login');
-    $routes->post('/logout', 'Auth::logout');
-    $routes->post('/recovery', 'Auth::recovery');
-});
+$routes->get('/authentication', 'Authentication\Login::index');

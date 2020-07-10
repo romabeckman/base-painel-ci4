@@ -9,19 +9,22 @@ class Filters extends BaseConfig {
     // Makes reading things below nicer,
     // and simpler to change out script that's used.
     public $aliases = [
-        'csrf'     => \CodeIgniter\Filters\CSRF::class,
-        'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
+        'csrf' => \CodeIgniter\Filters\CSRF::class,
+        'toolbar' => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
-        'db_key'   => \App\Filters\DBKey::class
+        'db_key' => \App\Filters\DBKey::class,
+        'logged_in' => \Authorization\Filters\LoggedIn::class
     ];
     // Always applied before every request
     public $globals = [
         'before' => [
+            'db_key',
+            'logged_in'
 //            'db_key'
         //'honeypot'
         // 'csrf',
         ],
-        'after'  => [
+        'after' => [
             'toolbar',
         //'honeypot'
         ],

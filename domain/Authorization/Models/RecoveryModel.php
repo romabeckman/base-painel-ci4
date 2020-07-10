@@ -2,15 +2,15 @@
 
 namespace Authorization\Models;
 
+use \App\Models\BaseModel;
 use \Authorization\Entity\Recovery;
-use \CodeIgniter\Model;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class RecoveryModel extends Model {
+class RecoveryModel extends BaseModel {
 
     protected $table = 'auth_recovery';
     protected $primaryKey = 'id';
@@ -21,7 +21,7 @@ class RecoveryModel extends Model {
     protected $useTimestamps = true;
     protected $validationRules = [
         'id_auth_user' => 'required',
-        'token'        => 'required|is_unique[auth_recovery.token]',
+        'token' => 'required|is_unique[auth_recovery.token]',
     ];
 
 }

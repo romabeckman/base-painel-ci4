@@ -14,7 +14,6 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
-
 use \App\Libraries\Autowired;
 use \CodeIgniter\Controller;
 use \CodeIgniter\HTTP\RequestInterface;
@@ -31,6 +30,11 @@ class BaseController extends Controller {
      * @var array
      */
     protected $helpers = [];
+
+    public function __construct() {
+        $this->helpers[] = 'url';
+        $this->helpers[] = 'form';
+    }
 
     /**
      * Constructor.
@@ -52,7 +56,7 @@ class BaseController extends Controller {
 
         if (is_array($returned)) {
             return $this->response->setJSON($returned);
-        } else {
+        } elseif (is_string($returned)) {
             return $returned;
         }
     }

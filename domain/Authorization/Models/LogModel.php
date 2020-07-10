@@ -3,7 +3,7 @@
 namespace Authorization\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Entity\User;
+use \Authorization\Entity\Log;
 
 /**
  * Description of User
@@ -12,15 +12,15 @@ use \Authorization\Entity\User;
  */
 class UserModel extends BaseModel {
 
-    protected $table = 'auth_user';
+    protected $table = 'auth_log';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'id_auth_group', 'name', 'email', 'login', 'password'
+        'id_auth_user', 'description'
     ];
     protected $encryptFields = [
-        'name', 'email', 'login'
+        'ip'
     ];
-    protected $returnType = User::class;
+    protected $returnType = Log::class;
     protected $useTimestamps = true;
 
 }

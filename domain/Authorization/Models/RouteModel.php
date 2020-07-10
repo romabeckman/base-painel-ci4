@@ -2,14 +2,14 @@
 
 namespace Authorization\Models;
 
-use \CodeIgniter\Model;
+use \App\Models\BaseModel;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class RouteModel extends Model {
+class RouteModel extends BaseModel {
 
     protected $table = 'auth_route';
     protected $allowedFields = [

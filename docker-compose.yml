@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+    php:
+        build:
+          context: .
+        image: base-project/php
+        container_name: base-project-php
+        volumes:
+            - .:/var/www/html/
+        ports:
+            - "8080:80"
+#        depends_on:
+#            - mariadb
+#        command: php spark db:seed Init && php spark migrate
+#    mariadb:
+#        image: mariadb:10.4
+#        restart: always
+#        volumes:
+#            - mariadb-data:/var/lib/mysql
+#        environment:
+#            MYSQL_USER: 'root'
+#            MYSQL_PASSWORD: ''
+#            MYSQL_ROOT_PASSWORD: ''
+#        command: mysql -u root < 'create database base_project;'
+#    phpmyadmin:
+#        image: phpmyadmin/phpmyadmin:latest
+#        ports:
+#            - 8000:80
+#        environment:
+#            - PMA_ARBITRARY=1
+#            - PMA_HOST=mariadb
+#        depends_on:
+#            - mariadb
+#volumes:
+#  mariadb-data:
