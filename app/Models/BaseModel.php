@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use \CodeIgniter\Database\ConnectionInterface;
 use \CodeIgniter\Database\Query;
 use \CodeIgniter\Model;
+use \CodeIgniter\Validation\ValidationInterface;
 use \stdClass;
 
 /**
@@ -14,6 +16,12 @@ use \stdClass;
 class BaseModel extends Model {
 
     protected $encryptFields = [];
+
+    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null) {
+        parent::__construct($db, $validation);
+
+        helper('mysql');
+    }
 
     public function insert($data = null, bool $returnID = true) {
         if (empty($this->encryptFields)) {
@@ -72,39 +80,44 @@ class BaseModel extends Model {
             $data[$this->updatedField] = $date;
         }
 
-        $data[$this->primaryKey] = $id;
+        $save = array_reduce(array_keys($data), function ($carry, $field) use ($id) {
+            if (is_null($id)) {
+                $carry[$field] = '';
+            } else {
+                $carry[$field] = "{$field} = ";
+            }
 
-        $pQuery = $this->db->prepare(function($db) use($data) {
-            $save = array_reduce(array_keys($data), function ($carry, $field) {
-                $carry[$field] = in_array($field, $this->encryptFields) ?
-                        'AES_ENCRYPT(?, @key)' :
-                        '?';
+            $carry[$field] .= (in_array($field, $this->encryptFields) ?
+                    'AES_ENCRYPT(?, @key)' :
+                    '?');
 
-                return $carry;
-            }, []);
+            return $carry;
+        }, []);
 
-            $update = array_reduce(array_keys($save), function ($carry, $field) {
-                if ($field == $this->primaryKey || $field == $this->createdField) {
-                    return $carry;
-                }
-
-                return $carry . $field . ' = ' . $field . ', ';
-            }, '');
-
-            $sql = "INSERT INTO {$this->table} (" . implode(', ', array_keys($save)) . ") "
-                    . "VALUES (" . implode(', ', $save) . ") "
-                    . "ON DUPLICATE KEY UPDATE " . substr($update, 0, -2);
-
+        $pQuery = $this->db->prepare(function($db) use($data, $save, $id) {
+            if (is_null($id)) {
+                $sql = "INSERT INTO {$this->table} (" . implode(', ', array_keys($save)) . ") "
+                        . "VALUES (" . implode(', ', $save) . ")";
+            } else {
+                $sql = "UPDATE {$this->table} SET " . implode(', ', $save) . " WHERE {$this->primaryKey} = ?";
+            }
             return (new Query($db))->setQuery($sql);
         });
 
-        $result = $pQuery->execute(...array_values($data));
+        is_null($id) || $data[$this->primaryKey] = $id;
 
-        if ($result) {
-            return $this->db->insertID();
-        }
+        $pQuery->execute(...array_values($data));
+
+        $pQuery->close();
+
+        return $this->db->insertID() === false ? $this->db->affectedRows() : $this->db->insertID();
     }
 
+    /**
+     * Decrypt data using AES_DECRYPT
+     *
+     * @return $this
+     */
     public function selectDecrypted() {
         if (empty($this->encryptFields)) {
             return;

@@ -14,11 +14,16 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
+
 use \App\Libraries\Autowired;
+use \BadMethodCallException;
+use \CodeIgniter\Config\Services;
 use \CodeIgniter\Controller;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
+use \Config\Paths;
 use \Psr\Log\LoggerInterface;
+use function \view;
 
 class BaseController extends Controller {
 
@@ -56,9 +61,24 @@ class BaseController extends Controller {
 
         if (is_array($returned)) {
             return $this->response->setJSON($returned);
-        } elseif (is_string($returned)) {
+        } else {
             return $returned;
         }
+    }
+
+    protected function autoloadView(array $data = []): string {
+        $router = Services::router();
+        $controller = str_replace('\\', DIRECTORY_SEPARATOR, strtolower($router->controllerName()));
+        $controller = substr($controller, strpos($controller, 'controllers') + 12);
+        $view = $controller . DIRECTORY_SEPARATOR . strtolower($router->methodName()) . '.php';
+
+        $path = new Paths();
+
+        if (file_exists($path->viewDirectory . DIRECTORY_SEPARATOR . $view)) {
+            return view($view, $data);
+        }
+
+        throw new BadMethodCallException('View "' . $path->viewDirectory . DIRECTORY_SEPARATOR . $view . '" not exits.');
     }
 
 }

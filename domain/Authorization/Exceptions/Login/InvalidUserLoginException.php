@@ -5,10 +5,10 @@ namespace Authorization\Exceptions\Login;
 use \RuntimeException;
 
 /**
- * Description of InvalidUserPasswordException
+ * Description of InvalidUserLoginException
  *
  * @author Romário Beckman
  */
-class InvalidUserPasswordException extends RuntimeException {
+class InvalidUserLoginException extends RuntimeException {
 
 }

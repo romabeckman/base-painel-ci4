@@ -8,9 +8,7 @@
     </head>
 
     <body class="text-center">
-
         <?php echo $this->renderSection('content') ?>
-
         <?php echo $this->include('template/include/javascript') ?>
     </body>
 </html>

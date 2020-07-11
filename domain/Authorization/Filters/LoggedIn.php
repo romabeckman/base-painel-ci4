@@ -2,10 +2,14 @@
 
 namespace Authorization\Filters;
 
+use \Authorization\Libraries\Auth;
+use \Authorization\Models\UserModel;
+use \Authorization\Service\Auth\SessionService;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
-use \Config\Services;
+use function \redirect;
+use function \uri_string;
 
 /**
  * Description of LoggedIn
@@ -23,11 +27,19 @@ class LoggedIn implements FilterInterface {
             return;
         }
 
-        $session = Services::session();
+        $sessionService = new SessionService();
+        $session = $sessionService->getSession();
 
-        if ($session->has('auth') == false) {
+        if (!$session->has('user')) {
             return redirect()->to('/authentication');
         }
+
+        $idUser = $session->get('user');
+        if (!$idUser) {
+            return redirect()->to('/authentication');
+        }
+
+        Auth::$user = (new UserModel)->selectDecrypted()->find($idUser);
     }
 
 }

@@ -8,16 +8,17 @@ services:
         restart: always
         volumes:
             - .:/var/www/html/
+            - ./docker/php/config.ini:/usr/local/etc/php/conf.d/config.ini
         ports:
             - "8080:80"
         depends_on:
-            - mariadb
+            - mysql
         links:
-            - mariadb
+            - mysql
         networks:
             dev-php-network:
                 ipv4_address: 192.168.10.2
-    mariadb:
+    mysql:
         image: mysql:5.7
         container_name: base-project-mysql
         restart: always

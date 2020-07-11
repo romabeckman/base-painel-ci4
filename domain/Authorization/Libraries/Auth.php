@@ -13,9 +13,8 @@ class Auth {
 
     /**
      *
-     * @var User
+     * @var User|null
      */
-    private $user;
+    static public $user;
 
-    
 }
