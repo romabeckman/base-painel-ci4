@@ -72,9 +72,7 @@ class BaseModel extends Model {
             $data[$this->updatedField] = $date;
         }
 
-        if (isset($data[$this->primaryKey])) {
-            $data[$this->primaryKey] = $id;
-        }
+        $data[$this->primaryKey] = $id;
 
         $pQuery = $this->db->prepare(function($db) use($data) {
             $save = array_reduce(array_keys($data), function ($carry, $field) {
@@ -99,11 +97,36 @@ class BaseModel extends Model {
 
             return (new Query($db))->setQuery($sql);
         });
+
         $result = $pQuery->execute(...array_values($data));
 
         if ($result) {
             return $this->db->insertID();
         }
+    }
+
+    public function selectDecrypted() {
+        if (empty($this->encryptFields)) {
+            return;
+        }
+
+        $select = array_diff($this->allowedFields, $this->encryptFields);
+        $select[] = $this->primaryKey;
+        $this->select($select);
+
+        foreach ($this->encryptFields as $field) {
+            $this->select(aesDecrypt($field), false);
+        }
+
+        return $this;
+    }
+
+    public function whereDecrypted(string $field, string $data) {
+        $data = $this->escapeString($data);
+
+        $this->where($field, aesEncrypt($data), false);
+
+        return $this;
     }
 
 }

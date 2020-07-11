@@ -34,6 +34,11 @@ class AddAuthUser extends Migration {
                 'type' => 'VARBINARY',
                 'constraint' => '255',
             ],
+            'last_login_at' => [
+                'type' => 'DATETIME',
+                'default' => NULL,
+                'null' => TRUE
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'default' => NULL,

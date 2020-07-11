@@ -24,11 +24,13 @@ class AddAuthRecovery extends Migration {
                 'constraint' => '255',
             ],
             'used_at' => [
-                'type' => 'TIMESTAMP',
+                'type' => 'DATETIME',
+                'default' => NULL,
                 'null' => TRUE
             ],
             'valid_until' => [
-                'type' => 'TIMESTAMP',
+                'type' => 'DATETIME',
+                'default' => NULL,
                 'null' => TRUE
             ],
             'created_at' => [

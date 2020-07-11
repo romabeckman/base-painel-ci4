@@ -12,6 +12,8 @@ use \CodeIgniter\Entity;
  */
 class User extends Entity {
 
+    protected $dates = ['last_login_at', 'created_at', 'updated_at', 'deleted_at'];
+
     public function setPassword(string $password) {
         $this->attributes['password'] = (new HmacService())->hash($password);
         return $this;

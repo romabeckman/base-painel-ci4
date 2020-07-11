@@ -15,7 +15,7 @@ class InsertAdmin extends Seeder {
             $User = new User();
             $User->id_auth_group = 1;
             $User->name = "Administrador";
-            $User->email = "adm@adm.com";
+            $User->email = "admin@admin.com";
             $User->password = "admin";
 
             $saved = (new UserModel())->insert($User);

@@ -5,31 +5,35 @@ services:
           context: .
         image: base-project/php
         container_name: base-project-php
+        restart: always
         volumes:
             - .:/var/www/html/
         ports:
             - "8080:80"
-#        depends_on:
-#            - mariadb
-#        command: php spark db:seed Init && php spark migrate
-#    mariadb:
-#        image: mariadb:10.4
-#        restart: always
-#        volumes:
-#            - mariadb-data:/var/lib/mysql
-#        environment:
-#            MYSQL_USER: 'root'
-#            MYSQL_PASSWORD: ''
-#            MYSQL_ROOT_PASSWORD: ''
-#        command: mysql -u root < 'create database base_project;'
-#    phpmyadmin:
-#        image: phpmyadmin/phpmyadmin:latest
-#        ports:
-#            - 8000:80
-#        environment:
-#            - PMA_ARBITRARY=1
-#            - PMA_HOST=mariadb
-#        depends_on:
-#            - mariadb
-#volumes:
-#  mariadb-data:
+        depends_on:
+            - mariadb
+        links:
+            - mariadb
+        networks:
+            dev-php-network:
+                ipv4_address: 192.168.10.2
+    mariadb:
+        image: mysql:5.7
+        container_name: base-project-mysql
+        restart: always
+        environment:
+            - MYSQL_DATABASE=base_project
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_ROOT_PASSWORD=root
+        ports:
+            - "3307:3306"
+        networks:
+            dev-php-network:
+                ipv4_address: 192.168.10.1
+networks:
+    dev-php-network:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 192.168.10.0/16

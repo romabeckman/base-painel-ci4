@@ -7,7 +7,8 @@ use function \view;
 
 class Login extends BaseController {
 
-    function index() {
+    function index(\Authorization\Service\Login\EmailService $emailService) {
+        $emailService->handler('adm@adm.com');
         return view('authentication/login/index', ['title' => 'Login']);
     }
 
