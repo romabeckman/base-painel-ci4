@@ -3,11 +3,10 @@
 namespace Authorization\Filters;
 
 use \Authorization\Config\Auth;
-use \Authorization\Libraries\AuthSession;
-use \Authorization\Models\UserModel;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
+use function \service;
 
 /**
  * Description of LoggedIn
@@ -21,15 +20,15 @@ class LoggedInFilter implements FilterInterface {
     }
 
     public function before(RequestInterface $request) {
-        $session = new AuthSession();
-        $session = $session->getSession();
+        $session = service('authSession')->getSession();
 
         if (!$session->has('user')) {
             return;
         }
 
         $idUser = $session->get('user');
-        Auth::$user = (new UserModel)->selectDecrypted()->find($idUser);
+        $userModel = service('authRepository')->userModel;
+        Auth::$user = $userModel->selectDecrypted()->find($idUser);
     }
 
 }

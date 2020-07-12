@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use \System\Config\Services;
+
 class Home extends BaseController {
 
     public function index() {
-        return $this->templatePainel(['title' => 'Página inicial']);
+        return Services::template()->templatePainel(['title' => 'Página inicial']);
     }
 
 }

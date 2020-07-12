@@ -6,14 +6,8 @@ use \App\Controllers\BaseController;
 
 class Logout extends BaseController {
 
-    /**
-     * @autowired
-     * @var \Authorization\Libraries\AuthSession
-     */
-    private $AuthSession;
-
     function index() {
-        $this->AuthSession->destroy();
+        service('authSession')->destroy();
         return $this->response->redirect('/authentication/login');
     }
 

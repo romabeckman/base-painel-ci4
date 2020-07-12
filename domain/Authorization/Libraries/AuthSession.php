@@ -32,8 +32,8 @@ class AuthSession {
             $this->app->sessionRegenerateDestroy = true;
         }
 
-        AuthRepository::getInstance()->saveLastLogin($user->id);
-        SysRepository::getInstance()->saveLog('Login', $user->id);
+        Services::authRepository()->saveLastLogin($user->id);
+        Services::sysRepository()->saveLog('Login', $user->id);
 
         Services::session($this->app)->set([
             'user' => $user->id

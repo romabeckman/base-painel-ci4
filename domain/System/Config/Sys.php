@@ -12,6 +12,6 @@ class Sys {
     /**
      * @var array
      */
-    static public $userPermission;
+    static public $permissionAllowed = [];
 
 }

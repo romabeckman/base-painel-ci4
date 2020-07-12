@@ -4,7 +4,6 @@ namespace Authorization\Validation;
 
 use \CodeIgniter\HTTP\Exceptions\HTTPException;
 use \Config\Services;
-use \System\Repository\SysRepository;
 use function \env;
 use function \lang;
 
@@ -35,7 +34,7 @@ class AuthValidation {
             }
 
             if ($json->success ?? false) {
-                return $json->score >= (float) SysRepository::getInstance()->getConfiguration('RECAPTCHA_V3_MINIMUM_SCORE');
+                return $json->score >= (float) Services::sysRepository()->getConfiguration('RECAPTCHA_V3_MINIMUM_SCORE');
             }
 
             return false;

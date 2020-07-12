@@ -29,4 +29,8 @@ class Services extends CoreServices
 	//
 	//        return new \CodeIgniter\Example();
 	//    }
+
+        static public function template(): \App\Services\Template {
+            return new \App\Services\Template();
+        }
 }

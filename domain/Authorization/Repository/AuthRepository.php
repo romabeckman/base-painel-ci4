@@ -2,7 +2,6 @@
 
 namespace Authorization\Repository;
 
-use \App\Singleton;
 use \Authorization\Entity\User;
 
 /**
@@ -10,27 +9,27 @@ use \Authorization\Entity\User;
  *
  * @author Romário Beckman
  */
-class AuthRepository extends Singleton {
+class AuthRepository {
 
     /**
      * @autowired
      * @var \Authorization\Models\PermissionModel
      */
-    private $permissionModel;
+    public $permissionModel;
 
     /**
      * @autowired
      * @var \Authorization\Models\UserModel
      */
-    private $userModel;
+    public $userModel;
 
-    public function getUserFromEmail(string $email): User {
+    public function getUserFromEmail(string $email): ?User {
         $user = $this->userModel
                 ->selectDecrypted()
                 ->whereDecrypted('email', $email)
                 ->first();
 
-        return $user;
+        return $user ?: null;
     }
 
     public function saveLastLogin(int $idUser): void {

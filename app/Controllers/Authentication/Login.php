@@ -5,22 +5,18 @@ namespace App\Controllers\Authentication;
 use \App\Controllers\BaseController;
 use \Authorization\Exceptions\InvalidUserEmailException;
 use \Authorization\Exceptions\InvalidUserPasswordException;
-use \Authorization\Services\LoginService;
+use \Config\Services;
+use function \lang;
+use function \service;
 
 class Login extends BaseController {
 
-    /**
-     * @autowired
-     * @var \Authorization\Libraries\AuthSession
-     */
-    private $AuthSession;
-
     function index() {
-        $this->AuthSession->destroy();
-        return $this->templateLogin();
+        service('authSession')->destroy();
+        return Services::template()->templateLogin();
     }
 
-    function auth(LoginService $loginService) {
+    function auth() {
         $post = $this->request->getPost();
 
         if (empty($post)) {
@@ -35,17 +31,17 @@ class Login extends BaseController {
                 ]
         );
         if (!$valid) {
-            return $this->templateLogin(['validation' => $this->validator], 'index');
+            return Services::template()->templateLogin(['validation' => $this->validator], 'index');
         }
 
         try {
-            $user = $loginService->handler($post['email'], $post['password']);
-            $this->AuthSession->create($user, isset($post['remember_me']));
+            $user = service('authLogin')->handler($post['email'], $post['password']);
+            service('authSession')->create($user, isset($post['remember_me']));
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {
-            return $this->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
+            return Services::template()->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
         } catch (InvalidUserPasswordException $exc) {
-            return $this->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
+            return Services::template()->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
         }
     }
 

@@ -2,7 +2,6 @@
 
 namespace System\Repository;
 
-use \App\Singleton;
 use \Config\Services;
 use \System\Entity\Log;
 use \System\Entity\Route;
@@ -12,25 +11,25 @@ use \System\Entity\Route;
  *
  * @author Romário Beckman
  */
-class SysRepository extends Singleton {
+class SysRepository {
 
     /**
      * @autowired
      * @var \System\Models\RouteModel
      */
-    private $routeModel;
+    public $routeModel;
 
     /**
      * @autowired
      * @var \System\Models\LogModel
      */
-    private $logModel;
+    public $logModel;
 
     /**
      * @autowired
      * @var \System\Models\ConfigurationModel
      */
-    private $configurationModel;
+    public $configurationModel;
 
     public function saveLog(string $description, int $idUser, array $options = []): void {
         $log = new Log();

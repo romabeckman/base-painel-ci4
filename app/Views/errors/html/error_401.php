@@ -76,9 +76,10 @@
 			<?php if (! empty($message) && $message !== '(null)') : ?>
 				<?= esc($message) ?>
 			<?php else : ?>
-				Acesso permitido apensa para usuários autenticados
+				Acesso permitido apenas para usuários registrados
 			<?php endif ?>
 		</p>
+                <p><a href="<?php echo base_url(); ?>">Voltar para a home</a></p>
 	</div>
 </body>
 </html>
