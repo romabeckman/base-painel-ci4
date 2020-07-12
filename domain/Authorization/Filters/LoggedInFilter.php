@@ -3,8 +3,8 @@
 namespace Authorization\Filters;
 
 use \Authorization\Config\Auth;
+use \Authorization\Libraries\AuthSession;
 use \Authorization\Models\UserModel;
-use \Authorization\Services\SessionService;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
@@ -14,15 +14,15 @@ use \CodeIgniter\HTTP\ResponseInterface;
  *
  * @author Romário Beckman
  */
-class LoggedIn implements FilterInterface {
+class LoggedInFilter implements FilterInterface {
 
     public function after(RequestInterface $request, ResponseInterface $response) {
 
     }
 
     public function before(RequestInterface $request) {
-        $sessionService = new SessionService();
-        $session = $sessionService->getSession();
+        $session = new AuthSession();
+        $session = $session->getSession();
 
         if (!$session->has('user')) {
             return;

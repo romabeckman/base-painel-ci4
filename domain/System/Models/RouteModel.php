@@ -3,6 +3,7 @@
 namespace System\Models;
 
 use \App\Models\BaseModel;
+use \System\Entity\Route;
 
 /**
  * Description of User
@@ -31,4 +32,5 @@ class RouteModel extends BaseModel {
         'controller', 'method', 'access'
     ];
 
+    protected $returnType = Route::class;
 }

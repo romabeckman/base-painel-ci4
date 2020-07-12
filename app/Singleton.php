@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \PHPAutowired\Autowired;
+
 class Singleton {
 
     // Hold the class instance.
@@ -16,7 +18,7 @@ class Singleton {
      */
     public static function getInstance() {
         if (isset(static::$instance[static::class]) == false) {
-            static::$instance[static::class] = new static();
+            static::$instance[static::class] = Autowired::new(static::class);
         }
 
         return static::$instance[static::class];

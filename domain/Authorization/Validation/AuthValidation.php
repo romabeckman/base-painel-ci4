@@ -4,7 +4,7 @@ namespace Authorization\Validation;
 
 use \CodeIgniter\HTTP\Exceptions\HTTPException;
 use \Config\Services;
-use \System\Services\ConfigurationService;
+use \System\Repository\SysRepository;
 use function \env;
 use function \lang;
 
@@ -13,7 +13,7 @@ use function \lang;
  *
  * @author Romário Beckman
  */
-class Auth {
+class AuthValidation {
 
     function auth_grecaptcha(string $str, string &$error = null) {
         $error = lang('Auth.invalid_user_captcha');
@@ -35,7 +35,7 @@ class Auth {
             }
 
             if ($json->success ?? false) {
-                return $json->score >= (float) (new ConfigurationService)->get('RECAPTCHA_V3_MINIMUM_SCORE');
+                return $json->score >= (float) SysRepository::getInstance()->getConfiguration('RECAPTCHA_V3_MINIMUM_SCORE');
             }
 
             return false;

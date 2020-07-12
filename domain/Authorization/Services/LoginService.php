@@ -20,7 +20,7 @@ class LoginService {
     public function handler(string $email, string $password): User {
         helper('mysql');
 
-        $user = (new AuthRepository)->getUserFromEmail($email);
+        $user = AuthRepository::getInstance()->getUserFromEmail($email);
 
         if (empty($user)) {
             throw new InvalidUserEmailException(lang('Auth.invalid_user_email'));

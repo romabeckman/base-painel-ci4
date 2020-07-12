@@ -14,13 +14,14 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
-use \App\Libraries\Autowired;
+
 use \BadMethodCallException;
 use \CodeIgniter\Config\Services;
 use \CodeIgniter\Controller;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \Config\Paths;
+use \PHPAutowired\Autowired;
 use \Psr\Log\LoggerInterface;
 use function \view;
 

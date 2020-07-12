@@ -6,19 +6,21 @@ use \App\Controllers\BaseController;
 use \Authorization\Exceptions\InvalidUserEmailException;
 use \Authorization\Exceptions\InvalidUserPasswordException;
 use \Authorization\Services\LoginService;
-use \Authorization\Services\SessionService;
 
 class Login extends BaseController {
 
-    function index(SessionService $sessionService) {
-        $sessionService->destroy();
+    /**
+     * @autowired
+     * @var \Authorization\Libraries\AuthSession
+     */
+    private $AuthSession;
+
+    function index() {
+        $this->AuthSession->destroy();
         return $this->templateLogin();
     }
 
-    function auth(
-            LoginService $loginService,
-            SessionService $sessionService
-    ) {
+    function auth(LoginService $loginService) {
         $post = $this->request->getPost();
 
         if (empty($post)) {
@@ -38,9 +40,7 @@ class Login extends BaseController {
 
         try {
             $user = $loginService->handler($post['email'], $post['password']);
-
-            $sessionService->create($user, isset($post['remember_me']));
-
+            $this->AuthSession->create($user, isset($post['remember_me']));
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {
             return $this->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
