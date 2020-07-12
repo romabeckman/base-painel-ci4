@@ -27,10 +27,7 @@ class AuthSession {
     }
 
     function create(User $user, bool $rememberMe = false) {
-        if ($rememberMe) {
-            $this->app->sessionExpiration = 86400;
-            $this->app->sessionRegenerateDestroy = true;
-        }
+        $rememberMe && $this->app->sessionExpiration = 86400;
 
         Services::authRepository()->saveLastLogin($user->id);
         Services::sysRepository()->saveLog('Login', $user->id);
