@@ -10,8 +10,8 @@ use \Authorization\Services\SessionService;
 
 class Login extends BaseController {
 
-    function index() {
-        (new SessionService)->destroy();
+    function index(SessionService $sessionService) {
+        $sessionService->destroy();
         return $this->templateLogin();
     }
 

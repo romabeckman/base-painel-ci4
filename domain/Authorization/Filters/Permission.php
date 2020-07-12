@@ -2,10 +2,12 @@
 
 namespace Authorization\Filters;
 
+use \Authorization\Validation\Auth;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
-use function \uri_string;
+use \Config\Services;
+use function \redirect;
 
 /**
  * Description of LoggedIn
@@ -19,11 +21,16 @@ class Permission implements FilterInterface {
     }
 
     public function before(RequestInterface $request) {
-        if (strpos(uri_string(), 'authentication') === 0) {
-            return;
-        }
+        $router = Services::router();
+        return ;
 
+        $controller = $router->controllerName();
+        $method = $router->methodName();
+        dd($controller);
 
+//        if (empty(Auth::$user)) {
+//            return redirect()->to('/authentication/logout');
+//        }
     }
 
 }

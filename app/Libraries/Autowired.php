@@ -129,6 +129,8 @@ class Autowired {
             return $class;
         } elseif (Provider::exist($class)) {
             return Provider::get($class);
+        } elseif (method_exists($class, 'getInstance')) {
+            return $class::getInstance();
         } else {
             return $this->invokeMethod('__construct');
         }
@@ -142,17 +144,18 @@ class Autowired {
         if ($reflectionMethod->getNumberOfParameters() === 0) {
             return [];
         }
-        
-        $args = [];
 
+        $args = [];
         try {
             foreach ($reflectionMethod->getParameters() as $parameters) {
                 $class = $parameters->getClass();
 
                 if (isset($params[$parameters->getName()])) {
                     $args[$parameters->getName()] = $params[$parameters->getName()];
-                } elseif ($class && $class->isInstantiable()) {
+                } elseif (is_null($class) == false) {
                     $args[$parameters->getName()] = (new Autowired($class->getName()))->getInstance();
+                } else {
+                    $args[$parameters->getName()] = array_shift($params);
                 }
             }
         } catch (ReflectionException $exc) {
