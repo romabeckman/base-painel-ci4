@@ -16,5 +16,4 @@ class PermissionModel extends BaseModel {
     protected $allowedFields = [
         'id_auth_user', 'id_auth_route'
     ];
-    protected $useTimestamps = false;
 }

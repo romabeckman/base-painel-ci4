@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Entity;
+namespace System\Entity;
 
 use \CodeIgniter\Entity;
 
@@ -10,6 +10,10 @@ use \CodeIgniter\Entity;
  * @author Romário Beckman
  */
 class Log extends Entity {
+
+    protected $dates = [
+        'created_at'
+    ];
 
     protected $casts = [
         'description' => 'json-array'

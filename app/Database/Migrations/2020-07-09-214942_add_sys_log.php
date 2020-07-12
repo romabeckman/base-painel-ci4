@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddAuthLog extends Migration {
+class AddSysLog extends Migration {
 
     public function up() {
         $this->forge->addField([
@@ -35,13 +35,13 @@ class AddAuthLog extends Migration {
         ]);
         $this->forge->addKey('id', TRUE);
         $this->forge->addForeignKey('id_auth_user', 'auth_user', 'id');
-        $this->forge->createTable('auth_log');
+        $this->forge->createTable('sys_log');
     }
 
     //--------------------------------------------------------------------
 
     public function down() {
-        $this->forge->dropTable('auth_log');
+        $this->forge->dropTable('sys_log');
     }
 
 }

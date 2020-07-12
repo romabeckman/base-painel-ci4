@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Exceptions\Login;
+namespace Authorization\Exceptions;
 
 use \RuntimeException;
 

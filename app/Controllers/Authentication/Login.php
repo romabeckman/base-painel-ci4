@@ -3,35 +3,37 @@
 namespace App\Controllers\Authentication;
 
 use \App\Controllers\BaseController;
-use \Authorization\Exceptions\Login\InvalidUserEmailException;
-use \Authorization\Exceptions\Login\InvalidUserPasswordException;
-use \Authorization\Models\UserModel;
-use \Authorization\Service\Auth\LoginService;
-use \Authorization\Service\Auth\SessionService;
-use function \lang;
-use function \view;
+use \Authorization\Exceptions\InvalidUserEmailException;
+use \Authorization\Exceptions\InvalidUserPasswordException;
+use \Authorization\Services\LoginService;
+use \Authorization\Services\SessionService;
 
 class Login extends BaseController {
 
-    function index(SessionService $sessionService) {
-        $sessionService->destroy();
-        return $this->autoloadView(['title' => 'Login']);
+    function index() {
+        (new SessionService)->destroy();
+        return $this->templateLogin();
     }
 
-    function auth(LoginService $loginService, SessionService $sessionService) {
+    function auth(
+            LoginService $loginService,
+            SessionService $sessionService
+    ) {
         $post = $this->request->getPost();
 
         if (empty($post)) {
             return $this->response->redirect('/authentication/login');
         }
 
-        $valid = $this->validate([
-            'email' => 'required|valid_email',
-            'password' => 'required'
-        ]);
-
+        $valid = $this->validate(
+                [
+                    'email' => 'required|valid_email',
+                    'password' => 'required',
+                    'grecaptcha' => 'required|auth_grecaptcha'
+                ]
+        );
         if (!$valid) {
-            return view('authentication/login/index', ['title' => 'Login', 'validation' => $this->validator]);
+            return $this->templateLogin(['validation' => $this->validator], 'index');
         }
 
         try {
@@ -39,14 +41,11 @@ class Login extends BaseController {
 
             $sessionService->create($user, isset($post['remember_me']));
 
-            $userModel = new UserModel();
-            $userModel->update($user->id, ['last_login_at' => date('Y-m-d H:i:s')]);
-
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {
-            return view('authentication/login/index', ['title' => 'Login', 'message_erro' => lang('Auth.invalid_user_auth')]);
+            return $this->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
         } catch (InvalidUserPasswordException $exc) {
-            return view('authentication/login/index', ['title' => 'Login', 'message_erro' => lang('Auth.invalid_user_auth')]);
+            return $this->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
         }
     }
 

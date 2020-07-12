@@ -14,7 +14,6 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
-
 use \App\Libraries\Autowired;
 use \BadMethodCallException;
 use \CodeIgniter\Config\Services;
@@ -55,6 +54,12 @@ class BaseController extends Controller {
         // $this->session = \Config\Services::session();
     }
 
+    /**
+     *
+     * @param type $method
+     * @param type $params
+     * @return type
+     */
     public function _remap($method, ...$params) {
         $autowired = new Autowired($this);
         $returned = $autowired->invokeMethod($method, $params);
@@ -66,11 +71,31 @@ class BaseController extends Controller {
         }
     }
 
-    protected function autoloadView(array $data = []): string {
+    protected function templateLogin(array $params = [], ?string $view = null) {
+        !isset($params['title']) && $params['title'] = 'Login';
+        $params['captcha_api'] = env('GOOGLE_RECAPTCHA_PUBLIC_KEY');
+        return $this->autoloadView($params, $view);
+    }
+
+    protected function templatePainel(array $params = [], ?string $view = null) {
+        !isset($params['title']) && $params['title'] = 'Login';
+        return $this->autoloadView($params, $view);
+    }
+
+    /**
+     * Load view by namespace of controller.
+     *
+     * @param array $data
+     * @param string|null $viewName Force a name of view
+     * @return string
+     * @throws BadMethodCallException
+     */
+    private function autoloadView(array $data = [], ?string $viewName = null): string {
         $router = Services::router();
         $controller = str_replace('\\', DIRECTORY_SEPARATOR, strtolower($router->controllerName()));
         $controller = substr($controller, strpos($controller, 'controllers') + 12);
-        $view = $controller . DIRECTORY_SEPARATOR . strtolower($router->methodName()) . '.php';
+        $viewName = is_null($viewName) ? strtolower($router->methodName()) : $viewName;
+        $view = $controller . DIRECTORY_SEPARATOR . $viewName . '.php';
 
         $path = new Paths();
 
@@ -80,5 +105,4 @@ class BaseController extends Controller {
 
         throw new BadMethodCallException('View "' . $path->viewDirectory . DIRECTORY_SEPARATOR . $view . '" not exits.');
     }
-
 }

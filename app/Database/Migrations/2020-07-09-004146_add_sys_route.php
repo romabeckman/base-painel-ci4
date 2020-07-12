@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddAuthRoute extends Migration {
+class AddSysRoute extends Migration {
 
     public function up() {
         $this->forge->addField([
@@ -14,39 +14,29 @@ class AddAuthRoute extends Migration {
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ],
-            'route' => [
+            'controller' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'method' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE
+            ],
             'access' => [
                 'type' => "ENUM",
-                'constraint' => ['public', 'private'],
+                'constraint' => ['public', 'protected', 'private'],
                 'default' => 'private'
-            ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'default' => NULL,
-                'null' => TRUE
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'default' => NULL,
-                'null' => TRUE
-            ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'default' => NULL,
-                'null' => TRUE
-            ],
+            ]
         ]);
         $this->forge->addKey('id', TRUE);
-        $this->forge->createTable('auth_route');
+        $this->forge->createTable('sys_route');
     }
 
     //--------------------------------------------------------------------
 
     public function down() {
-        $this->forge->dropTable('auth_route');
+        $this->forge->dropTable('sys_route');
     }
 
 }

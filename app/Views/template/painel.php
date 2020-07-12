@@ -7,7 +7,7 @@
         <title>Painel</title>
     </head>
 
-    <body class="bg-dark">
+    <body class="bg-light">
 
         <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
             <a class="navbar-brand" href="/"><?php echo PROJECT_NAME; ?></a>
@@ -25,12 +25,12 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ">
-                    <li class="nav-item"><a class="nav-link" href="/">Sair</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/authentication/logout">Sair</a></li>
                 </ul>
-<!--                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>-->
+                <!--                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>-->
             </div>
         </nav>
 
@@ -51,18 +51,22 @@
             </nav>
         </div>
 
-        <main role="main" class="container-fluid">
-            <div class="d-flex my-3"></div>
-
-
-            <div class="my-3 p-3 bg-white rounded box-shadow">
-                <h6 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h6>
-
-                <?php echo $this->renderSection('content') ?>
-
+        <main role="main" class="container">
+            <div class="my-4">
+                <h5 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h5>
             </div>
+
+            <?php echo $this->renderSection('content') ?>
+
+            <!--            <div class="my-3 p-3 bg-white rounded box-shadow">
+                        </div>-->
         </main>
 
         <?php echo $this->include('template/include/javascript') ?>
     </body>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
 </html>

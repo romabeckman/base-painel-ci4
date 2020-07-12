@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Libraries;
+namespace Authorization\Config;
 
 use \Authorization\Entity\User;
 
@@ -12,7 +12,6 @@ use \Authorization\Entity\User;
 class Auth {
 
     /**
-     *
      * @var User|null
      */
     static public $user;

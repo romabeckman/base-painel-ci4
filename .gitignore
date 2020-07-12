@@ -128,3 +128,5 @@ nb-configuration.xml
 
 /nbproject/
 composer.phar
+
+/writable/

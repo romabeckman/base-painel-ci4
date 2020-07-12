@@ -80,31 +80,22 @@ class BaseModel extends Model {
             $data[$this->updatedField] = $date;
         }
 
-        $save = array_reduce(array_keys($data), function ($carry, $field) use ($id) {
-            if (is_null($id)) {
-                $carry[$field] = '';
-            } else {
-                $carry[$field] = "{$field} = ";
-            }
+        $pQuery = $this->db->prepare(function($db) use($data) {
+            $fields = array_reduce(array_keys($data), function ($carry, $field) {
+                $carry['fields'] .= '`' . $field . '`, ';
+                $carry['insert'] .= (in_array($field, $this->encryptFields) ? 'AES_ENCRYPT(?, @key)' : '?') . ', ';
+                $carry['update'] .= '`' . $field . '` = `' . $field . '`, ';
+                return $carry;
+            }, ['insert' => '', 'update' => '', 'fields' => '']);
 
-            $carry[$field] .= (in_array($field, $this->encryptFields) ?
-                    'AES_ENCRYPT(?, @key)' :
-                    '?');
-
-            return $carry;
-        }, []);
-
-        $pQuery = $this->db->prepare(function($db) use($data, $save, $id) {
-            if (is_null($id)) {
-                $sql = "INSERT INTO {$this->table} (" . implode(', ', array_keys($save)) . ") "
-                        . "VALUES (" . implode(', ', $save) . ")";
-            } else {
-                $sql = "UPDATE {$this->table} SET " . implode(', ', $save) . " WHERE {$this->primaryKey} = ?";
-            }
+            $sql = 'INSERT INTO ' . $this->table . ' (' . $fields['fields'] . '`' . $this->primaryKey . '`) '
+                    . 'VALUES (' . $fields['insert'] . '?' . ') '
+                    . (empty($fields['update']) ? '' : 'ON DUPLICATE KEY UPDATE ' . substr($fields['update'], 0, -2));
+            
             return (new Query($db))->setQuery($sql);
         });
 
-        is_null($id) || $data[$this->primaryKey] = $id;
+        $data[$this->primaryKey] = $id;
 
         $pQuery->execute(...array_values($data));
 
@@ -120,7 +111,7 @@ class BaseModel extends Model {
      */
     public function selectDecrypted() {
         if (empty($this->encryptFields)) {
-            return;
+            return $this;
         }
 
         $select = array_diff($this->allowedFields, $this->encryptFields);

@@ -2,7 +2,7 @@
 
 namespace Authorization\Entity;
 
-use \Authorization\Service\HmacService;
+use \Authorization\Services\HmacService;
 use \CodeIgniter\Entity;
 
 /**

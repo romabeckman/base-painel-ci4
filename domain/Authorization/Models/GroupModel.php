@@ -17,6 +17,7 @@ class GroupModel extends BaseModel {
         'name'
     ];
     protected $useTimestamps = true;
+    protected $useSoftDeletes  = true;
     protected $validationRules = [
         'name' => 'required'
     ];

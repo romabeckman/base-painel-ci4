@@ -22,5 +22,6 @@ class UserModel extends BaseModel {
     ];
     protected $returnType = User::class;
     protected $useTimestamps = true;
+    protected $useSoftDeletes  = true;
 
 }

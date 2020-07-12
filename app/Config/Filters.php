@@ -13,13 +13,15 @@ class Filters extends BaseConfig {
         'toolbar' => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'db_key' => \App\Filters\DBKey::class,
-        'logged_in' => \Authorization\Filters\LoggedIn::class
+        'logged_in' => \Authorization\Filters\LoggedIn::class,
+        'permission' => \Authorization\Filters\Permission::class,
     ];
     // Always applied before every request
     public $globals = [
         'before' => [
             'db_key',
-            'logged_in'
+            'logged_in',
+            'permission',
 //            'db_key'
         //'honeypot'
         // 'csrf',

@@ -1,26 +1,29 @@
 <?php
 
-namespace Authorization\Models;
+namespace System\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Entity\Log;
+use \System\Entity\Log;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class UserModel extends BaseModel {
+class LogModel extends BaseModel {
 
-    protected $table = 'auth_log';
+    protected $table = 'sys_log';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'id_auth_user', 'description'
+        'id_auth_user', 'description', 'ip'
     ];
     protected $encryptFields = [
         'ip'
     ];
     protected $returnType = Log::class;
     protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = '';
+    protected $deletedField  = '';
 
 }

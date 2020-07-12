@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Service;
+namespace Authorization\Services;
 
 use \Config\Encryption;
 

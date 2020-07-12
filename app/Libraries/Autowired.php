@@ -142,7 +142,7 @@ class Autowired {
         if ($reflectionMethod->getNumberOfParameters() === 0) {
             return [];
         }
-
+        
         $args = [];
 
         try {

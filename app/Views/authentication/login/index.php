@@ -1,18 +1,12 @@
 <?php $this->extend('template/login') ?>
 
 <?php $this->section('content') ?>
-<?php echo form_open('authentication/login/auth', ['class' => 'form-signin']); ?>
+<?php echo form_open('authentication/login/auth', ['class' => 'form-signin', 'data-grecaptcha-action' => 'authentication/login/auth']); ?>
 
-<img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="Logo" width="72" height="72">
+<img class="mb-4" src="<?php echo PROJECT_LOGO; ?>" alt="<?php echo PROJECT_NAME; ?>" width="72" height="72">
 <h1 class="h3 mb-3 font-weight-normal"><?php echo lang('Auth.authentication_login_index_welcome'); ?></h1>
 
-<?php
-if (isset($message_erro)) {
-    ?>
-    <div class="alert alert-danger" role="alert"><?php echo $message_erro; ?></div>
-    <?php
-}
-?>
+<?php echo $this->include('template/layout/erros_login') ?>
 
 <div class="form-group">
     <label for="inputLogin" class="sr-only"><?php echo lang('Auth.authentication_login_index_email'); ?></label>

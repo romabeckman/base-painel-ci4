@@ -1,12 +1,12 @@
 <?php
 
-namespace Authorization\Service\Auth;
+namespace Authorization\Services;
 
 use \Authorization\Entity\User;
-use \Authorization\Exceptions\Login\InvalidUserEmailException;
-use \Authorization\Exceptions\Login\InvalidUserPasswordException;
-use \Authorization\Models\UserModel;
-use \Authorization\Service\HmacService;
+use \Authorization\Exceptions\InvalidUserEmailException;
+use \Authorization\Exceptions\InvalidUserPasswordException;
+use \Authorization\Repository\AuthRepository;
+use \Authorization\Services\HmacService;
 use function \helper;
 use function \lang;
 
@@ -20,12 +20,7 @@ class LoginService {
     public function handler(string $email, string $password): User {
         helper('mysql');
 
-        $userModel = new UserModel();
-
-        $user = $userModel
-                ->selectDecrypted()
-                ->whereDecrypted('email', $email)
-                ->first();
+        $user = (new AuthRepository)->getUserFromEmail($email);
 
         if (empty($user)) {
             throw new InvalidUserEmailException(lang('Auth.invalid_user_email'));

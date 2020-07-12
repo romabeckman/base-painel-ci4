@@ -1,8 +1,9 @@
 <?php
 
-namespace Authorization\Service\Auth;
+namespace Authorization\Services;
 
 use \Authorization\Entity\User;
+use \Authorization\Repository\AuthRepository;
 use \CodeIgniter\Session\Session;
 use \Config\App;
 use \Config\Services;
@@ -27,6 +28,10 @@ class SessionService {
             $app->sessionExpiration = 86400;
             $app->sessionRegenerateDestroy = true;
         }
+
+        $repository = new AuthRepository();
+        $repository->saveLastLogin($user->id);
+        $repository->saveLog('Login', $user->id);
 
         Services::session($app)->set([
             'user' => $user->id
