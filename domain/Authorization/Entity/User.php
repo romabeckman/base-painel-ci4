@@ -2,7 +2,7 @@
 
 namespace Authorization\Entity;
 
-use \Authorization\Services\HmacService;
+use \Authorization\Config\Services;
 use \CodeIgniter\Entity;
 
 /**
@@ -15,7 +15,7 @@ class User extends Entity {
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function setPassword(string $password) {
-        $this->attributes['password'] = (new HmacService())->hash($password);
+        $this->attributes['password'] = Services::authHmac()->hash($password);
         return $this;
     }
 

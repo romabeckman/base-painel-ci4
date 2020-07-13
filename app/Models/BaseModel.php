@@ -91,7 +91,6 @@ class BaseModel extends Model {
             $sql = 'INSERT INTO ' . $this->table . ' (' . $fields['fields'] . '`' . $this->primaryKey . '`) '
                     . 'VALUES (' . $fields['insert'] . '?' . ') '
                     . (empty($fields['update']) ? '' : 'ON DUPLICATE KEY UPDATE ' . substr($fields['update'], 0, -2));
-            
             return (new Query($db))->setQuery($sql);
         });
 
@@ -100,7 +99,7 @@ class BaseModel extends Model {
         $pQuery->execute(...array_values($data));
 
         $pQuery->close();
-
+        
         return $this->db->insertID() === false ? $this->db->affectedRows() : $this->db->insertID();
     }
 
