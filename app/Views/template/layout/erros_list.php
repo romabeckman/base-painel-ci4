@@ -1,4 +1,10 @@
 <?php
+if (isset($alertMessage) && !empty($alertMessage)) {
+    ?>
+    <div class="alert alert-<?php echo $alertMessage['alert'] ?>" role="alert"><?php echo $alertMessage['text']; ?></div>
+    <?php
+}
+
 if (isset($validation) && !empty($validation)) {
     $errors = $validation->getErrors();
     ?>

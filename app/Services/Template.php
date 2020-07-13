@@ -5,6 +5,10 @@ namespace App\Services;
 use \BadMethodCallException;
 use \CodeIgniter\Config\BaseService;
 use \Config\Paths;
+use \Config\Services;
+use function \env;
+use function \service;
+use function \view;
 
 /**
  * Description of Template
@@ -21,6 +25,7 @@ class Template extends BaseService {
 
     public function templatePainel(array $params = [], ?string $view = null) {
         !isset($params['title']) && $params['title'] = 'Login';
+        $params['alertMessage'] = Services::alertMessages()->getMessage();
         return $this->autoloadView($params, $view);
     }
 
@@ -45,7 +50,7 @@ class Template extends BaseService {
             return view($view, $data);
         }
 
-        throw new BadMethodCallException('View "' . $path->viewDirectory . DIRECTORY_SEPARATOR . $view . '" not exits.');
+        throw new BadMethodCallException('View "' . $view . '" not exits.');
     }
 
 }

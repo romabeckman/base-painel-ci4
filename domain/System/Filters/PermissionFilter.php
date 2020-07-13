@@ -10,6 +10,7 @@ use \CodeIgniter\HTTP\ResponseInterface;
 use \Config\Services;
 use \System\Models\RouteModel;
 use function \redirect;
+use function \service;
 use function \view;
 
 /**
@@ -25,7 +26,7 @@ class PermissionFilter implements FilterInterface {
 
     public function before(RequestInterface $request) {
         $router = service('router');
-        $sysRepository = service('sysRepository');
+        $sysRepository = Services::sysRepository();
 
         $route = $sysRepository->getPermission($router->controllerName(), $router->methodName());
 
@@ -33,11 +34,12 @@ class PermissionFilter implements FilterInterface {
             return;
         }
 
+        // protected and provate route
         if (empty(Auth::$user) || !Auth::$user instanceof User) {
             return redirect()->to('/authentication/logout');
         }
 
-        $authRepository = service('authRepository');
+        $authRepository = Services::authRepository();
         if ($route->access == RouteModel::ACCESS_PRIVATE && $authRepository->userHasPermission(Auth::$user->id, $route->id) == false) {
             return Services::response()->setBody(view('errors/html/error_401'));
         }

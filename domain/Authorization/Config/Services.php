@@ -6,6 +6,7 @@ use \Authorization\Libraries\AuthSession;
 use \Authorization\Repository\AuthRepository;
 use \Authorization\Services\HmacService;
 use \Authorization\Services\LoginService;
+use \Authorization\Services\UpdatePassword;
 use \CodeIgniter\Config\BaseService;
 use \PHPAutowired\Autowired;
 
@@ -32,4 +33,7 @@ class Services extends BaseService {
         return Autowired::new(AuthRepository::class);
     }
 
+    static function authUpdatePassword(): UpdatePassword {
+        return new UpdatePassword;
+    }
 }

@@ -18,7 +18,6 @@ class Login extends BaseController {
 
     function auth() {
         $post = $this->request->getPost();
-
         if (empty($post)) {
             return $this->response->redirect('/authentication/login');
         }
@@ -27,7 +26,7 @@ class Login extends BaseController {
                 [
                     'email' => 'required|valid_email',
                     'password' => 'required',
-                    'grecaptcha' => 'required|auth_grecaptcha'
+                    'grecaptcha' => 'required|sys_grecaptcha'
                 ]
         );
         if (!$valid) {
@@ -35,6 +34,7 @@ class Login extends BaseController {
         }
 
         try {
+            $post = $this->request->getPost();
             $user = service('authLogin')->handler($post['email'], $post['password']);
             service('authSession')->create($user, isset($post['remember_me']));
             return $this->response->redirect('/');

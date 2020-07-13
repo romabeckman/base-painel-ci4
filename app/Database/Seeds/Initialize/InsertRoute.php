@@ -11,9 +11,7 @@ class InsertRoute extends Seeder {
         $model = new RouteModel();
         if ($model->countAll() == 0) {
             $model->insertBatch([
-                ['controller' => \App\Controllers\Authentication\Login::class, 'access' => RouteModel::ACCESS_PUBLIC],
-                ['controller' => \App\Controllers\Authentication\Logout::class, 'access' => RouteModel::ACCESS_PUBLIC],
-                ['controller' => \App\Controllers\Authentication\Recovery::class, 'access' => RouteModel::ACCESS_PUBLIC],
+                ['controller' => \App\Controllers\Profile\Password::class, 'access' => RouteModel::ACCESS_PROTECTED],
                 ['controller' => \App\Controllers\Home::class, 'access' => RouteModel::ACCESS_PROTECTED],
                 ['controller' => \App\Controllers\Administrator\User::class, 'access' => RouteModel::ACCESS_PRIVATE],
                 ['controller' => \App\Controllers\Administrator\Group::class, 'access' => RouteModel::ACCESS_PRIVATE],

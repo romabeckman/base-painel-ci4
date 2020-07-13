@@ -11,25 +11,11 @@
 <div class="form-group">
     <label for="inputLogin" class="sr-only"><?php echo lang('Auth.authentication_login_index_email'); ?></label>
     <?php echo form_input('email', '', 'id="inputLogin" class="form-control" placeholder="' . lang('Auth.authentication_login_index_email') . '" required autofocus', 'email'); ?>
-    <?php
-    if (isset($validation) && $validation->hasError('email')) {
-        ?>
-        <div class="text-danger"><?php echo $validation->getError('email') ?></div>
-        <?php
-    }
-    ?>
 </div>
 
 <div class="form-group">
     <label for="inputSenha" class="sr-only"><?php echo lang('Auth.authentication_login_index_password'); ?></label>
     <?php echo form_password('password', '', 'id="inputSenha" class="form-control" placeholder="' . lang('Auth.authentication_login_index_password') . '" required autofocus'); ?>
-    <?php
-    if (isset($validation) && $validation->hasError('password')) {
-        ?>
-        <div class="text-danger"><?php echo $validation->getError('password') ?></div>
-        <?php
-    }
-    ?>
 </div>
 <div class="checkbox mb-3">
     <label>

@@ -33,4 +33,8 @@ class Services extends CoreServices
         static public function template(): \App\Services\Template {
             return new \App\Services\Template();
         }
+
+        static public function alertMessages(): \App\Services\AlertMessages {
+            return new \App\Services\AlertMessages;
+        }
 }

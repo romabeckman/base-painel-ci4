@@ -18,6 +18,7 @@ class Validation
 		\CodeIgniter\Validation\FileRules::class,
 		\CodeIgniter\Validation\CreditCardRules::class,
 		\Authorization\Validation\AuthValidation::class,
+		\System\Validation\SysValidation::class,
 	];
 
 	/**
