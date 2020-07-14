@@ -47,6 +47,7 @@ class Template extends BaseService {
         $path = new Paths();
 
         if (file_exists($path->viewDirectory . DIRECTORY_SEPARATOR . $view)) {
+            \System\Config\Sys::$log['template'] = $view;
             return view($view, $data);
         }
 

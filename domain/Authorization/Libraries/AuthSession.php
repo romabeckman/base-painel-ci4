@@ -3,8 +3,6 @@
 namespace Authorization\Libraries;
 
 use \Authorization\Entity\User;
-use \Authorization\Repository\AuthRepository;
-use \System\Repository\SysRepository;
 use \CodeIgniter\Session\Session;
 use \Config\App;
 use \Config\Services;
@@ -30,7 +28,8 @@ class AuthSession {
         $rememberMe && $this->app->sessionExpiration = 86400;
 
         Services::authRepository()->saveLastLogin($user->id);
-        Services::sysRepository()->saveLog('Login', $user->id);
+
+        \System\Config\Sys::$log['auth'] = 'Successfully login';
 
         Services::session($this->app)->set([
             'user' => $user->id

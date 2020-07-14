@@ -31,7 +31,7 @@ class SysRepository {
      */
     public $configurationModel;
 
-    public function saveLog(string $description, int $idUser, array $options = []): void {
+    public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
         $log = new Log();
         $log->id_auth_user = $idUser;
         $log->description = [
@@ -39,7 +39,27 @@ class SysRepository {
             'options' => $options
         ];
         $log->ip = Services::request()->getIPAddress();
+        $this->logModel->insert($log);
+    }
 
+    public function saveAccessLog(string $description, ?int $idUser = null, array $options = []): void {
+        $post = Services::request()->getPost();
+        if (empty($post)) {
+            return;
+        }
+
+        foreach ($post as $key => $value) {
+            $post[$key] = strpos($key, 'password') === false ? $value : '***';
+        }
+
+        $log = new Log();
+        $log->id_auth_user = $idUser;
+        $log->description = [
+            'description' => $description,
+            'options' => $options
+        ];
+        $log->ip = Services::request()->getIPAddress();
+        $log->data = json_encode($post);
         $this->logModel->insert($log);
     }
 

@@ -80,26 +80,31 @@ class BaseModel extends Model {
             $data[$this->updatedField] = $date;
         }
 
-        $pQuery = $this->db->prepare(function($db) use($data) {
-            $fields = array_reduce(array_keys($data), function ($carry, $field) {
-                $carry['fields'] .= '`' . $field . '`, ';
-                $carry['insert'] .= (in_array($field, $this->encryptFields) ? 'AES_ENCRYPT(?, @key)' : '?') . ', ';
-                $carry['update'] .= '`' . $field . '` = `' . $field . '`, ';
-                return $carry;
-            }, ['insert' => '', 'update' => '', 'fields' => '']);
+        helper('mysql');
 
-            $sql = 'INSERT INTO ' . $this->table . ' (' . $fields['fields'] . '`' . $this->primaryKey . '`) '
-                    . 'VALUES (' . $fields['insert'] . '?' . ') '
-                    . (empty($fields['update']) ? '' : 'ON DUPLICATE KEY UPDATE ' . substr($fields['update'], 0, -2));
+        $pQuery = $this->db->prepare(function($db) use($data, $id) {
+            $save = array_reduce(array_keys($data), function ($carry, $field) use ($id) {
+                $carry .= is_null($id) ? '' : "{$field} = ";
+                $carry .= (in_array($field, $this->encryptFields) ?
+                        'AES_ENCRYPT(?, @key)' :
+                        '?');
+                return $carry . ', ';
+            }, '');
+            $save = substr($save, 0, -2);
+
+            $sql = is_null($id) ?
+                    "INSERT INTO {$this->table} (" . implode(', ', array_keys($data)) . ") VALUES (" . $save . ")" :
+                    "UPDATE {$this->table} SET " . $save . " WHERE {$this->primaryKey} = ?";
+
             return (new Query($db))->setQuery($sql);
         });
 
-        $data[$this->primaryKey] = $id;
+        is_null($id) || $data[$this->primaryKey] = $id;
 
         $pQuery->execute(...array_values($data));
 
         $pQuery->close();
-        
+
         return $this->db->insertID() === false ? $this->db->affectedRows() : $this->db->insertID();
     }
 

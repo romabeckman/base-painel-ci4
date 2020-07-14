@@ -15,6 +15,7 @@ class Filters extends BaseConfig {
         'db_key' => \App\Filters\DBKey::class,
         'logged_in' => \Authorization\Filters\LoggedInFilter::class,
         'permission' => \System\Filters\PermissionFilter::class,
+        'log_register' => \System\Filters\LogRegisterFilter::class,
     ];
     // Always applied before every request
     public $globals = [
@@ -27,6 +28,7 @@ class Filters extends BaseConfig {
         // 'csrf',
         ],
         'after' => [
+            'log_register',
             'toolbar',
         //'honeypot'
         ],

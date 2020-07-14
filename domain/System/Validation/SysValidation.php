@@ -33,6 +33,8 @@ class SysValidation {
                 return false;
             }
 
+            \System\Config\Sys::$log['recaptcha'] = $json;
+
             if ($json->success ?? false) {
                 return $json->score >= (float) Services::sysRepository()->getConfiguration('RECAPTCHA_V3_MINIMUM_SCORE');
             }

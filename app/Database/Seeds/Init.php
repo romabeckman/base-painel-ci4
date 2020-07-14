@@ -3,8 +3,9 @@
 namespace App\Database\Seeds;
 
 use \App\Database\Seeds\Initialize\InsertAdmin;
-use \App\Database\Seeds\Initialize\InsertGroup;
 use \App\Database\Seeds\Initialize\InsertConfig;
+use \App\Database\Seeds\Initialize\InsertGroup;
+use \App\Database\Seeds\Initialize\InsertPermission;
 use \App\Database\Seeds\Initialize\InsertRoute;
 use \CodeIgniter\Database\Seeder;
 use \Config\Database;
@@ -22,6 +23,7 @@ class Init extends Seeder {
         $this->call(InsertAdmin::class);
         $this->call(InsertConfig::class);
         $this->call(InsertRoute::class);
+        $this->call(InsertPermission::class);
     }
 
 }

@@ -14,4 +14,6 @@ class Sys {
      */
     static public $permissionAllowed = [];
 
+    static public $log = [];
+
 }

@@ -18,6 +18,8 @@ class AddSysLog extends Migration {
                 'type' => 'bigint',
                 'constraint' => 20,
                 'unsigned' => TRUE,
+                'null' => TRUE,
+                'default' => NULL
             ],
             'description' => [
                 'type' => 'TEXT'
@@ -25,6 +27,10 @@ class AddSysLog extends Migration {
             'ip' => [
                 'type' => 'VARBINARY',
                 'constraint' => '255',
+                'null' => TRUE
+            ],
+            'data' => [
+                'type' => 'BLOB',
                 'null' => TRUE
             ],
             'created_at' => [

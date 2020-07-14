@@ -14,7 +14,7 @@
     <?php echo form_open('profile/password/update'); ?>
     <div class="form-group">
         <label for="curr_password">Senha atual</label>
-        <?php echo form_password('curr_password', '', 'class="form-control" id="curr_password" required'); ?>
+        <?php echo form_password('old_password', '', 'class="form-control" id="old_password" required'); ?>
     </div>
 
     <div class="form-group">
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
         <label for="pass_confirm">Repita sua nova senha</label>
-        <?php echo form_password('pass_confirm', '', 'class="form-control" id="pass_confirm" required'); ?>
+        <?php echo form_password('confirm_password', '', 'class="form-control" id="confirm_password" required'); ?>
     </div>
     <button type="submit" class="btn btn-primary">Salvar</button>
     <?php echo form_close(); ?>

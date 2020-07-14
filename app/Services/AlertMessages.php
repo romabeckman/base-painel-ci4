@@ -29,6 +29,11 @@ class AlertMessages extends BaseService {
     }
 
     static private function setMessage(string $message, string $alert) {
+        \System\Config\Sys::$log['alert_messages'] = [
+            'text' => $message,
+            'alert' => $alert
+        ];
+
         service('session')->setFlashdata('alert-message', [
             'text' => $message,
             'alert' => $alert

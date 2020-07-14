@@ -15,10 +15,10 @@ class LogModel extends BaseModel {
     protected $table = 'sys_log';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'id_auth_user', 'description', 'ip'
+        'id_auth_user', 'description', 'ip', 'data'
     ];
     protected $encryptFields = [
-        'ip'
+        'ip', 'data'
     ];
     protected $returnType = Log::class;
     protected $useTimestamps = true;
