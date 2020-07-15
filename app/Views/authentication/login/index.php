@@ -6,7 +6,7 @@
 <img class="mb-4" src="<?php echo PROJECT_LOGO; ?>" alt="<?php echo PROJECT_NAME; ?>" width="72" height="72">
 <h1 class="h3 mb-3 font-weight-normal"><?php echo lang('Auth.authentication_login_index_welcome'); ?></h1>
 
-<?php echo $this->include('template/layout/erros_login') ?>
+<?php echo $this->include('template/include/erros_login') ?>
 
 <div class="form-group">
     <label for="inputLogin" class="sr-only"><?php echo lang('Auth.authentication_login_index_email'); ?></label>
