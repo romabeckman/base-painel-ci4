@@ -14,24 +14,27 @@ use \System\Entity\Route;
 class SysRepository {
 
     /**
-     * @autowired
      * @var \System\Models\RouteModel
      */
     public $routeModel;
 
     /**
-     * @autowired
      * @var \System\Models\LogModel
      */
     public $logModel;
 
     /**
-     * @autowired
      * @var \System\Models\ConfigurationModel
      */
     public $configurationModel;
 
-    public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
+    public function __construct() {
+        $this->routeModel = new \System\Models\RouteModel;
+        $this->logModel = new \System\Models\LogModel;
+        $this->configurationModel = new \System\Models\ConfigurationModel;
+    }
+
+        public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
         $log = new Log();
         $log->id_auth_user = $idUser;
         $log->description = [

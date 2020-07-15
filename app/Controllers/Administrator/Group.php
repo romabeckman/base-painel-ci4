@@ -12,6 +12,18 @@ use \App\Controllers\BaseController;
 class Group extends BaseController {
 
     public function index() {
+        echo 'AQUI';
+    }
+
+    public function create() {
+
+    }
+
+    public function update() {
+
+    }
+
+    public function save() {
 
     }
 

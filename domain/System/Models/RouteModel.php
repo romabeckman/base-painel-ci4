@@ -29,7 +29,7 @@ class RouteModel extends BaseModel {
 
     protected $table = 'sys_route';
     protected $allowedFields = [
-        'controller', 'method', 'access'
+        'controller', 'method', 'access', 'name', 'group'
     ];
 
     protected $returnType = Route::class;

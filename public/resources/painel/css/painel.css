@@ -107,3 +107,8 @@ footer.footer > .container {
   max-width: 680px;
   padding: 0 15px;
 }
+
+.breadcrumb {
+    background: none;
+    padding: .3rem 0rem;
+}

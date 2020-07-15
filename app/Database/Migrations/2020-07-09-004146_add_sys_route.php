@@ -14,6 +14,16 @@ class AddSysRoute extends Migration {
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'group' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+                'default' => TRUE,
+            ],
             'controller' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

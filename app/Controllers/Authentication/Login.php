@@ -12,7 +12,7 @@ use function \service;
 class Login extends BaseController {
 
     function index() {
-        service('authSession')->destroy();
+        \Authorization\Config\Services::authSession()->destroy();
         return Services::template()->templateLogin();
     }
 
@@ -36,7 +36,9 @@ class Login extends BaseController {
         try {
             $post = $this->request->getPost();
             $user = service('authLogin')->handler($post['email'], $post['password']);
-            service('authSession')->create($user, isset($post['remember_me']));
+
+            \Authorization\Config\Services::authSession()->create($user, isset($post['remember_me']));
+
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {
             return Services::template()->templateLogin(['message_erro' => lang('Auth.invalid_user_auth')], 'index');

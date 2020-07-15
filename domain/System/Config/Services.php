@@ -3,7 +3,6 @@
 namespace System\Config;
 
 use \CodeIgniter\Config\BaseService;
-use \PHPAutowired\Autowired;
 use \System\Repository\SysRepository;
 
 /**
@@ -14,7 +13,7 @@ use \System\Repository\SysRepository;
 class Services extends BaseService {
 
     static public function sysRepository(): SysRepository {
-        return Autowired::new(SysRepository::class);
+        return new SysRepository;
     }
 
 }

@@ -9,11 +9,6 @@ namespace System\Config;
  */
 class Sys {
 
-    /**
-     * @var array
-     */
-    static public $permissionAllowed = [];
-
     static public $log = [];
 
 }

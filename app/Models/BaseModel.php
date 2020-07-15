@@ -86,7 +86,7 @@ class BaseModel extends Model {
             $save = array_reduce(array_keys($data), function ($carry, $field) use ($id) {
                 $carry .= is_null($id) ? '' : "{$field} = ";
                 $carry .= (in_array($field, $this->encryptFields) ?
-                        'AES_ENCRYPT(?, @key)' :
+                        aesEncrypt('?') :
                         '?');
                 return $carry . ', ';
             }, '');
@@ -123,16 +123,35 @@ class BaseModel extends Model {
         $this->select($select);
 
         foreach ($this->encryptFields as $field) {
-            $this->select(aesDecrypt($field), false);
+            $this->select(aesDecrypt($field, $field), false);
         }
 
         return $this;
     }
 
-    public function whereDecrypted(string $field, string $data) {
+    public function whereDecrypted(string $field, string $data): self {
         $data = $this->escapeString($data);
 
         $this->where($field, aesEncrypt($data), false);
+
+        return $this;
+    }
+
+    public function subSelect(string $field, BaseModel $model, string $fkField, string $as = ''): self {
+        $fkField = $this->escapeString($fkField);
+        $field = $this->escapeString($field);
+
+        $select = in_array($fkField, $model->encryptFields) ?
+                aesDecrypt($fkField, $fkField) :
+                $fkField;
+
+        $sql = $model
+                ->select($select, false)
+                ->where($this->table . '.' . $field, $model->table . '.' . $model->primaryKey, false)
+                ->limit(1)
+                ->getCompiledSelect();
+
+        $this->select('(' . $sql . ') as `' . (empty($as) ? $model->table . '_' . $fkField : $as) . '`', false);
 
         return $this;
     }

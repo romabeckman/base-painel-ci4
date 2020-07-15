@@ -43,7 +43,7 @@ class PermissionFilter implements FilterInterface {
         }
 
         $authRepository = Services::authRepository();
-        if ($route->access == RouteModel::ACCESS_PRIVATE && $authRepository->userHasPermission(Auth::$user->id, $route->id) == false) {
+        if ($route->access == RouteModel::ACCESS_PRIVATE && $authRepository->userHasPermission(Auth::$user->id_auth_group, $route->id) == false) {
             return Services::response()->setBody(view('errors/html/error_401'));
         }
     }

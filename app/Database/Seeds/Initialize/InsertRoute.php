@@ -10,17 +10,18 @@ class InsertRoute extends Seeder {
     public function run() {
         $model = new RouteModel();
         if ($model->countAll() == 0) {
-            $model->insertBatch([
-                ['controller' => \App\Controllers\Authentication\Login::class, 'access' => RouteModel::ACCESS_PUBLIC],
-                ['controller' => \App\Controllers\Authentication\Logout::class, 'access' => RouteModel::ACCESS_PUBLIC],
+            $routes = [
+                ['controller' => \App\Controllers\Authentication\Login::class, 'name' => 'Login', 'group' => 'Authentication', 'access' => RouteModel::ACCESS_PUBLIC],
+                ['controller' => \App\Controllers\Authentication\Logout::class, 'name' => 'Login', 'group' => 'Authentication', 'access' => RouteModel::ACCESS_PUBLIC],
                 //PUBLIC
-                ['controller' => \App\Controllers\Profile\Password::class, 'access' => RouteModel::ACCESS_PROTECTED],
-                ['controller' => \App\Controllers\Home::class, 'access' => RouteModel::ACCESS_PROTECTED],
+                ['controller' => \App\Controllers\Profile\Password::class, 'name' => 'Password', 'group' => 'Profile', 'access' => RouteModel::ACCESS_PROTECTED],
+                ['controller' => \App\Controllers\Home::class, 'name' => 'Home', 'group' => null, 'access' => RouteModel::ACCESS_PROTECTED],
                 //PROTECTED
-                ['controller' => \App\Controllers\Administrator\User::class, 'access' => RouteModel::ACCESS_PRIVATE],
-                ['controller' => \App\Controllers\Administrator\Group::class, 'access' => RouteModel::ACCESS_PRIVATE],
-                ['controller' => \App\Controllers\Administrator\Configuration::class, 'access' => RouteModel::ACCESS_PRIVATE],
-            ]);
+                ['controller' => \App\Controllers\Administrator\User::class, 'name' => 'User', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
+                ['controller' => \App\Controllers\Administrator\Group::class, 'name' => 'Group', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
+                ['controller' => \App\Controllers\Administrator\Configuration::class, 'name' => 'Configuration', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
+            ];
+            $model->insertBatch($routes);
             echo 'Saved router: ' . PHP_EOL;
         }
     }

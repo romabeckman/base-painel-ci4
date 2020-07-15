@@ -9,23 +9,31 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Administrador</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="settings-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Meus dados</a>
-                <div class="dropdown-menu" aria-labelledby="settings-dropdown">
-                    <a class="dropdown-item" href="/profile/password">Alterar senha</a>
+                <a class="nav-link dropdown-toggle" href="#" id="admin-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configuração</a>
+                <div class="dropdown-menu" aria-labelledby="admin-dropdown">
+                    <a class="dropdown-item" href="/administrator/user">Usuários</a>
+                    <a class="dropdown-item" href="/administrator/group">Grupos</a>
+                    <a class="dropdown-item" href="/administrator/configuration">Configurações</a>
                 </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="/authentication/logout">Sair</a></li>
+        </ul>
+<!--        <form class="form-inline mr-3">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>-->
+        <ul class="navbar-nav ml-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="settings-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conta</a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settings-dropdown">
+                    <a class="dropdown-item" href="/profile/password">Alterar senha</a>
+                    <a class="dropdown-item" href="/authentication/logout">Sair</a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
-
-<div class="nav-scroller bg-white box-shadow">
+<!--<div class="nav-scroller bg-white box-shadow">
     <nav class="nav nav-underline">
         <a class="nav-link active" href="#">Dashboard</a>
         <a class="nav-link" href="#">
@@ -40,4 +48,4 @@
         <a class="nav-link" href="#">Link</a>
         <a class="nav-link" href="#">Link</a>
     </nav>
-</div>
+</div>-->

@@ -16,4 +16,6 @@ class Auth {
      */
     static public $user;
 
+    static public $permission = [];
+
 }

@@ -21,14 +21,11 @@ class AuthSession {
 
     public function __construct() {
         $this->app = new App();
-        $this->app->sessionCookieName = $this->app->sessionCookieName . '_auth';
     }
 
-    function create(User $user, bool $rememberMe = false) {
+    function create(User $user, bool $rememberMe = false): void {
         $rememberMe && $this->app->sessionExpiration = 86400;
-
         Services::authRepository()->saveLastLogin($user->id);
-
         \System\Config\Sys::$log['auth'] = 'Successfully login';
 
         Services::session($this->app)->set([

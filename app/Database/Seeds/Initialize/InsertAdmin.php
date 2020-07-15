@@ -17,7 +17,21 @@ class InsertAdmin extends Seeder {
             $User->name = "Administrador";
             $User->email = "admin@admin.com";
             $User->password = "admin";
+            $saved = (new UserModel())->insert($User);
 
+
+            $User = new User();
+            $User->id_auth_group = 1;
+            $User->name = "Romário";
+            $User->email = "romario@romario.com";
+            $User->password = "admin";
+            $saved = (new UserModel())->insert($User);
+
+            $User = new User();
+            $User->id_auth_group = 1;
+            $User->name = "Natália";
+            $User->email = "natalia@natalia.com";
+            $User->password = "admin";
             $saved = (new UserModel())->insert($User);
 
             echo 'Saved user: ' . $saved . PHP_EOL;

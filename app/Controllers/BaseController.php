@@ -34,6 +34,8 @@ class BaseController extends Controller {
     public function __construct() {
         $this->helpers[] = 'url';
         $this->helpers[] = 'form';
+        $this->helpers[] = 'html';
+        $this->helpers[] = 'painel';
     }
 
     /**

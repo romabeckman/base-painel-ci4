@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-br">
     <head>
-        <?php echo $this->include('template/include/header') ?>
+        <?php echo $this->include('template/layout/header') ?>
         <link rel="stylesheet" href="resources/authentication/css/login.css">
         <?php
         if (isset($captcha_api)) {
@@ -14,7 +14,7 @@
 
     <body class="text-center">
         <?php echo $this->renderSection('content') ?>
-        <?php echo $this->include('template/include/javascript') ?>
+        <?php echo $this->include('template/layout/javascript') ?>
         <?php echo isset($captcha_api) ? '<script src="resources/authentication/js/login.js"></script>' : '' ?>
     </body>
 </html>

@@ -1,35 +1,36 @@
 <!doctype html>
 <html lang="pt-br">
     <head>
-        <?php echo $this->include('template/include/header') ?>
-        <link rel="stylesheet" href="resources/painel/css/painel.css">
-
+        <?php echo $this->include('template/layout/header') ?>
+        <?php echo link_tag('resources/painel/css/painel.css'); ?>
         <title>Painel</title>
     </head>
 
     <body class="bg-light">
-
-        <?php echo $this->include('template/include/topo') ?>
+        <?php echo $this->include('template/layout/topo') ?>
 
         <main role="main" class="container">
-            <div class="my-4">
-                <h5 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h5>
+            <div class="my-2">
+                <?php echo $this->include('template/layout/breadcrumb') ?>
+                <h4 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h4>
             </div>
 
-            <?php echo $this->include('template/layout/erros_list') ?>
+            <?php echo $this->include('template/include/erros_list') ?>
 
-            <?php echo $this->renderSection('content') ?>
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <?php echo $this->renderSection('content') ?>
+            </div>
 
-            <!--            <div class="my-3 p-3 bg-white rounded box-shadow">
-                        </div>-->
         </main>
-
-        <?php echo $this->include('template/include/javascript') ?>
-        <script type="text/javascript" src="/resources/painel/js/main.js"></script>
     </body>
+
     <footer class="footer">
         <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
+            <span class="text-muted">Footer.</span>
         </div>
     </footer>
+
+    <?php echo $this->include('template/include/modals') ?>
+    <?php echo $this->include('template/layout/javascript') ?>
+    <script type="text/javascript" src="/resources/painel/js/main.js"></script>
 </html>

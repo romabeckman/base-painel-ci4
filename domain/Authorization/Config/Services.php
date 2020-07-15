@@ -8,7 +8,6 @@ use \Authorization\Services\HmacService;
 use \Authorization\Services\LoginService;
 use \Authorization\Services\UpdatePassword;
 use \CodeIgniter\Config\BaseService;
-use \PHPAutowired\Autowired;
 
 /**
  * Description of Services
@@ -30,7 +29,7 @@ class Services extends BaseService {
     }
 
     static public function authRepository(): AuthRepository {
-        return Autowired::new(AuthRepository::class);
+        return new AuthRepository;
     }
 
     static function authUpdatePassword(): UpdatePassword {

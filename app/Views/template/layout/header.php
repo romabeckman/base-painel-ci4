@@ -6,4 +6,4 @@
 <link rel="canonical" href="<?php echo current_url(); ?>">
 <base href = "<?php echo base_url(); ?>" />
 
-<link rel="stylesheet" href="resources/libs/bootstrap/css/bootstrap.min.css">
+<?php echo link_tag('resources/libs/bootstrap/css/bootstrap.min.css'); ?>
