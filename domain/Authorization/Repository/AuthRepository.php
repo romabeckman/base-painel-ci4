@@ -48,19 +48,37 @@ class AuthRepository {
     public function userHasPermission(int $idGroup, int $idRoute): bool {
         return $this->permissionModel
                         ->where(['id_auth_group' => $idGroup, 'id_sys_route' => $idRoute])
-                        ->countAll() > 0;
+                        ->countAllResults() > 0;
     }
 
     public function getAllGroupPermission(int $idGroup) {
-        $permission = $this->permissionModel
-                ->select('CONCAT(controller, "::", if(method is null, "null", method)) as identifier, 1 as exist', false)
-                ->join('sys_route', 'sys_route.id = auth_permission.id_sys_route')
-                ->where(['id_auth_group' => $idGroup])
+        $idGroup = db_connect()->escape($idGroup);
+        $routerModel = \System\Config\Services::sysRepository()->routeModel;
+        $permission = $routerModel
+                ->select('CONCAT(controller, "::", if(method is null, "", method)) as identifier', false)
+                ->select('(SELECT COUNT(*) FROM ' . $this->permissionModel->table .
+                        ' WHERE ' . $routerModel->table . '.id = ' . $this->permissionModel->table . '.id_sys_route and ' .
+                        $this->permissionModel->table . '.id_auth_group = ' . $idGroup . ') > 0 as exist', false)
+                ->where(['sys_route.access' => \System\Entity\Route::ACCESS_PRIVATE])
                 ->findAll();
         return array_column($permission, 'exist', 'identifier');
     }
 
-    public function paginateUser(string $search = ''): array {
+    public function paginateGroup(?string $search = null): array {
+        if (!empty($search)) {
+            $this->userModel->like('name', $search);
+        }
+
+        return [
+            'itens' => $this->groupModel
+                    ->orderBy('name')
+                    ->paginate(PAGE_ITENS),
+            'pager' => $this->groupModel->pager,
+            'total' => $this->groupModel->countAllResults()
+        ];
+    }
+
+    public function paginateUser(?string $search = null): array {
         if (!empty($search)) {
             $search = $this->userModel->db->escapeString($search);
             $this->userModel->where('(' . aesDecrypt('name') . ' like "%' . $search . '%" or ' . aesDecrypt('email') . ' like "%' . $search . '%")', null, false);

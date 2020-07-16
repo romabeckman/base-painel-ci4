@@ -18,3 +18,31 @@ if (!function_exists('btnDelete')) {
     }
 
 }
+
+
+if (!function_exists('hasPermission')) {
+
+    function hasPermission(string $controller = '', string $method = 'all'): bool {
+        $router = \Config\Services::router();
+        $controller = $controller ?: $router->controllerName();
+        $method = $method ?: $router->methodName();
+        $controller = strpos($controller, '\\') === 0 ? substr($controller, 1) : $controller;
+
+        if (isset(Authorization\Config\Auth::$permission[$controller . '::' . $method])) {
+            return (int) Authorization\Config\Auth::$permission[$controller . '::' . $method] == 1;
+        }
+        if (isset(Authorization\Config\Auth::$permission[$controller . '::'])) {
+            return (int) Authorization\Config\Auth::$permission[$controller . '::'] == 1;
+        }
+        return false;
+    }
+
+}
+
+if (!function_exists('linkWithCheckPermission')) {
+
+    function linkWithCheckPermission(string $link, string $content): string {
+        return hasPermission() ? '<a href="' . $link . '">' . $content . '</a>' : $content;
+    }
+
+}

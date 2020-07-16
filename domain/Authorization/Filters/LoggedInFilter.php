@@ -34,7 +34,6 @@ class LoggedInFilter implements FilterInterface {
         $idUser = $session->get('user');
         $userModel = Services::authRepository()->userModel;
         Auth::$user = $userModel->selectDecrypted()->find($idUser);
-
         Auth::$permission = Services::authRepository()->getAllGroupPermission(Auth::$user->id_auth_group);
     }
 

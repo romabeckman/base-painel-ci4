@@ -24,32 +24,66 @@ class User extends BaseController {
 
     public function create() {
         $data = [
-            'users' => 'Novo usuário',
+            'validation' => $this->validator,
+            'title' => 'Novo usuário',
+            'groups' => \Authorization\Config\Services::authRepository()->groupModel->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return \Config\Services::template()->templatePainel($data);
+        return \Config\Services::template()->templatePainel($data, 'save');
     }
 
-    public function update() {
+    public function update(int $id) {
+        $user = \Authorization\Config\Services::authRepository()->userModel->selectDecrypted()->find($id);
+        if (empty($user)) {
+            \Config\Services::alertMessages()->setMsgWarning('Usuário não encontrado.');
+            return $this->response->redirect('/administrator/user');
+        }
+
         $data = [
-            'users' => 'Alterar usuário',
+            'validation' => $this->validator,
+            'user' => $user,
+            'title' => 'Alterar usuário',
+            'groups' => \Authorization\Config\Services::authRepository()->groupModel->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return \Config\Services::template()->templatePainel($data);
+        return \Config\Services::template()->templatePainel($data, 'save');
     }
 
     public function save() {
+        $post = $this->request->getPost();
 
+        if (empty($post)) {
+            return $this->response->redirect('/administrator/user');
+        }
+
+        if (!$this->validate($this->rules())) {
+            return empty($post['id']) ? $this->create() : $this->update($post['id']);
+        }
+
+        $save = empty($post['id']) ?
+                \Authorization\Config\Services::authUserService()->create($post) :
+                \Authorization\Config\Services::authUserService()->update($post);
+
+        if ($save) {
+            return $this->response->redirect('/administrator/user');
+        }
+
+        return empty($post['id']) ? $this->create() : $this->update($post['id']);
     }
 
     public function delete() {
-        $valid = $this->validate(['id' => 'required']);
+        $valid = $this->validate(['id' => ['label' => 'Usuário', 'rules' => 'required']]);
 
         if (!$valid) {
             \Config\Services::alertMessages()->setMsgDanger($this->validator->getError('id'));
         }
 
         $id = $this->request->getPost('id');
+
+        if ($id === \Authorization\Config\Auth::$user->id) {
+            \Config\Services::alertMessages()->setMsgWarning('Você não pode remover seu próprio perfil');
+            return redirect()->back();
+        }
 
         \Authorization\Config\Services::authRepository()->userModel->delete($id);
 
@@ -62,6 +96,22 @@ class User extends BaseController {
         return [
             'administrator/user' => 'Usuários'
         ];
+    }
+
+    private function rules(): array {
+        $post = $this->request->getPost();
+
+        $rules = [];
+        if (empty($post['id']) || isset($post['update_password'])) {
+            $rules['password'] = ['label' => 'Sua nova senha', 'rules' => 'required|min_length[8]|max_length[32]|auth_strong_password'];
+        } else {
+            unset($post['password']);
+        }
+        $rules['name'] = ['label' => 'Nome', 'rules' => 'required'];
+        $rules['id_auth_group'] = ['label' => 'Grupo', 'rules' => 'required'];
+        $rules['email'] = ['label' => 'E-mail', 'rules' => 'required|valid_email|is_unique[auth_user.email,id,{id}]'];
+
+        return $rules;
     }
 
 }

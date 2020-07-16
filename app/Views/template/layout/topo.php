@@ -24,7 +24,9 @@
         </form>-->
         <ul class="navbar-nav ml-3">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="settings-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conta</a>
+                <a class="nav-link dropdown-toggle" href="#" id="settings-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php echo Authorization\Config\Auth::$user->name; ?>
+                </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settings-dropdown">
                     <a class="dropdown-item" href="/profile/password">Alterar senha</a>
                     <a class="dropdown-item" href="/authentication/logout">Sair</a>

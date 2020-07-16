@@ -2,9 +2,15 @@
 
 <?php $this->section('content') ?>
 <div class="row mb-4">
-    <div class="col-sm">
-        <a href="/administrator/user/create" class="btn btn-primary">Novo usuário</a>
-    </div>
+    <?php
+    if (hasPermission(App\Controllers\Administrator\User::class, 'insert')) {
+        ?>
+        <div class="col-sm">
+            <a href="/administrator/user/create" class="btn btn-primary">Novo usuário</a>
+        </div>
+        <?php
+    }
+    ?>
     <div class="col-sm">
         <form class="form-inline justify-content-end">
             <input value="<?php echo filter_input(INPUT_GET, 'search'); ?>" class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
@@ -30,7 +36,13 @@
                 foreach ($users as $user) {
                     ?>
                     <tr>
-                        <th><a href=""><?php echo $user->name; ?></a></th>
+                        <th>
+                            <?php
+                            echo hasPermission(App\Controllers\Administrator\User::class, 'update') ?
+                                    '<a href="/administrator/user/update/' . $user->id . '">' . $user->name . '</a>' :
+                                    $user->name;
+                            ?>
+                        </th>
                         <th><?php echo $user->email; ?></th>
                         <th><?php echo $user->group; ?></th>
                         <th><?php echo formDelete(['id' => $user->id], 'administrator/user/delete', 'Remover'); ?></th>

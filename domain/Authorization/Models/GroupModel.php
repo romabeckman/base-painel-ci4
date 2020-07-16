@@ -3,6 +3,7 @@
 namespace Authorization\Models;
 
 use \App\Models\BaseModel;
+use \Authorization\Entity\Group;
 
 /**
  * Description of User
@@ -21,5 +22,7 @@ class GroupModel extends BaseModel {
     protected $validationRules = [
         'name' => 'required'
     ];
+
+    protected $returnType = Group::class;
 
 }

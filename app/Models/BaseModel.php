@@ -109,26 +109,30 @@ class BaseModel extends Model {
     }
 
     /**
-     * Decrypt data using AES_DECRYPT
      *
+     * @param array $select
      * @return $this
      */
-    public function selectDecrypted() {
-        if (empty($this->encryptFields)) {
-            return $this;
+    public function selectDecrypted(array $select = []) {
+        if (empty($select)) {
+            $select = $this->allowedFields;
+            $select[] = $this->primaryKey;
         }
-
-        $select = array_diff($this->allowedFields, $this->encryptFields);
-        $select[] = $this->primaryKey;
-        $this->select($select);
-
-        foreach ($this->encryptFields as $field) {
-            $this->select(aesDecrypt($field, $field), false);
+        foreach ($select as $field) {
+            $field = $this->escapeString($field);
+            (in_array($field, $this->allowedFields) || $this->primaryKey == $field) &&
+                    $this->select(in_array($field, $this->encryptFields) ? aesDecrypt('`' . $field . '`', $field) : '`' . $field . '`', false);
         }
 
         return $this;
     }
 
+    /**
+     *
+     * @param string $field
+     * @param string $data
+     * @return \self
+     */
     public function whereDecrypted(string $field, string $data): self {
         $data = $this->escapeString($data);
 
@@ -137,6 +141,14 @@ class BaseModel extends Model {
         return $this;
     }
 
+    /**
+     *
+     * @param string $field
+     * @param \App\Models\BaseModel $model
+     * @param string $fkField
+     * @param string $as
+     * @return \self
+     */
     public function subSelect(string $field, BaseModel $model, string $fkField, string $as = ''): self {
         $fkField = $this->escapeString($fkField);
         $field = $this->escapeString($field);
@@ -154,6 +166,24 @@ class BaseModel extends Model {
         $this->select('(' . $sql . ') as `' . (empty($as) ? $model->table . '_' . $fkField : $as) . '`', false);
 
         return $this;
+    }
+
+    /**
+     *
+     * @param string $fied
+     * @param string $key
+     * @param array $where
+     * @param string $orderBy
+     * @return type
+     */
+    public function dropdown(string $fied, string $key, array $where = [], string $orderBy = '') {
+        $result = $this
+                ->selectDecrypted([$fied, $key])
+                ->where($where)
+                ->orderBy($orderBy)
+                ->findAll();
+
+        return array_column($result, $fied, $key);
     }
 
 }

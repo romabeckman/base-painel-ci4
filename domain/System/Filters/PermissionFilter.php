@@ -29,6 +29,7 @@ class PermissionFilter implements FilterInterface {
         $sysRepository = Services::sysRepository();
 
         $route = $sysRepository->getPermission($router->controllerName(), $router->methodName());
+
         if (empty($route)) {
             return Services::response()->setBody(view('errors/html/error_401'));
         }

@@ -18,6 +18,7 @@ class Password extends BaseController {
 
     public function update() {
         $post = $this->request->getPost();
+        
         if (empty($post)) {
             return $this->response->redirect('/profile/password');
         }

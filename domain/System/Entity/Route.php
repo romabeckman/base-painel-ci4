@@ -11,4 +11,8 @@ use \CodeIgniter\Entity;
  */
 class Route extends Entity {
 
+    const ACCESS_PUBLIC = 'public';
+    const ACCESS_PROTECTED = 'protected';
+    const ACCESS_PRIVATE = 'private';
+
 }

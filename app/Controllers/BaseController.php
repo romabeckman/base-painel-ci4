@@ -36,6 +36,7 @@ class BaseController extends Controller {
         $this->helpers[] = 'form';
         $this->helpers[] = 'html';
         $this->helpers[] = 'painel';
+        $this->helpers[] = 'bootstrap';
     }
 
     /**

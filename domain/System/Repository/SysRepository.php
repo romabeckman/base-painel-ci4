@@ -34,7 +34,7 @@ class SysRepository {
         $this->configurationModel = new \System\Models\ConfigurationModel;
     }
 
-        public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
+    public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
         $log = new Log();
         $log->id_auth_user = $idUser;
         $log->description = [
@@ -89,15 +89,25 @@ class SysRepository {
     }
 
     public function getConfiguration(string $key): ?string {
-        $config = $this->configurationModel
-                ->selectDecrypted()
-                ->find($key);
+        $config = $this->configurationModel->find($key);
 
         if (empty($config)) {
             return null;
         }
 
         return $config['value'];
+    }
+
+    public function getAllRouterPermission(?int $idGroup = null) {
+        is_null($idGroup) ?
+                        $this->routeModel->select('0 as hasPermission', false) :
+                        $this->routeModel->select('(SELECT COUNT(*) FROM auth_permission WHERE id = id_sys_route AND id_auth_group = ' . $idGroup . ') as hasPermission');
+
+        return $this->routeModel
+                        ->select($this->routeModel->table . '.*')
+                        ->where('access',  Route::ACCESS_PRIVATE)
+                        ->orderBy('group, name')
+                        ->findAll();
     }
 
 }
