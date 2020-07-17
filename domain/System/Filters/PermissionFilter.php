@@ -43,9 +43,11 @@ class PermissionFilter implements FilterInterface {
             return redirect()->to('/authentication/logout');
         }
 
-        $authRepository = Services::authRepository();
-        if ($route->access == RouteModel::ACCESS_PRIVATE && $authRepository->userHasPermission(Auth::$user->id_auth_group, $route->id) == false) {
-            return Services::response()->setBody(view('errors/html/error_401'));
+        if ($route->access == RouteModel::ACCESS_PRIVATE) {
+            helper('painel');
+            if (!hasPermission($router->controllerName(), $router->methodName()) && !hasPermission($router->controllerName())) {
+                return Services::response()->setBody(view('errors/html/error_401'));
+            }
         }
     }
 

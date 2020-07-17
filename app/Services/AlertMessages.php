@@ -29,7 +29,7 @@ class AlertMessages extends BaseService {
     }
 
     static private function setMessage(string $message, string $alert) {
-        \System\Config\Sys::$log['alert_messages'] = [
+        \System\Config\Sys::$log['alert_message'] = [
             'text' => $message,
             'alert' => $alert
         ];

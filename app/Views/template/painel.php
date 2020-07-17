@@ -24,11 +24,7 @@
         </main>
     </body>
 
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Footer.</span>
-        </div>
-    </footer>
+    <?php echo $this->include('template/layout/footer') ?>
 
     <?php echo $this->include('template/include/modals') ?>
     <?php echo $this->include('template/layout/javascript') ?>

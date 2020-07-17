@@ -24,9 +24,10 @@ class Login extends BaseController {
 
         $valid = $this->validate(
                 [
-                    'email' => 'required|valid_email',
-                    'password' => 'required',
-                    'grecaptcha' => 'required|sys_grecaptcha'
+                    'email' => ['label' => 'E-amil', 'rules' => 'required|valid_email'],
+                    'password' => ['label' => 'Senha', 'rules' => 'required'],
+//                    'grecaptcha' => 'required|grecaptchav3',
+                    'g-recaptcha-response' => ['label' => '"Eu não sou robô"' , 'rules' => 'required|grecaptchav2']
                 ]
         );
         if (!$valid) {

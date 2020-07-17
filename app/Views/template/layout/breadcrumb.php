@@ -4,7 +4,7 @@
         <?php
         if (isset($breadcrumb) && !empty($breadcrumb)) {
             foreach ($breadcrumb as $link => $description) {
-                echo '<li class="breadcrumb-item"><a href="' . base_url($link) . '">' . $description . '</a></li>';
+                echo '<li class="breadcrumb-item"><a href="' . (is_numeric($link) ? '#' : base_url($link)) . '">' . $description . '</a></li>';
             }
         }
         ?>

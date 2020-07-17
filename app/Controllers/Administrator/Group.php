@@ -34,8 +34,8 @@ class Group extends BaseController {
 
     public function update(?int $id = null) {
         $group = \Authorization\Config\Services::authRepository()->groupModel->find($id);
-        if (empty($group)) {
-            \Config\Services::alertMessages()->setMsgWarning('Grupo não encontrado.');
+        if (empty($group) || $id == 1) {
+            \Config\Services::alertMessages()->setMsgWarning($id == 1 ? 'O grupo Administrador não pode ser alterado' : 'Grupo não encontrado.');
             return $this->response->redirect('/administrator/group');
         }
 
@@ -73,7 +73,7 @@ class Group extends BaseController {
     public function save() {
         $post = $this->request->getPost();
 
-        if (empty($post)) {
+        if (empty($post) || $post['id'] == 1) {
             return $this->response->redirect('/administrator/group');
         }
 

@@ -19,7 +19,8 @@ class Template extends BaseService {
 
     public function templateLogin(array $params = [], ?string $view = null): string {
         !isset($params['title']) && $params['title'] = 'Login';
-        $params['captcha_api'] = env('GOOGLE_RECAPTCHA_PUBLIC_KEY');
+        $params['reCaptchaV3Api'] = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');
+        $params['reCaptchaV2Api'] = env('GOOGLE_RECAPTCHA_V2_PUBLIC_KEY');
         return $this->autoloadView($params, $view);
     }
 

@@ -117,11 +117,13 @@ class BaseModel extends Model {
         if (empty($select)) {
             $select = $this->allowedFields;
             $select[] = $this->primaryKey;
+            $this->createdField && $select[] = $this->createdField;
+            $this->updatedField && $select[] = $this->updatedField;
+            $this->deletedField && $select[] = $this->deletedField;
         }
         foreach ($select as $field) {
             $field = $this->escapeString($field);
-            (in_array($field, $this->allowedFields) || $this->primaryKey == $field) &&
-                    $this->select(in_array($field, $this->encryptFields) ? aesDecrypt('`' . $field . '`', $field) : '`' . $field . '`', false);
+            $this->select(in_array($field, $this->encryptFields) ? aesDecrypt('`' . $field . '`', $field) : '`' . $field . '`', false);
         }
 
         return $this;
@@ -143,9 +145,9 @@ class BaseModel extends Model {
 
     /**
      *
-     * @param string $field
+     * @param string $field current model
      * @param \App\Models\BaseModel $model
-     * @param string $fkField
+     * @param string $fkField target, example: name
      * @param string $as
      * @return \self
      */

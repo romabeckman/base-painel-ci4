@@ -79,5 +79,6 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('PROJECT_NAME', 'Base project');
 define('PROJECT_LOGO', 'https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg');
+define('PROJECT_WEBSITE_URL', '#');
 
 define('PAGE_ITENS', 30);

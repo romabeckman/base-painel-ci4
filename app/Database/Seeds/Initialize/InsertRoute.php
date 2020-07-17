@@ -20,6 +20,7 @@ class InsertRoute extends Seeder {
                 ['controller' => \App\Controllers\Administrator\User::class, 'name' => 'User', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
                 ['controller' => \App\Controllers\Administrator\Group::class, 'name' => 'Group', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
                 ['controller' => \App\Controllers\Administrator\Configuration::class, 'name' => 'Configuration', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
+                ['controller' => \App\Controllers\Administrator\Log::class, 'name' => 'Log', 'group' => 'Administrator', 'access' => RouteModel::ACCESS_PRIVATE],
             ];
             $model->insertBatch($routes);
             echo 'Saved router: ' . PHP_EOL;

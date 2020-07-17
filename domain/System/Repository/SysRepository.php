@@ -105,9 +105,39 @@ class SysRepository {
 
         return $this->routeModel
                         ->select($this->routeModel->table . '.*')
-                        ->where('access',  Route::ACCESS_PRIVATE)
+                        ->where('access', Route::ACCESS_PRIVATE)
                         ->orderBy('group, name')
                         ->findAll();
+    }
+
+    public function saveConfiguration(array $post): void {
+        if (!isset($post['config'])) {
+            return;
+        }
+
+        $save = [];
+
+        foreach ($post['config'] as $key => $value) {
+            $save[] = ['key' => $key, 'value' => $value];
+        }
+
+        $this->configurationModel->updateBatch($save, 'key');
+    }
+
+    public function paginateLog(?string $search = null) {
+        if (!empty($search)) {
+            $this->logModel->like('description', $search);
+        }
+
+        return [
+            'itens' => $this->logModel
+                    ->selectDecrypted()
+                    ->subSelect('id_auth_user', \Authorization\Config\Services::authRepository()->userModel, 'name', 'user')
+                    ->orderBy('id', 'desc')
+                    ->paginate(15),
+            'pager' => $this->logModel->pager,
+            'total' => $this->logModel->countAllResults()
+        ];
     }
 
 }

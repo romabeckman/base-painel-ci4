@@ -13,11 +13,20 @@
     <?php echo form_input('email', '', 'id="inputLogin" class="form-control" placeholder="' . lang('Auth.authentication_login_index_email') . '" required autofocus', 'email'); ?>
 </div>
 
-<div class="form-group">
+<div class="form-group mb3">
     <label for="inputSenha" class="sr-only"><?php echo lang('Auth.authentication_login_index_password'); ?></label>
     <?php echo form_password('password', '', 'id="inputSenha" class="form-control" placeholder="' . lang('Auth.authentication_login_index_password') . '" required autofocus'); ?>
 </div>
-<div class="checkbox mb-3">
+
+<?php
+if (isset($reCaptchaV2Api)) {
+    ?>
+    <div class="g-recaptcha" data-sitekey="<?php echo $reCaptchaV2Api; ?>"></div>
+    <?php
+}
+?>
+
+<div class="checkbox my-3">
     <label>
         <input type="checkbox" name="remember_me" value="1"> <?php echo lang('Auth.authentication_login_index_remember_me'); ?>
     </label>

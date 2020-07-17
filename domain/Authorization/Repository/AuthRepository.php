@@ -53,12 +53,14 @@ class AuthRepository {
 
     public function getAllGroupPermission(int $idGroup) {
         $idGroup = db_connect()->escape($idGroup);
+
         $routerModel = \System\Config\Services::sysRepository()->routeModel;
+
+        $idGroup == 1 || $routerModel->join($this->permissionModel->table, 'id = id_sys_route AND id_auth_group = ' . $idGroup);
+
         $permission = $routerModel
-                ->select('CONCAT(controller, "::", if(method is null, "", method)) as identifier', false)
-                ->select('(SELECT COUNT(*) FROM ' . $this->permissionModel->table .
-                        ' WHERE ' . $routerModel->table . '.id = ' . $this->permissionModel->table . '.id_sys_route and ' .
-                        $this->permissionModel->table . '.id_auth_group = ' . $idGroup . ') > 0 as exist', false)
+                ->select('1 as exist')
+                ->select('if(method is null, controller, CONCAT(controller, "::", method)) as identifier', false)
                 ->where(['sys_route.access' => \System\Entity\Route::ACCESS_PRIVATE])
                 ->findAll();
         return array_column($permission, 'exist', 'identifier');

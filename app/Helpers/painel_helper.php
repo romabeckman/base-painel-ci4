@@ -19,20 +19,19 @@ if (!function_exists('btnDelete')) {
 
 }
 
-
 if (!function_exists('hasPermission')) {
 
-    function hasPermission(string $controller = '', string $method = 'all'): bool {
+    function hasPermission(string $controller = '', string $method = ''): bool {
         $router = \Config\Services::router();
         $controller = $controller ?: $router->controllerName();
         $method = $method ?: $router->methodName();
         $controller = strpos($controller, '\\') === 0 ? substr($controller, 1) : $controller;
 
-        if (isset(Authorization\Config\Auth::$permission[$controller . '::' . $method])) {
-            return (int) Authorization\Config\Auth::$permission[$controller . '::' . $method] == 1;
+        if ($method && isset(Authorization\Config\Auth::$permission[$controller . '::' . $method])) {
+            return true;
         }
-        if (isset(Authorization\Config\Auth::$permission[$controller . '::'])) {
-            return (int) Authorization\Config\Auth::$permission[$controller . '::'] == 1;
+        if (isset(Authorization\Config\Auth::$permission[$controller])) {
+            return true;
         }
         return false;
     }
@@ -43,6 +42,28 @@ if (!function_exists('linkWithCheckPermission')) {
 
     function linkWithCheckPermission(string $link, string $content): string {
         return hasPermission() ? '<a href="' . $link . '">' . $content . '</a>' : $content;
+    }
+
+}
+
+if (!function_exists('menuAdministrator')) {
+
+    function menuAdministrator(): string {
+        $user = hasPermission('App\Controllers\Administrator\User') ? '<a data-group="/administrator" class="dropdown-item" href="/administrator/user">Usuários</a>' : '';
+        $group = hasPermission('App\Controllers\Administrator\Group') ? '<a data-group="/administrator" class="dropdown-item" href="/administrator/group">Grupos</a>' : '';
+        $config = hasPermission('App\Controllers\Administrator\Configuration') ? '<a data-group="/administrator" class="dropdown-item" href="/administrator/configuration">Configurações</a>' : '';
+        $log = hasPermission('App\Controllers\Administrator\Log') ? '<a data-group="/administrator" class="dropdown-item" href="/administrator/log">Log</a>' : '';
+
+        if ($user || $group || $config || $log) {
+            return <<<EOF
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="admin-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrar</a>
+<div class="dropdown-menu" aria-labelledby="admin-dropdown">{$user}{$group}{$config}{$log}</div>
+</li>
+EOF;
+        }
+
+        return '';
     }
 
 }
