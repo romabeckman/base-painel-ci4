@@ -5,7 +5,6 @@ namespace App\Controllers;
 use \CodeIgniter\Controller;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
-use \PHPAutowired\Autowired;
 use \Psr\Log\LoggerInterface;
 
 /**
@@ -20,7 +19,7 @@ use \Psr\Log\LoggerInterface;
  *
  * @package CodeIgniter
  */
-class BaseController extends Controller {
+abstract class BaseController extends Controller {
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -51,23 +50,6 @@ class BaseController extends Controller {
         //--------------------------------------------------------------------
         // E.g.:
         // $this->session = \Config\Services::session();
-    }
-
-    /**
-     *
-     * @param type $method
-     * @param type $params
-     * @return type
-     */
-    public function _remap($method, ...$params) {
-        $autowired = new Autowired($this);
-        $returned = $autowired->invokeMethod($method, $params);
-
-        if (is_array($returned)) {
-            return $this->response->setJSON($returned);
-        } else {
-            return $returned;
-        }
     }
 
 }
