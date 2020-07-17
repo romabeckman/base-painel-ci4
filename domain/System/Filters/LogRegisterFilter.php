@@ -15,7 +15,7 @@ use \Config\Services;
  */
 class LogRegisterFilter implements FilterInterface {
 
-    public function after(RequestInterface $request, ResponseInterface $response) {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
         $router = Services::router();
         \System\Config\Sys::$log['request'] = [
             'REQUEST_URI' => $request->getServer()['REQUEST_URI'] ?? '',
@@ -32,7 +32,7 @@ class LogRegisterFilter implements FilterInterface {
         );
     }
 
-    public function before(RequestInterface $request) {
+    public function before(RequestInterface $request, $arguments = null) {
 
     }
 

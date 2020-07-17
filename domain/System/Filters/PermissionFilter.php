@@ -20,11 +20,11 @@ use function \view;
  */
 class PermissionFilter implements FilterInterface {
 
-    public function after(RequestInterface $request, ResponseInterface $response) {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
 
     }
 
-    public function before(RequestInterface $request) {
+    public function before(RequestInterface $request, $arguments = null) {
         $router = service('router');
         $sysRepository = Services::sysRepository();
 
@@ -50,5 +50,6 @@ class PermissionFilter implements FilterInterface {
             }
         }
     }
+
 
 }
