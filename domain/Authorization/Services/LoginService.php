@@ -22,10 +22,12 @@ class LoginService {
         $user = Services::authRepository()->getUserFromEmail($email);
 
         if (empty($user)) {
+            \System\Config\Sys::$log['auth'] = 'Invalid login: ' . lang('Auth.invalid_user_email');
             throw new InvalidUserEmailException(lang('Auth.invalid_user_email'));
         }
 
         if (Services::authHmac()->validateHash($password, $user->password) == false) {
+            \System\Config\Sys::$log['auth'] = 'Invalid login: ' . lang('Auth.invalid_user_password');
             throw new InvalidUserPasswordException(lang('Auth.invalid_user_password'));
         }
 

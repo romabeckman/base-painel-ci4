@@ -22,15 +22,18 @@ class Login extends BaseController {
             return $this->response->redirect('/authentication/login');
         }
 
-        $valid = $this->validate(
-                [
-                    'email' => ['label' => 'E-amil', 'rules' => 'required|valid_email'],
-                    'password' => ['label' => 'Senha', 'rules' => 'required'],
-//                    'grecaptcha' => 'required|grecaptchav3',
-                    'g-recaptcha-response' => ['label' => '"Eu não sou robô"' , 'rules' => 'required|grecaptchav2']
-                ]
-        );
-        if (!$valid) {
+        $reCaptchaV3Api = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');
+        $reCaptchaV2Api = env('GOOGLE_RECAPTCHA_V2_PUBLIC_KEY');
+
+        $rules = [
+            'email' => ['label' => 'E-amil', 'rules' => 'required|valid_email'],
+            'password' => ['label' => 'Senha', 'rules' => 'required'],
+        ];
+
+        $reCaptchaV3Api && $rules['grecaptcha'] = ['required|grecaptchav3'];
+        $reCaptchaV2Api && $rules['g-recaptcha-response'] = ['label' => '"Eu não sou robô"' , 'rules' => 'required|grecaptchav2'];
+
+        if (!$this->validate($rules)) {
             return Services::template()->templateLogin(['validation' => $this->validator], 'index');
         }
 

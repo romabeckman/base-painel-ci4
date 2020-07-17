@@ -12,6 +12,7 @@ use \App\Controllers\BaseController;
 class Log extends BaseController {
 
     public function index() {
+        helper('print');
         $paginate = \System\Config\Services::sysRepository()->paginateLog($this->request->getGet('search'));
 
         $data = [
