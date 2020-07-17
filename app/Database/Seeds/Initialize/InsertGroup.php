@@ -11,7 +11,7 @@ class InsertGroup extends Seeder {
         $groupModel = new GroupModel();
         if ($groupModel->countAll() == 0) {
             $Group = [
-                'name' => 'Administrador',
+                'name' => 'Administrator',
             ];
             $saved = $groupModel->insert($Group);
             echo 'Saved group: ' . $saved . PHP_EOL;
