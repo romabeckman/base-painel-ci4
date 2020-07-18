@@ -2,14 +2,13 @@
 <html lang="pt-br">
     <head>
         <?php echo $this->include('template/layout/header') ?>
-        <?php echo link_tag('resources/painel/css/painel.css'); ?>
         <title>Painel</title>
     </head>
 
     <body class="bg-light">
         <?php echo $this->include('template/layout/topo') ?>
 
-        <main role="main" class="container">
+        <main role="main" class="container-fluid">
             <div class="my-2">
                 <?php echo $this->include('template/layout/breadcrumb') ?>
                 <h4 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h4>
@@ -29,13 +28,4 @@
     <?php echo $this->include('template/include/modal/confirmation') ?>
 
     <?php echo $this->include('template/layout/javascript') ?>
-    <?php
-    if (isset($script_js)) {
-        echo is_array($script_js) ? array_reduce($script_js, function ($carry, $js) { return $carry . $js;}, '') : $script_js;
-    }
-    if (isset($script_css)) {
-        echo is_array($script_css) ? array_reduce($script_css, function ($carry, $css) { return $carry . $css;}, '') : $script_css;
-    }
-    ?>
-    <script type="text/javascript" src="/resources/painel/js/main.js"></script>
 </html>

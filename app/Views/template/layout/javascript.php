@@ -1,3 +1,8 @@
-<?php echo script_tag('node_modules/jquery/dist/jquery.min.js'); ?>
-<?php echo script_tag('node_modules/@popperjs/core/dist/umd/popper.min.js'); ?>
-<?php echo script_tag('node_modules/bootstrap/dist/js/bootstrap.min.js'); ?>
+<?php
+
+echo \Config\Services::package()->getScript(['jquery', 'popperjs', 'bootstrap']);
+echo \Config\Services::package()->getScript('painel_main');
+
+if (isset($scriptTag)) {
+    echo \Config\Services::package()->getScript($scriptTag);
+}

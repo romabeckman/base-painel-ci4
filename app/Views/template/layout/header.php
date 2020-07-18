@@ -6,5 +6,9 @@
 <link rel="canonical" href="<?php echo current_url(); ?>">
 <base href = "<?php echo base_url(); ?>" />
 
-<?php echo link_tag('node_modules/bootstrap/dist/css/bootstrap.min.css'); ?>
-<?php echo link_tag('node_modules/@fortawesome/fontawesome-free/css/all.min.css'); ?>
+<?php
+echo \Config\Services::package()->getStyle(['bootstrap', 'fontawesome', 'painel_main']);
+
+if (isset($linkTag)) {
+    echo \Config\Services::package()->getStyle($linkTag);
+}
