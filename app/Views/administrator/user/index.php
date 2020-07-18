@@ -11,12 +11,7 @@
         <?php
     }
     ?>
-    <div class="col-sm">
-        <form class="form-inline justify-content-end">
-            <input value="<?php echo filter_input(INPUT_GET, 'search'); ?>" class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>
-    </div>
+    <?php echo $this->include('template/include/search') ?>
 </div>
 <div class="table-responsive">
     <table class="table table-striped">

@@ -1,10 +1,8 @@
 <?php $this->extend('template/painel') ?>
 
 <?php $this->section('content') ?>
-<form class="form-inline justify-content-end">
-    <input value="<?php echo filter_input(INPUT_GET, 'search'); ?>" class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-</form>
+
+<?php echo $this->include('template/include/search') ?>
 
 <div class="table-responsive mt-4">
     <table class="table table-striped">

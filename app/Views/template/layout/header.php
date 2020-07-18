@@ -7,3 +7,4 @@
 <base href = "<?php echo base_url(); ?>" />
 
 <?php echo link_tag('resources/libs/bootstrap/css/bootstrap.min.css'); ?>
+<?php echo link_tag('resources/libs/fontawesome/css/all.min.css'); ?>
