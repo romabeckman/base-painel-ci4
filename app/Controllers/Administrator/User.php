@@ -34,9 +34,9 @@ class User extends BaseController {
 
     public function update(int $id) {
         $user = \Authorization\Config\Services::authRepository()->userModel->selectDecrypted()->find($id);
-        if (empty($user)) {
-            \Config\Services::alertMessages()->setMsgWarning('Usuário não encontrado.');
-            return $this->response->redirect('/administrator/user');
+        if (empty($user) || $id == 1) {
+            \Config\Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser alterado' : 'Usuário não encontrado.');
+            return $this->response->redirect('/administrator/group');
         }
 
         $data = [
@@ -52,7 +52,7 @@ class User extends BaseController {
     public function save() {
         $post = $this->request->getPost();
 
-        if (empty($post)) {
+        if (empty($post) || $post['id'] == 1) {
             return $this->response->redirect('/administrator/user');
         }
 
@@ -80,8 +80,8 @@ class User extends BaseController {
 
         $id = $this->request->getPost('id');
 
-        if ($id === \Authorization\Config\Auth::$user->id) {
-            \Config\Services::alertMessages()->setMsgWarning('Você não pode remover seu próprio perfil');
+        if ($id === \Authorization\Config\Auth::$user->id || $id == 1) {
+            \Config\Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser removido' : 'Você não pode remover seu próprio perfil');
             return redirect()->back();
         }
 
