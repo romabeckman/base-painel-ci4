@@ -6,5 +6,5 @@
 <link rel="canonical" href="<?php echo current_url(); ?>">
 <base href = "<?php echo base_url(); ?>" />
 
-<?php echo link_tag('resources/libs/bootstrap/css/bootstrap.min.css'); ?>
-<?php echo link_tag('resources/libs/fontawesome/css/all.min.css'); ?>
+<?php echo link_tag('node_modules/bootstrap/dist/css/bootstrap.min.css'); ?>
+<?php echo link_tag('node_modules/@fortawesome/fontawesome-free/css/all.min.css'); ?>
