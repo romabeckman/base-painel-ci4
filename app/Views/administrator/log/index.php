@@ -21,19 +21,19 @@
                 foreach ($logs as $log) {
                     ?>
                     <tr>
-                        <th>
+                        <td>
                             <?php echo $log->created_at->toLocalizedString('dd/MM/YYYY'); ?><br />
                             <?php echo $log->created_at->toLocalizedString('HH:mm:ss'); ?>
-                        </th>
-                        <th><?php echo $log->user; ?></th>
-                        <th>
+                        </td>
+                        <td><?php echo $log->user; ?></td>
+                        <td>
                             <pre><?php varExport($log->description); ?></pre>
                             <a href="javavascript:;" onclick="$(this).parent().find('.more-details').toggle();">Ver mais</a>
                             <div class="more-details p-3 bg-white rounded box-shadow" style="display: none;">
                                 <h6>Post</h6>
                                 <pre><?php varExport(json_decode($log->data, true)); ?></pre>
                             </div>
-                        </th>
+                        </td>
                     </tr>
                 </tbody>
                 <?php

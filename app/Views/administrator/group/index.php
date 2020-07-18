@@ -30,14 +30,14 @@
                 foreach ($groups as $group) {
                     ?>
                     <tr>
-                        <th>
+                        <td>
                             <?php
                             echo $update && $group->id != 1 ?
                                     '<a title="Alterar ' . $group->name . '" href="/administrator/group/update/' . $group->id . '">' . $group->name . '</a>' :
                                     $group->name;
                             ?>
-                        </th>
-                        <th><?php echo $group->id == 1 ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></th>
+                        </td>
+                        <td><?php echo $group->id == 1 ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
                     </tr>
                 </tbody>
                 <?php
