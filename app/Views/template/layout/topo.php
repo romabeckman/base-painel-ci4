@@ -4,8 +4,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse offcanvas-collapse" id="top-menu">
-        <ul class="navbar-nav mr-auto">
+    <div class="navbar-collapse offcanvas-collapse align-items-start" id="top-menu">
+        <ul class="navbar-nav mr-auto flex-wrap">
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
