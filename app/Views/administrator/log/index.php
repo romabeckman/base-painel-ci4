@@ -8,16 +8,16 @@
 
 <div class="table-responsive mt-4">
     <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Usuário</th>
+                <th scope="col">Descrição</th>
+            </tr>
+        </thead>
         <?php
         if (!empty($logs)) {
             ?>
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Usuário</th>
-                    <th scope="col">Descrição</th>
-                </tr>
-            </thead>
             <tbody>
                 <?php
                 foreach ($logs as $log) {
@@ -40,6 +40,10 @@
                 </tbody>
                 <?php
             }
+        } else {
+            ?>
+            <tfoot><tr><td colspan="3" class="text-center">Nenhum registro encontrado</td></tr></tfoot>
+            <?php
         }
         ?>
     </table>

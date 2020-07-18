@@ -12,8 +12,8 @@ use \System\Repository\SysRepository;
  */
 class Services extends BaseService {
 
-    static public function sysRepository(): SysRepository {
-        return new SysRepository;
+    static public function sysRepository(bool $getShared = true): SysRepository {
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new SysRepository;
     }
 
 }

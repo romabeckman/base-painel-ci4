@@ -5,8 +5,7 @@ if (isset($alertMessage) && !empty($alertMessage)) {
     <?php
 }
 
-if (isset($validation) && !empty($validation)) {
-    $errors = $validation->getErrors();
+if (isset($validation) && !empty($validation) && $errors = $validation->getErrors()) {
     ?>
     <div class="alert alert-danger" role="alert">
         <ul>

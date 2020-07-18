@@ -20,15 +20,16 @@
 </div>
 <div class="table-responsive">
     <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">&ensp;</th>
+            </tr>
+        </thead>
         <?php
         if (!empty($groups)) {
+            $update = hasPermission(App\Controllers\Administrator\Group::class, 'update');
             ?>
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">&ensp;</th>
-                </tr>
-            </thead>
             <tbody>
                 <?php
                 foreach ($groups as $group) {
@@ -36,8 +37,8 @@
                     <tr>
                         <th>
                             <?php
-                            echo (hasPermission(App\Controllers\Administrator\Group::class, 'update')&& $group->id != 1) ?
-                                    '<a href="/administrator/group/update/' . $group->id . '">' . $group->name . '</a>' :
+                            echo $update && $group->id != 1 ?
+                                    '<a title="Alterar ' . $group->name . '" href="/administrator/group/update/' . $group->id . '">' . $group->name . '</a>' :
                                     $group->name;
                             ?>
                         </th>
@@ -46,6 +47,10 @@
                 </tbody>
                 <?php
             }
+        } else {
+            ?>
+            <tfoot><tr><td colspan="3" class="text-center">Nenhum registro encontrado</td></tr></tfoot>
+            <?php
         }
         ?>
     </table>
