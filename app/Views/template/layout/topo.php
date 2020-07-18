@@ -5,7 +5,7 @@
     </button>
 
     <div class="navbar-collapse offcanvas-collapse align-items-start" id="top-menu">
-        <ul class="navbar-nav mr-auto flex-wrap">
+        <ul class="navbar-nav mr-auto flex-wrap mr-3">
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
@@ -15,7 +15,7 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>-->
-        <ul class="navbar-nav ml-3">
+        <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="settings-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo Authorization\Config\Auth::$user->name; ?>
