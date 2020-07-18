@@ -15,7 +15,7 @@
                 <h4 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h4>
             </div>
 
-            <?php echo $this->include('template/include/erros_list') ?>
+            <?php echo $this->include('template/include/error/list') ?>
 
             <div class="my-3 p-3 bg-white rounded box-shadow">
                 <?php echo $this->renderSection('content') ?>
@@ -26,7 +26,16 @@
 
     <?php echo $this->include('template/layout/footer') ?>
 
-    <?php echo $this->include('template/include/modals') ?>
+    <?php echo $this->include('template/include/modal/confirmation') ?>
+
     <?php echo $this->include('template/layout/javascript') ?>
+    <?php
+    if (isset($script_js)) {
+        echo is_array($script_js) ? array_reduce($script_js, function ($carry, $js) { return $carry . $js;}, '') : $script_js;
+    }
+    if (isset($script_css)) {
+        echo is_array($script_css) ? array_reduce($script_css, function ($carry, $css) { return $carry . $css;}, '') : $script_css;
+    }
+    ?>
     <script type="text/javascript" src="/resources/painel/js/main.js"></script>
 </html>

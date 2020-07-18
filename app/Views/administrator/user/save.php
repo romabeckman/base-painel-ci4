@@ -25,7 +25,7 @@ if (isset($user)) {
     <?php echo form_password('password', '', 'class="form-control" id="password" minlength="8"' . (isset($user) ? '' : 'required')); ?>
 </div>
 
-<button type="submit" class="btn btn-primary mt-4">Salvar</button>
+<?php echo $this->include('template/include/btn/form_submit') ?>
 <?php echo form_close(); ?>
 
 <?php $this->endSection() ?>

@@ -11,7 +11,7 @@
         <?php
     }
     ?>
-    <?php echo $this->include('template/include/search') ?>
+    <?php echo $this->include('template/include/form/search') ?>
 </div>
 <div class="table-responsive">
     <table class="table table-striped">

@@ -2,7 +2,7 @@
 
 <?php $this->section('content') ?>
 
-<?php echo $this->include('template/include/search') ?>
+<?php echo $this->include('template/include/form/search') ?>
 
 <div class="table-responsive mt-4">
     <table class="table table-striped">

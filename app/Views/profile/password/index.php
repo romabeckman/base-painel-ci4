@@ -24,7 +24,9 @@
     <label for="pass_confirm">Repita sua nova senha</label>
     <?php echo form_password('confirm_password', '', 'class="form-control" id="confirm_password" required'); ?>
 </div>
-<button type="submit" class="btn btn-primary">Salvar</button>
+
+<?php echo $this->include('template/include/btn/form_submit') ?>
+
 <?php echo form_close(); ?>
 
 <?php $this->endSection() ?>

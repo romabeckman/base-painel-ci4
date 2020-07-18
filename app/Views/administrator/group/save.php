@@ -37,7 +37,7 @@
         </ul>
     </div>
 </div>
-<button type="submit" class="btn btn-primary mt-4">Salvar</button>
+<?php echo $this->include('template/include/btn/form_submit') ?>
 <?php echo form_close(); ?>
 
 <?php $this->endSection() ?>
