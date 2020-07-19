@@ -2,6 +2,8 @@
 
 namespace Authorization\Services;
 
+use \Exception;
+
 /**
  * Description of UserService
  *
@@ -17,8 +19,8 @@ class UserService {
             $pk = \Authorization\Config\Services::authRepository()->userModel->insert($user);
             \Config\Services::alertMessages()->setMsgSuccess('Usuário cadastrado sucesso!');
             return $pk;
-        } catch (\Exception $exc) {
-            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.');
+        } catch (Exception $exc) {
+            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.', $exc);
             return null;
         }
     }
@@ -31,8 +33,8 @@ class UserService {
             \Authorization\Config\Services::authRepository()->userModel->update($user->id, $user);
             \Config\Services::alertMessages()->setMsgSuccess('Usuário alterado sucesso!');
             return true;
-        } catch (\Exception $ex) {
-            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.');
+        } catch (Exception $exc) {
+            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.', $exc);
             return false;
         }
     }
