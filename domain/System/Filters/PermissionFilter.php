@@ -26,7 +26,7 @@ class PermissionFilter implements FilterInterface {
 
     public function before(RequestInterface $request, $arguments = null) {
         $router = service('router');
-        $sysRepository = Services::sysRepository();
+        $sysRepository = \System\Config\Services::sysRepository();
 
         $route = $sysRepository->getPermission($router->controllerName(), $router->methodName());
 
@@ -38,14 +38,14 @@ class PermissionFilter implements FilterInterface {
             return;
         }
 
-        // protected and provate route
+        // protected and private route
         if (empty(Auth::$user) || !Auth::$user instanceof User) {
             return redirect()->to('/authentication/logout');
         }
 
         if ($route->access == RouteModel::ACCESS_PRIVATE) {
             helper('painel');
-            if (!hasPermission($router->controllerName(), $router->methodName()) && !hasPermission($router->controllerName())) {
+            if (!hasPermission($router->controllerName(), $router->methodName())) {
                 return Services::response()->setBody(view('errors/html/error_401'));
             }
         }

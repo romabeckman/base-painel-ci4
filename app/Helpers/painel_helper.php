@@ -13,13 +13,11 @@ if (!function_exists('formDelete')) {
 
 if (!function_exists('hasPermission')) {
 
-    function hasPermission(string $controller = '', string $method = ''): bool {
-        $router = \Config\Services::router();
-        $controller = $controller ?: $router->controllerName();
-        $method = $method ?: $router->methodName();
+    function hasPermission(string $controller = '', string $method = 'index'): bool {
+        $controller = $controller ?: \Config\Services::router()->controllerName();
         $controller = strpos($controller, '\\') === 0 ? substr($controller, 1) : $controller;
 
-        if ($method && isset(Authorization\Config\Auth::$permission[$controller . '::' . $method])) {
+        if (isset(Authorization\Config\Auth::$permission[$controller . '::' . $method])) {
             return true;
         } elseif (isset(Authorization\Config\Auth::$permission[$controller])) {
             return true;
