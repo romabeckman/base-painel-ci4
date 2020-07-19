@@ -10,7 +10,7 @@ use \Config\Services;
  *
  * @author Romário Beckman
  */
-class GoogleRecaptcha {
+class GoogleRecaptchaValidation {
 
     function grecaptchav3(string $str, string &$error = null): bool {
         $error = lang('Auth.invalid_user_captcha');

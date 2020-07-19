@@ -19,7 +19,7 @@ class Validation {
         \CodeIgniter\Validation\FileRules::class,
         \CodeIgniter\Validation\CreditCardRules::class,
         \Authorization\Validation\AuthValidation::class,
-        \App\Validation\GoogleRecaptcha::class,
+        \App\Validation\GoogleRecaptchaValidation::class,
     ];
 
     /**

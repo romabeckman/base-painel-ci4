@@ -43,9 +43,11 @@
                         <td><?php echo $user->group; ?></td>
                         <td><?php echo $user->id == 1 ? '' : formDelete(['id' => $user->id], 'administrator/user/delete', 'Remover'); ?></td>
                     </tr>
-                </tbody>
-                <?php
-            }
+                    <?php
+                }
+                ?>
+            </tbody>
+            <?php
         } else {
             ?>
             <tfoot><tr><td colspan="3" class="text-center">Nenhum registro encontrado</td></tr></tfoot>
