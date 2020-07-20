@@ -15,7 +15,8 @@ class User extends BaseController {
         $paginate = \Authorization\Config\Services::authRepository()->paginateUser($this->request->getGet('search'));
         $data = [
             'users' => $paginate['itens'],
-            'pager' => $paginate['pager']
+            'pager' => $paginate['pager'],
+            'permission' => crudPermission(static::class)
         ];
 
         $data['title'] = 'Usuários (' . $paginate['total'] . ')';

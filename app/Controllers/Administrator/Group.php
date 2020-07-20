@@ -15,7 +15,8 @@ class Group extends BaseController {
         $paginate = \Authorization\Config\Services::authRepository()->paginateGroup($this->request->getGet('search'));
         $data = [
             'groups' => $paginate['itens'],
-            'pager' => $paginate['pager']
+            'pager' => $paginate['pager'],
+            'permission' => crudPermission(static::class)
         ];
 
         $data['title'] = 'Grupos (' . $paginate['total'] . ')';

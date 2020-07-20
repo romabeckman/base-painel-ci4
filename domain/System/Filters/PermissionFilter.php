@@ -44,7 +44,7 @@ class PermissionFilter implements FilterInterface {
         }
 
         if ($route->access == RouteModel::ACCESS_PRIVATE) {
-            helper('painel');
+            helper('permission');
             if (!hasPermission($router->controllerName(), $router->methodName())) {
                 return Services::response()->setBody(view('errors/html/error_401'));
             }

@@ -6,7 +6,7 @@
     if (hasPermission(App\Controllers\Administrator\Group::class, 'insert')) {
         ?>
         <div class="col-sm">
-            <a href="/administrator/group/create" class="btn btn-primary">Novo usuário</a>
+            <a href="/administrator/group/create" class="btn btn-primary">Novo grupo</a>
         </div>
         <?php
     }
@@ -24,6 +24,7 @@
         <?php
         if (!empty($groups)) {
             $update = hasPermission(App\Controllers\Administrator\Group::class, 'update');
+            $delete = hasPermission(App\Controllers\Administrator\Group::class, 'delete');
             ?>
             <tbody>
                 <?php
@@ -37,7 +38,7 @@
                                     $group->name;
                             ?>
                         </td>
-                        <td><?php echo $group->id == 1 ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
+                        <td><?php echo $group->id == 1 && $delete ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
                     </tr>
                     <?php
                 }
