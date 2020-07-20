@@ -29,7 +29,7 @@
                 ?>
                 <li class="list-group-item">
                     <?php echo customCheckbox('permissions[]', $route->name, $route->id, $route->hasPermission == 1); ?>
-                    <small><?php echo $route->controller; ?><?php echo $route->method ? '::' . $route->method : ''; ?></small>
+                    <small><?php echo $route->controller; ?><?php echo $route->method ? '::<span class="text-danger">' . $route->method . '</span>' : ''; ?></small>
                 </li>
                 <?php
             }

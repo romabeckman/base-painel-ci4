@@ -3,7 +3,7 @@
 <?php $this->section('content') ?>
 <div class="row mb-4">
     <?php
-    if ($permission['insert']) {
+    if ($permission['create']) {
         ?>
         <div class="col-sm">
             <a href="/administrator/user/create" class="btn btn-primary">Novo usuário</a>

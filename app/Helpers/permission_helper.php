@@ -26,12 +26,12 @@ if (!function_exists('crudPermission')) {
      * @param string $controller
      * @return array ['insert' => true|false, 'update' => true|false, 'delete' => true|false, 'index' => true|false]
      */
-    function crudPermission(string $controller): array {
+    function crudPermission(string $controller, string $create = 'create', $read = 'index', string $update = 'update', string $delete = 'delete'): array {
         return [
-            'insert' => hasPermission($controller, 'insert'),
-            'update' => hasPermission($controller, 'update'),
-            'delete' => hasPermission($controller, 'delete'),
-            'index' => hasPermission($controller, 'index')
+            'create' => hasPermission($controller, $create),
+            'read' => hasPermission($controller, $read),
+            'update' => hasPermission($controller, $update),
+            'delete' => hasPermission($controller, $delete)
         ];
     }
 

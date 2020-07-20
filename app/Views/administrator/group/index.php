@@ -3,7 +3,7 @@
 <?php $this->section('content') ?>
 <div class="row mb-4">
     <?php
-    if (hasPermission(App\Controllers\Administrator\Group::class, 'insert')) {
+    if ($permission['create']) {
         ?>
         <div class="col-sm">
             <a href="/administrator/group/create" class="btn btn-primary">Novo grupo</a>
@@ -23,8 +23,6 @@
         </thead>
         <?php
         if (!empty($groups)) {
-            $update = hasPermission(App\Controllers\Administrator\Group::class, 'update');
-            $delete = hasPermission(App\Controllers\Administrator\Group::class, 'delete');
             ?>
             <tbody>
                 <?php
@@ -33,12 +31,12 @@
                     <tr>
                         <td>
                             <?php
-                            echo $update && $group->id != 1 ?
+                            echo $permission['update'] && $group->id != 1 ?
                                     '<a title="Alterar ' . $group->name . '" href="/administrator/group/update/' . $group->id . '">' . $group->name . '</a>' :
                                     $group->name;
                             ?>
                         </td>
-                        <td><?php echo $group->id == 1 && $delete ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
+                        <td><?php echo $group->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
                     </tr>
                     <?php
                 }
