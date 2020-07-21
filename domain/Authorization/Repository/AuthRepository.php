@@ -68,6 +68,7 @@ class AuthRepository {
 
     public function paginateGroup(?string $search = null): array {
         if (!empty($search)) {
+            $search = trim($search);
             $this->userModel->like('name', $search);
         }
 
@@ -82,6 +83,7 @@ class AuthRepository {
 
     public function paginateUser(?string $search = null): array {
         if (!empty($search)) {
+            $search = trim($search);
             $search = $this->userModel->db->escapeString($search);
             $this->userModel->where('(' . aesDecrypt('name') . ' like "%' . $search . '%" or ' . aesDecrypt('email') . ' like "%' . $search . '%")', null, false);
         }

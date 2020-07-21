@@ -112,3 +112,15 @@ footer.footer > .container {
     background: none;
     padding: .3rem 0rem;
 }
+
+.error-list ul {
+  margin: 0px;
+}
+.error-list li {
+  list-style: decimal;
+}
+
+.form-delete {
+  width: 40px;
+  position: relative;
+}

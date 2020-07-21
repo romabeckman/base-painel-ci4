@@ -4,8 +4,8 @@ if (!function_exists('formDelete')) {
 
     function formDelete(array $data, string $action = '', $tittle = 'Remove'): string {
         $id = uniqid("form_");
-        return form_open($action, ['class' => 'd-flex flex-row-reverse', 'id' => $id], $data) .
-                "<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-form-id=\"{$id}\" data-target=\"#modal-confirmation\"><i class=\"fas fa-trash\"></i></button>" .
+        return form_open($action, ['class' => 'form-delete', 'id' => $id], $data) .
+                "<button type=\"button\" class=\"btn btn-outline-danger\" data-toggle=\"modal\" data-form-id=\"{$id}\" data-target=\"#modal-confirmation\"><i class=\"fas fa-trash\"></i></button>" .
                 form_close();
     }
 

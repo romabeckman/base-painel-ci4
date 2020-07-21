@@ -40,7 +40,7 @@
                         </td>
                         <td><?php echo $user->email; ?></td>
                         <td><?php echo $user->group; ?></td>
-                        <td><?php echo $user->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $user->id], 'administrator/user/delete', 'Remover'); ?></td>
+                        <td class="d-flex flex-row-reverse"><?php echo $user->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $user->id], 'administrator/user/delete', 'Remover'); ?></td>
                     </tr>
                     <?php
                 }

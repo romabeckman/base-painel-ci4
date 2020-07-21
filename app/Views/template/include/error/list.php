@@ -7,7 +7,7 @@ if (isset($alertMessage) && !empty($alertMessage)) {
 
 if (isset($validation) && !empty($validation) && $errors = $validation->getErrors()) {
     ?>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger error-list" role="alert">
         <ul>
             <?php
             foreach ($errors as $error) {
