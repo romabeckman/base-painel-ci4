@@ -26,6 +26,8 @@
     <?php echo $this->include('template/layout/footer') ?>
 
     <?php echo $this->include('template/include/modal/confirmation') ?>
+    <?php echo $this->include('template/include/modal/alert') ?>
+    <?php echo $this->include('template/include/modal/error') ?>
 
     <?php echo $this->include('template/layout/javascript') ?>
 </html>
