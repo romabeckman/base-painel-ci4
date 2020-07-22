@@ -12,29 +12,13 @@ class GroupService {
     function create(array $data) {
         $group = new \Authorization\Entity\Group();
         $group->fill($data);
-
-        try {
-            $pk = \Authorization\Config\Services::authRepository()->groupModel->insert($group);
-            \Config\Services::alertMessages()->setMsgSuccess('Grupo cadastrado sucesso!');
-            return $pk;
-        } catch (\Exception $exc) {
-            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o grupo, verifique os campos e tente novamente.');
-            return null;
-        }
+        return \Authorization\Config\Services::authRepository()->groupModel->insert($group);
     }
 
-    public function update(array $data): bool {
+    public function update(array $data): void {
         $group = new \Authorization\Entity\User();
         $group->fill($data);
-
-        try {
-            \Authorization\Config\Services::authRepository()->groupModel->update($group->id, $group);
-            \Config\Services::alertMessages()->setMsgSuccess('Grupo alterado sucesso!');
-            return true;
-        } catch (\Exception $ex) {
-            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o grupo, verifique os campos e tente novamente.');
-            return false;
-        }
+        \Authorization\Config\Services::authRepository()->groupModel->update($group->id, $group);
     }
 
 }

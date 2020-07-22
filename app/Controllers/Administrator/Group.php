@@ -3,6 +3,7 @@
 namespace App\Controllers\Administrator;
 
 use \App\Controllers\BaseController;
+use \Exception;
 
 /**
  * Description of User
@@ -87,20 +88,26 @@ class Group extends BaseController {
 
         $db = db_connect();
         $db->transBegin();
-
-        $save = $create ?
-                \Authorization\Config\Services::authGroupService()->create($post) :
+        try {
+            if ($create) {
+                $post['id'] = \Authorization\Config\Services::authGroupService()->create($post);
+                $messageSuccess = 'Grupo cadastrado com sucesso!';
+            } else {
                 \Authorization\Config\Services::authGroupService()->update($post);
+                $messageSuccess = 'Grupo alterado com sucesso!';
+            }
 
-        \Authorization\Config\Services::authPermissionService()->saveByGroup($create ? $save : $post['id'], $post['permissions'] ?? []);
+            \Authorization\Config\Services::authPermissionService()->saveByGroup($post['id'], $post['permissions'] ?? []);
 
-        if ($save) {
+            \Config\Services::alertMessages()->setMsgSuccess($messageSuccess);
+
             $db->transCommit();
             return $this->response->redirect('/administrator/group');
+        } catch (Exception $exc) {
+            $db->transRollback();
+            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o grupo, verifique os campos e tente novamente.', $exc);
+            return $create ? $this->create() : $this->update($post['id']);
         }
-
-        $db->transRollback();
-        return $create ? $this->create() : $this->update($post['id']);
     }
 
     private function breadcrumb(): array {

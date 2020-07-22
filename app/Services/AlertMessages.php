@@ -17,32 +17,32 @@ class AlertMessages extends BaseService {
      * @param string $message
      * @param Exception|null $exc
      */
-    static function setMsgSuccess(string $message, ?Exception $exc = null) {
-        static::setMessage($message, 'success', $exc);
+    function setMsgSuccess(string $message, ?Exception $exc = null) {
+        $this->setMessage($message, 'success', $exc);
     }
 
     /**
      * @param string $message
      * @param Exception|null $exc
      */
-    static function setMsgWarning(string $message, ?Exception $exc = null) {
-        static::setMessage($message, 'warning', $exc);
+    function setMsgWarning(string $message, ?Exception $exc = null) {
+        $this->setMessage($message, 'warning', $exc);
     }
 
     /**
      * @param string $message
      * @param Exception|null $exc
      */
-    static function setMsgDanger(string $message, ?Exception $exc = null) {
-        static::setMessage($message, 'danger', $exc);
+    function setMsgDanger(string $message, ?Exception $exc = null) {
+        $this->setMessage($message, 'danger', $exc);
     }
 
     /**
      * @param string $message
      * @param Exception|null $exc
      */
-    static function setMsgInfo(string $message, ?Exception $exc = null) {
-        static::setMessage($message, 'info', $exc);
+    function setMsgInfo(string $message, ?Exception $exc = null) {
+        $this->setMessage($message, 'info', $exc);
     }
 
     /**
@@ -50,7 +50,7 @@ class AlertMessages extends BaseService {
      * @param string $alert
      * @param Exception|null $exc
      */
-    static private function setMessage(string $message, string $alert, ?Exception $exc = null) {
+    private function setMessage(string $message, string $alert, ?Exception $exc = null) {
         if (ENVIRONMENT == 'development' && !is_null($exc)) {
             $message .= '<hr /><b>' . $exc->getMessage() . '</b><br />' . nl2br($exc->getTraceAsString());
         }
@@ -69,7 +69,7 @@ class AlertMessages extends BaseService {
     /**
      * @return array|null
      */
-    static function getMessage(): ?array {
+    function getMessage(): ?array {
         return service('session')->getFlashdata('alert-message');
     }
 

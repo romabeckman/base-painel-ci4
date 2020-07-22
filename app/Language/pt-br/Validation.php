@@ -52,4 +52,12 @@ return [
 	'mime_in'               => '{field} não tem um tipo mime válido.',
 	'ext_in'                => '{field} não tem uma extensão de arquivo válida.',
 	'max_dims'              => '{field} não é uma imagem, ou ela é muito larga ou muito grande.',
+
+        //Custom
+        'is_unique_decrypted'   => 'O {field} "{value}" já existe, informe outro.',
+	'invalid_phone_br'      => '{field} não é um número de telefone informado não é válido',
+	'auth_current_password' => 'Sua senha não confere com campo "Senha atual"',
+	'auth_strong_password'  => 'Sua senha não atende os requisitos mínimo para nova senha"',
+	'grecaptchav3'          => 'Falha na verificação do reCAPTCHA',
+	'grecaptchav2'          => 'Falha na verificação do reCAPTCHA',
 ];

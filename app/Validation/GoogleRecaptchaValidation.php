@@ -13,8 +13,6 @@ use \Config\Services;
 class GoogleRecaptchaValidation {
 
     function grecaptchav3(string $str, string &$error = null): bool {
-        $error = lang('Auth.invalid_user_captcha');
-
         $secret = env('GOOGLE_RECAPTCHA_V3_PRIVATE_KEY');
         if (empty($secret)) {
             return true;
@@ -32,8 +30,6 @@ class GoogleRecaptchaValidation {
     }
 
     function grecaptchav2(string $str, string &$error = null): bool {
-        $error = lang('Auth.invalid_user_captcha');
-
         $secret = env('GOOGLE_RECAPTCHA_V2_PRIVATE_KEY');
         if (empty($secret)) {
             return true;

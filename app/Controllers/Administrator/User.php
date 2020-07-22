@@ -3,6 +3,7 @@
 namespace App\Controllers\Administrator;
 
 use \App\Controllers\BaseController;
+use \Exception;
 
 /**
  * Description of User
@@ -57,19 +58,25 @@ class User extends BaseController {
             return $this->response->redirect('/administrator/user');
         }
 
+        $create = empty($post['id']);
         if (!$this->validate($this->rules())) {
-            return empty($post['id']) ? $this->create() : $this->update($post['id']);
+            return $create ? $this->create() : $this->update($post['id']);
         }
 
-        $save = empty($post['id']) ?
-                \Authorization\Config\Services::authUserService()->create($post) :
+        try {
+            if ($create) {
+                \Authorization\Config\Services::authUserService()->create($post);
+                \Config\Services::alertMessages()->setMsgSuccess('Usuário cadastrado sucesso!');
+            } else {
                 \Authorization\Config\Services::authUserService()->update($post);
+                \Config\Services::alertMessages()->setMsgSuccess('Usuário alterado sucesso!');
+            }
 
-        if ($save) {
             return $this->response->redirect('/administrator/user');
+        } catch (Exception $exc) {
+            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.', $exc);
+            return $create ? $this->create() : $this->update($post['id']);
         }
-
-        return empty($post['id']) ? $this->create() : $this->update($post['id']);
     }
 
     public function delete() {
@@ -110,7 +117,7 @@ class User extends BaseController {
         }
         $rules['name'] = ['label' => 'Nome', 'rules' => 'required'];
         $rules['id_auth_group'] = ['label' => 'Grupo', 'rules' => 'required'];
-        $rules['email'] = ['label' => 'E-mail', 'rules' => 'required|valid_email|is_unique[auth_user.email,id,{id}]'];
+        $rules['email'] = ['label' => 'E-mail', 'rules' => 'required|valid_email|is_unique_decrypted[auth_user.email,id,{id}]'];
 
         return $rules;
     }
