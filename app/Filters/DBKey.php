@@ -16,9 +16,8 @@ class DBKey implements FilterInterface {
 
     public function before(RequestInterface $request, $arguments = null) {
         $db = Database::connect();
-        $config = new Encryption();
-
-        $db->query("SET @key = '{$config->key}'");
+        $key = \Config\Services::encrypter()->key;
+        $db->query("SET @key = '{$key}'");
     }
 
 
