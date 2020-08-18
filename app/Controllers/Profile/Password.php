@@ -3,6 +3,7 @@
 namespace App\Controllers\Profile;
 
 use \App\Controllers\BaseController;
+use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
 
 /**
@@ -18,7 +19,7 @@ class Password extends BaseController {
 
     public function update() {
         $post = $this->request->getPost();
-        
+
         if (empty($post)) {
             return $this->response->redirect('/profile/password');
         }
@@ -32,7 +33,7 @@ class Password extends BaseController {
             return Services::template()->templateLogin(['validation' => $validation], 'index');
         }
 
-        Services::authUpdatePassword()->handler($post['password']);
+        AuthorizationServices::updatePassword()->handler($post['password']);
         Services::alertMessages()->setMsgSuccess('Senha foi alterada com sucesso!');
 
         return $this->response->redirect('/profile/password');

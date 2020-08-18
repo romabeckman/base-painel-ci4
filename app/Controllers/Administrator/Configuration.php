@@ -3,6 +3,9 @@
 namespace App\Controllers\Administrator;
 
 use \App\Controllers\BaseController;
+use \Config\Services;
+use \System\Config\Services as SystemServices;
+use function \env;
 
 /**
  * Description of User
@@ -15,13 +18,13 @@ class Configuration extends BaseController {
         $recaptchav3 = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');
 
         $data = [
-            'configuration' => \System\Config\Services::sysRepository()->getAllConfiguration(),
+            'configuration' => SystemServices::repository()->getAllConfiguration(),
             'recaptchav3' => !empty($recaptchav3),
             'recatchaScore' => array_combine(range(0, 1, 0.1), range(0, 1, 0.1))
         ];
 
         $data['title'] = 'Configuração';
-        return \Config\Services::template()->templatePainel($data, 'index');
+        return Services::template()->templatePainel($data, 'index');
     }
 
     public function save() {
@@ -30,8 +33,8 @@ class Configuration extends BaseController {
             return $this->response->redirect('/administrator/configuration');
         }
 
-        \System\Config\Services::sysRepository()->saveConfiguration($post);
-        \Config\Services::alertMessages()->setMsgSuccess('Configurações atualizadas com sucesso!');
+        SystemServices::repository()->saveConfiguration($post);
+        Services::alertMessages()->setMsgSuccess('Configurações atualizadas com sucesso!');
         return $this->response->redirect('/administrator/configuration');
     }
 

@@ -3,6 +3,9 @@
 namespace App\Controllers\Administrator;
 
 use \App\Controllers\BaseController;
+use \Config\Services;
+use \System\Config\Services as SystemServices;
+use function \helper;
 
 /**
  * Description of User
@@ -13,7 +16,7 @@ class Log extends BaseController {
 
     public function index() {
         helper('print');
-        $paginate = \System\Config\Services::sysRepository()->paginateLog($this->request->getGet('search'));
+        $paginate = SystemServices::repository()->paginateLog($this->request->getGet('search'));
 
         $data = [
             'logs' => $paginate['itens'],
@@ -21,7 +24,7 @@ class Log extends BaseController {
         ];
 
         $data['title'] = 'Log (' . $paginate['total'] . ')';
-        return \Config\Services::template()->templatePainel($data);
+        return Services::template()->templatePainel($data);
     }
 
 }

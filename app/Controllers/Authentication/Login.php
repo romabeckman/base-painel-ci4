@@ -3,16 +3,17 @@
 namespace App\Controllers\Authentication;
 
 use \App\Controllers\BaseController;
+use \Authorization\Config\Services as AuthorizationServices;
 use \Authorization\Exceptions\InvalidUserEmailException;
 use \Authorization\Exceptions\InvalidUserPasswordException;
 use \Config\Services;
+use function \env;
 use function \lang;
-use function \service;
 
 class Login extends BaseController {
 
     function index() {
-        \Authorization\Config\Services::authSession()->destroy();
+        AuthorizationServices::authSession()->destroy();
         return Services::template()->templateLogin();
     }
 
@@ -39,9 +40,9 @@ class Login extends BaseController {
 
         try {
             $post = $this->request->getPost();
-            $user = service('authLogin')->handler($post['email'], $post['password']);
+            $user = AuthorizationServices::loginService()->handler($post['email'], $post['password']);
 
-            \Authorization\Config\Services::authSession()->create($user, isset($post['remember_me']));
+            AuthorizationServices::authSession()->create($user, isset($post['remember_me']));
 
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {

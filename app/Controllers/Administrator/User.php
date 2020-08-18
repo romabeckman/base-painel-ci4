@@ -3,7 +3,12 @@
 namespace App\Controllers\Administrator;
 
 use \App\Controllers\BaseController;
+use \Authorization\Config\Auth;
+use \Authorization\Config\Services as AuthorizationServices;
+use \Config\Services;
 use \Exception;
+use function \crudPermission;
+use function \redirect;
 
 /**
  * Description of User
@@ -13,7 +18,7 @@ use \Exception;
 class User extends BaseController {
 
     public function index() {
-        $paginate = \Authorization\Config\Services::authRepository()->paginateUser($this->request->getGet('search'));
+        $paginate = AuthorizationServices::repository()->paginateUser($this->request->getGet('search'));
         $data = [
             'users' => $paginate['itens'],
             'pager' => $paginate['pager'],
@@ -21,23 +26,23 @@ class User extends BaseController {
         ];
 
         $data['title'] = 'Usuários (' . $paginate['total'] . ')';
-        return \Config\Services::template()->templatePainel($data);
+        return Services::template()->templatePainel($data);
     }
 
     public function create() {
         $data = [
             'validation' => $this->validator,
             'title' => 'Novo usuário',
-            'groups' => \Authorization\Config\Services::authRepository()->groupModel->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::repository()->groupModel->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return \Config\Services::template()->templatePainel($data, 'save');
+        return Services::template()->templatePainel($data, 'save');
     }
 
     public function update(int $id) {
-        $user = \Authorization\Config\Services::authRepository()->userModel->selectDecrypted()->find($id);
+        $user = AuthorizationServices::repository()->userModel->selectDecrypted()->find($id);
         if (empty($user) || $id == 1) {
-            \Config\Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser alterado' : 'Usuário não encontrado.');
+            Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser alterado' : 'Usuário não encontrado.');
             return $this->response->redirect('/administrator/group');
         }
 
@@ -45,10 +50,10 @@ class User extends BaseController {
             'validation' => $this->validator,
             'user' => $user,
             'title' => 'Alterar usuário',
-            'groups' => \Authorization\Config\Services::authRepository()->groupModel->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::repository()->groupModel->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return \Config\Services::template()->templatePainel($data, 'save');
+        return Services::template()->templatePainel($data, 'save');
     }
 
     public function save() {
@@ -65,16 +70,16 @@ class User extends BaseController {
 
         try {
             if ($create) {
-                \Authorization\Config\Services::authUserService()->create($post);
-                \Config\Services::alertMessages()->setMsgSuccess('Usuário cadastrado sucesso!');
+                AuthorizationServices::userService()->create($post);
+                Services::alertMessages()->setMsgSuccess('Usuário cadastrado sucesso!');
             } else {
-                \Authorization\Config\Services::authUserService()->update($post);
-                \Config\Services::alertMessages()->setMsgSuccess('Usuário alterado sucesso!');
+                AuthorizationServices::userService()->update($post);
+                Services::alertMessages()->setMsgSuccess('Usuário alterado sucesso!');
             }
 
             return $this->response->redirect('/administrator/user');
         } catch (Exception $exc) {
-            \Config\Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.', $exc);
+            Services::alertMessages()->setMsgDanger('Erro ao salvar o usuário, verifique os campos e tente novamente.', $exc);
             return $create ? $this->create() : $this->update($post['id']);
         }
     }
@@ -83,19 +88,19 @@ class User extends BaseController {
         $valid = $this->validate(['id' => ['label' => 'Usuário', 'rules' => 'required']]);
 
         if (!$valid) {
-            \Config\Services::alertMessages()->setMsgDanger($this->validator->getError('id'));
+            Services::alertMessages()->setMsgDanger($this->validator->getError('id'));
         }
 
         $id = $this->request->getPost('id');
 
-        if ($id === \Authorization\Config\Auth::$user->id || $id == 1) {
-            \Config\Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser removido' : 'Você não pode remover seu próprio perfil');
+        if ($id === Auth::$user->id || $id == 1) {
+            Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser removido' : 'Você não pode remover seu próprio perfil');
             return redirect()->back();
         }
 
-        \Authorization\Config\Services::authRepository()->userModel->delete($id);
+        AuthorizationServices::repository()->userModel->delete($id);
 
-        \Config\Services::alertMessages()->setMsgSuccess('Usuário removido com sucesso!');
+        Services::alertMessages()->setMsgSuccess('Usuário removido com sucesso!');
 
         return redirect()->back();
     }

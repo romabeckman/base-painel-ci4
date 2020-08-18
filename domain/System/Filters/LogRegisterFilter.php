@@ -7,6 +7,8 @@ use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \Config\Services;
+use \System\Config\Services as SystemService;
+use \System\Config\Sys;
 
 /**
  * Description of LoggedIn
@@ -17,7 +19,7 @@ class LogRegisterFilter implements FilterInterface {
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
         $router = Services::router();
-        \System\Config\Sys::$log['request'] = [
+        Sys::$log['request'] = [
             'REQUEST_URI' => $request->getServer()['REQUEST_URI'] ?? '',
             'REQUEST_METHOD' => $request->getServer()['REQUEST_METHOD'] ?? '',
             'CONTENT_TYPE' => $request->getServer()['CONTENT_TYPE'] ?? '',
@@ -25,10 +27,10 @@ class LogRegisterFilter implements FilterInterface {
             'SERVER_PROTOCOL' => $request->getServer()['SERVER_PROTOCOL'] ?? ''
         ];
 
-        Services::sysRepository()->saveAccessLog(
+        SystemService::repository()->saveAccessLog(
                 $router->controllerName() . '::' . $router->methodName(),
                 Auth::$user ? Auth::$user->id : null,
-                \System\Config\Sys::$log
+                Sys::$log
         );
     }
 

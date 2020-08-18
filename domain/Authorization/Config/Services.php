@@ -3,7 +3,6 @@
 namespace Authorization\Config;
 
 use \Authorization\Libraries\AuthSession;
-use \Authorization\Repository\AuthRepository;
 use \Authorization\Services\GroupService;
 use \Authorization\Services\HmacService;
 use \Authorization\Services\LoginService;
@@ -19,36 +18,37 @@ use \CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService {
 
-    static public function authHmac(bool $getShared = true): HmacService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new HmacService;
+    static public function hmacService(): HmacService {
+        return new HmacService;
     }
 
-    static public function authLogin(bool $getShared = true): LoginService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new LoginService;
+    static public function loginService(): LoginService {
+        return new LoginService;
     }
 
-    static public function authSession(bool $getShared = true): AuthSession {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new AuthSession;
+    static public function authSession(): AuthSession {
+        return new AuthSession;
     }
 
-    static public function authRepository(bool $getShared = true): AuthRepository {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new AuthRepository;
+    static public function repository(): Repository {
+        isset(static::$instances[__METHOD__]) || static::$instances[__METHOD__] = new Repository;
+        return static::$instances[__METHOD__];
     }
 
-    static function authUpdatePassword(bool $getShared = true): UpdatePassword {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new UpdatePassword;
+    static function updatePassword(): UpdatePassword {
+        return new UpdatePassword;
     }
 
-    static function authUserService(bool $getShared = true): UserService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new UserService();
+    static function userService(): UserService {
+        return new UserService;
     }
 
-    static function authGroupService(bool $getShared = true): GroupService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new GroupService();
+    static function groupService(): GroupService {
+        return new GroupService;
     }
 
-    static function authPermissionService(bool $getShared = true): PermissionService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new PermissionService();
+    static function permissionService(): PermissionService {
+        return new PermissionService;
     }
 
 }

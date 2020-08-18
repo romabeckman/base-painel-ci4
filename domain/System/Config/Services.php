@@ -3,7 +3,6 @@
 namespace System\Config;
 
 use \CodeIgniter\Config\BaseService;
-use \System\Repository\SysRepository;
 
 /**
  * Description of Services
@@ -12,8 +11,9 @@ use \System\Repository\SysRepository;
  */
 class Services extends BaseService {
 
-    static public function sysRepository(bool $getShared = true): SysRepository {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new SysRepository;
+    static public function repository(): Repository {
+        isset(static::$instances[__METHOD__]) || static::$instances[__METHOD__] = new Repository;
+        return static::$instances[__METHOD__];
     }
 
 }

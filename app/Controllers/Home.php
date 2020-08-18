@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use \System\Config\Services;
+use \Config\Services;
 
 class Home extends BaseController {
 

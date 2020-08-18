@@ -8,6 +8,7 @@ use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \Config\Services;
+use \System\Config\Services as SystemService;
 use \System\Models\RouteModel;
 use function \redirect;
 use function \service;
@@ -26,7 +27,7 @@ class PermissionFilter implements FilterInterface {
 
     public function before(RequestInterface $request, $arguments = null) {
         $router = service('router');
-        $sysRepository = \System\Config\Services::sysRepository();
+        $sysRepository = SystemService::repository();
 
         $route = $sysRepository->getPermission($router->controllerName(), $router->methodName());
 

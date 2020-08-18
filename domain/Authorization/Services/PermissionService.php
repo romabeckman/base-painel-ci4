@@ -2,6 +2,8 @@
 
 namespace Authorization\Services;
 
+use \Authorization\Config\Services;
+
 /**
  * Description of UserService
  *
@@ -10,7 +12,7 @@ namespace Authorization\Services;
 class PermissionService {
 
     function saveByGroup(int $idGroup, array $permissions): void {
-        $permissionModel = \Authorization\Config\Services::authRepository()->permissionModel;
+        $permissionModel = Services::repository()->permissionModel;
         $permissionModel
                 ->where(['id_auth_group' => $idGroup])
                 ->delete();

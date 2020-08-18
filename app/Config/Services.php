@@ -37,9 +37,9 @@ class Services extends CoreServices {
 
     static public function alertMessages(bool $getShared = true): \App\Services\AlertMessages {
         return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Services\AlertMessages;
-	}
-	
-	static public function package(bool $getShared = true): \App\Libraries\Package {
+    }
+
+    static public function package(bool $getShared = true): \App\Libraries\Package {
         return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Libraries\Package;
     }
 

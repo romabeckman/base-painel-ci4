@@ -1,37 +1,41 @@
 <?php
 
-namespace System\Repository;
+namespace System\Config;
 
+use \Authorization\Config\Services as AuthorizationService;
 use \Config\Services;
 use \System\Entity\Log;
 use \System\Entity\Route;
+use \System\Models\ConfigurationModel;
+use \System\Models\LogModel;
+use \System\Models\RouteModel;
 
 /**
  * Description of AuthRepository
  *
  * @author Romário Beckman
  */
-class SysRepository {
+class Repository {
 
     /**
-     * @var \System\Models\RouteModel
+     * @var RouteModel
      */
     public $routeModel;
 
     /**
-     * @var \System\Models\LogModel
+     * @var LogModel
      */
     public $logModel;
 
     /**
-     * @var \System\Models\ConfigurationModel
+     * @var ConfigurationModel
      */
     public $configurationModel;
 
     public function __construct() {
-        $this->routeModel = new \System\Models\RouteModel;
-        $this->logModel = new \System\Models\LogModel;
-        $this->configurationModel = new \System\Models\ConfigurationModel;
+        $this->routeModel = new RouteModel;
+        $this->logModel = new LogModel;
+        $this->configurationModel = new ConfigurationModel;
     }
 
     public function saveLog(string $description, ?int $idUser = null, array $options = []): void {
@@ -132,7 +136,7 @@ class SysRepository {
         return [
             'itens' => $this->logModel
                     ->selectDecrypted()
-                    ->subSelect('id_auth_user', \Authorization\Config\Services::authRepository()->userModel, 'name', 'user')
+                    ->subSelect('id_auth_user', AuthorizationService::repository()->userModel, 'name', 'user')
                     ->orderBy('id', 'desc')
                     ->paginate(15),
             'pager' => $this->logModel->pager,

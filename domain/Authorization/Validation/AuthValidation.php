@@ -3,7 +3,7 @@
 namespace Authorization\Validation;
 
 use \Authorization\Config\Auth;
-use \Authorization\Config\Services as ServicesAuth;
+use \Authorization\Config\Services as AuthorizationServices;
 
 /**
  * Description of Auth
@@ -13,7 +13,7 @@ use \Authorization\Config\Services as ServicesAuth;
 class AuthValidation {
 
     function auth_current_password(string $str, string &$error = null) {
-        return ServicesAuth::authHmac()->validateHash($str, Auth::$user->password);
+        return AuthorizationServices::hmacService()->validateHash($str, Auth::$user->password);
     }
 
     function auth_strong_password(string $str, string &$error = null) {

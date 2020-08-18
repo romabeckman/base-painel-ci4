@@ -2,6 +2,9 @@
 
 namespace Authorization\Services;
 
+use \Authorization\Config\Services;
+use \Authorization\Entity\User;
+
 /**
  * Description of UserService
  *
@@ -10,16 +13,16 @@ namespace Authorization\Services;
 class UserService {
 
     function create(array $data) {
-        $user = new \Authorization\Entity\User();
+        $user = new User();
         $user->fill($data);
-        $pk = \Authorization\Config\Services::authRepository()->userModel->insert($user);
+        $pk = Services::repository()->userModel->insert($user);
         return $pk;
     }
 
     public function update(array $data): void {
-        $user = new \Authorization\Entity\User();
+        $user = new User();
         $user->fill($data);
-        \Authorization\Config\Services::authRepository()->userModel->update($user->id, $user);
+        Services::repository()->userModel->update($user->id, $user);
     }
 
 }

@@ -25,7 +25,7 @@ class AuthSession {
 
     function create(User $user, bool $rememberMe = false): void {
         $rememberMe && $this->app->sessionExpiration = 86400;
-        Services::authRepository()->saveLastLogin($user->id);
+        \Authorization\Config\Services::repository()->saveLastLogin($user->id);
         \System\Config\Sys::$log['auth'] = 'Successfully login';
 
         Services::session($this->app)->set([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Repository;
+namespace Authorization\Config;
 
 use \Authorization\Entity\User;
 
@@ -9,7 +9,7 @@ use \Authorization\Entity\User;
  *
  * @author Romário Beckman
  */
-class AuthRepository {
+class Repository {
 
     /**
      * @var \Authorization\Models\PermissionModel
@@ -54,7 +54,7 @@ class AuthRepository {
     public function getAllGroupPermission(int $idGroup) {
         $idGroup = db_connect()->escape($idGroup);
 
-        $routerModel = \System\Config\Services::sysRepository()->routeModel;
+        $routerModel = \System\Config\Services::repository()->routeModel;
 
         $idGroup == 1 || $routerModel->join($this->permissionModel->table, 'id = id_sys_route AND id_auth_group = ' . $idGroup);
 

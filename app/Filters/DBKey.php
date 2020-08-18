@@ -6,7 +6,7 @@ use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \Config\Database;
-use \Config\Encryption;
+use \Config\Services;
 
 class DBKey implements FilterInterface {
 
@@ -16,7 +16,7 @@ class DBKey implements FilterInterface {
 
     public function before(RequestInterface $request, $arguments = null) {
         $db = Database::connect();
-        $key = \Config\Services::encrypter()->key;
+        $key = Services::encrypter()->key;
         $db->query("SET @key = '{$key}'");
     }
 

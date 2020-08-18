@@ -14,7 +14,7 @@ class UpdatePassword {
 
     public function handler(string $newPassword): void {
         Auth::$user->setPassword($newPassword);
-        Services::authRepository()->userModel->update(Auth::$user->id, ['password' => Auth::$user->password]);
+        Services::repository()->userModel->update(Auth::$user->id, ['password' => Auth::$user->password]);
     }
 
 }
