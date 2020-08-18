@@ -1,6 +1,6 @@
 # Base painel PHP 7.4
 
-docker exec -it base-project-php bash
+Execute commands below:
 
 php spark migrate
 
