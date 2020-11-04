@@ -5,3 +5,6 @@ Execute commands below:
 php spark migrate
 
 php spark db:seed Init
+
+Run command in public folder:
+npm install
