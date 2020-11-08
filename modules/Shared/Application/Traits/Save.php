@@ -27,7 +27,10 @@ trait Save {
                 $post
         );
 
-        if ($this->repository->getModel()->save($post)) return $this->response->redirect(static::URL);
+        if ($this->repository->getModel()->save($post)) {
+            Services::alertMessages()->setMsgSuccess('Dados foram salvos com sucesso.');
+            return $this->response->redirect(static::URL);
+        }
 
         Services::alertMessages()->setMsgDanger('Erro ao salvar, verifique os campos e tente novamente.');
 

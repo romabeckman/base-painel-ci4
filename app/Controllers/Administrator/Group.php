@@ -6,10 +6,12 @@ use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
 use \Exception;
 use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Traits\Breadcrumb;
+use \Shared\Application\Traits\Delete;
+use \Shared\Application\Traits\Index;
+use \Shared\Persistence\Abstracts\RepositoryBase;
 use \System\Config\Services as SystemServices;
-use function \crudPermission;
 use function \db_connect;
-use function \redirect;
 
 /**
  * Description of User
@@ -18,22 +20,24 @@ use function \redirect;
  */
 class Group extends ControllerBase {
 
-    public function index() {
-        $paginate = AuthorizationServices::repository()->paginateGroup($this->request->getGet('search'));
-        $data = [
-            'groups' => $paginate['itens'],
-            'pager' => $paginate['pager'],
-            'permission' => crudPermission(static::class)
-        ];
+    protected RepositoryBase $repository;
 
-        $data['title'] = 'Grupos (' . $paginate['total'] . ')';
-        return Services::template()->templatePainel($data);
+    use Breadcrumb,
+        Index,
+        Delete;
+
+    const URL = '/administrator/group/';
+    const DESCRIPTION = 'Grupos';
+
+    function __construct() {
+        parent::__construct();
+        $this->repository = AuthorizationServices::groupRepository();
     }
 
     public function create() {
         $data = [
             'validation' => $this->validator,
-            'routes' => SystemServices::repository()->getAllRouterPermission(),
+            'routes' => SystemServices::routeRepository()->getAllRouterPermission(),
             'title' => 'Novo grupo',
             'breadcrumb' => $this->breadcrumb()
         ];
@@ -41,7 +45,7 @@ class Group extends ControllerBase {
     }
 
     public function update(?int $id = null) {
-        $group = AuthorizationServices::repository()->groupModel->find($id);
+        $group = $this->repository->getModel()->find($id);
         if (empty($group) || $id == 1) {
             Services::alertMessages()->setMsgWarning($id == 1 ? 'O grupo Administrador não pode ser alterado' : 'Grupo não encontrado.');
             return $this->response->redirect('/administrator/group');
@@ -50,32 +54,11 @@ class Group extends ControllerBase {
         $data = [
             'validation' => $this->validator,
             'group' => $group,
-            'routes' => SystemServices::repository()->getAllRouterPermission($id),
+            'routes' => SystemServices::routeRepository()->getAllRouterPermission($id),
             'title' => 'Alterar grupo',
             'breadcrumb' => $this->breadcrumb()
         ];
         return Services::template()->templatePainel($data, 'save');
-    }
-
-    public function delete() {
-        $valid = $this->validate(['id' => ['label' => 'Usuário', 'rules' => 'required']]);
-
-        if (!$valid) {
-            Services::alertMessages()->setMsgDanger($this->validator->getError('id'));
-        }
-
-        $id = $this->request->getPost('id');
-
-        if ($id == 1) {
-            Services::alertMessages()->setMsgWarning('Você não pode remover o grupo Administrador');
-            return redirect()->back();
-        }
-
-        AuthorizationServices::repository()->groupModel->delete($id);
-
-        Services::alertMessages()->setMsgSuccess('Grupo removido com sucesso!');
-
-        return redirect()->back();
     }
 
     public function save() {
@@ -95,17 +78,12 @@ class Group extends ControllerBase {
         $db = db_connect();
         $db->transBegin();
         try {
-            if ($create) {
-                $post['id'] = AuthorizationServices::groupService()->create($post);
-                $messageSuccess = 'Grupo cadastrado com sucesso!';
-            } else {
-                AuthorizationServices::groupService()->update($post);
-                $messageSuccess = 'Grupo alterado com sucesso!';
-            }
+            $this->repository->getModel()->save($post);
+            empty($post['id']) && $post['id'] = $this->repository->getModel()->insertID();
 
             AuthorizationServices::permissionService()->saveByGroup($post['id'], $post['permissions'] ?? []);
 
-            Services::alertMessages()->setMsgSuccess($messageSuccess);
+            Services::alertMessages()->setMsgSuccess('Dados foram salvos com sucesso.');
 
             $db->transCommit();
             return $this->response->redirect('/administrator/group');

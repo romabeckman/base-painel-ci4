@@ -15,7 +15,7 @@ if (!function_exists('aesEncrypt')) {
 if (!function_exists('aesDecrypt')) {
 
     function aesDecrypt(string $field, string $as = '', string $key = '@key'): string {
-        return "AES_DECRYPT({$field}, {$key})" . (empty($as) ? '' : ' as ' . $as);
+        return "CONVERT(AES_DECRYPT({$field}, {$key}) USING utf8)" . (empty($as) ? '' : ' as ' . $as);
     }
 
 }

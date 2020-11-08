@@ -3,7 +3,7 @@
 namespace Authorization\Application\Services;
 
 use \Authorization\Config\Auth;
-use \Authorization\Config\Services;
+use \Authorization\Config\Services as AuthorizationService;
 
 /**
  * Description of UpdatePassword
@@ -14,7 +14,7 @@ class UpdatePasswordService {
 
     public function handler(string $newPassword): void {
         Auth::$user->setPassword($newPassword);
-        Services::repository()->userModel->update(Auth::$user->id, ['password' => Auth::$user->password]);
+        AuthorizationService::userRepository()->getModel()->update(Auth::$user->id, ['password' => Auth::$user->password]);
     }
 
 }

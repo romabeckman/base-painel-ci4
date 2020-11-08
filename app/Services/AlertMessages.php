@@ -4,6 +4,8 @@ namespace App\Services;
 
 use \CodeIgniter\Config\BaseService;
 use \Exception;
+use \System\Config\System;
+use const \ENVIRONMENT;
 use function \service;
 
 /**
@@ -55,7 +57,7 @@ class AlertMessages extends BaseService {
             $message .= '<hr /><b>' . $exc->getMessage() . '</b><br />' . nl2br($exc->getTraceAsString());
         }
 
-        \System\Config\Sys::$log['alert_message'] = [
+        System::$log['alert_message'] = [
             'text' => $message,
             'alert' => $alert
         ];

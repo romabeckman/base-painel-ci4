@@ -30,7 +30,6 @@ abstract class ControllerBase extends Controller {
      * @var array
      */
     protected $helpers = [];
-    protected RepositoryBase $repository;
 
     public function __construct() {
         $this->helpers[] = 'url';

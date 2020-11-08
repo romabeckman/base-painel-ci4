@@ -2,13 +2,13 @@
 
 namespace App\Controllers\Administrator;
 
-use \Authorization\Config\Auth;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
-use \Exception;
 use \Shared\Application\Abstracts\ControllerBase;
-use function \crudPermission;
-use function \redirect;
+use \Shared\Application\Traits\Breadcrumb;
+use \Shared\Application\Traits\Index;
+use \Shared\Persistence\Abstracts\RepositoryBase;
+use \TheSeer\Tokenizer\Exception;
 
 /**
  * Description of User
@@ -17,30 +17,31 @@ use function \redirect;
  */
 class User extends ControllerBase {
 
-    public function index() {
-        $paginate = AuthorizationServices::repository()->paginateUser($this->request->getGet('search'));
-        $data = [
-            'users' => $paginate['itens'],
-            'pager' => $paginate['pager'],
-            'permission' => crudPermission(static::class)
-        ];
+    protected RepositoryBase $repository;
 
-        $data['title'] = 'Usuários (' . $paginate['total'] . ')';
-        return Services::template()->templatePainel($data);
+    use Breadcrumb,
+        Index;
+
+    const URL = '/administrator/user/';
+    const DESCRIPTION = 'Usuários';
+
+    function __construct() {
+        parent::__construct();
+        $this->repository = AuthorizationServices::userRepository();
     }
 
     public function create() {
         $data = [
             'validation' => $this->validator,
             'title' => 'Novo usuário',
-            'groups' => AuthorizationServices::repository()->groupModel->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::groupRepository()->getModel()->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
         return Services::template()->templatePainel($data, 'save');
     }
 
     public function update(int $id) {
-        $user = AuthorizationServices::repository()->userModel->selectDecrypted()->find($id);
+        $user = AuthorizationServices::userRepository()->getModel()->selectDecrypted()->find($id);
         if (empty($user) || $id == 1) {
             Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser alterado' : 'Usuário não encontrado.');
             return $this->response->redirect('/administrator/group');
@@ -50,7 +51,7 @@ class User extends ControllerBase {
             'validation' => $this->validator,
             'user' => $user,
             'title' => 'Alterar usuário',
-            'groups' => AuthorizationServices::repository()->groupModel->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::groupRepository()->getModel()->dropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
         return Services::template()->templatePainel($data, 'save');
@@ -85,30 +86,22 @@ class User extends ControllerBase {
     }
 
     public function delete() {
-        $valid = $this->validate(['id' => ['label' => 'Usuário', 'rules' => 'required']]);
+        $valid = $this->validate(['id' => ['label' => static::DESCRIPTION, 'rules' => 'required']]);
 
         if (!$valid) {
             Services::alertMessages()->setMsgDanger($this->validator->getError('id'));
+            return redirect()->back();
         }
 
         $id = $this->request->getPost('id');
 
-        if ($id === Auth::$user->id || $id == 1) {
-            Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser removido' : 'Você não pode remover seu próprio perfil');
-            return redirect()->back();
-        }
+        $this->repository->getModel()->delete($id);
 
-        AuthorizationServices::repository()->userModel->delete($id);
+        $this->repository->getModel()->update($id, ['email' => null, 'name' => null, 'password' => null]);
 
-        Services::alertMessages()->setMsgSuccess('Usuário removido com sucesso!');
+        Services::alertMessages()->setMsgSuccess(static::DESCRIPTION . ' removida(o) com sucesso!');
 
         return redirect()->back();
-    }
-
-    private function breadcrumb(): array {
-        return [
-            'administrator/user' => 'Usuários'
-        ];
     }
 
     private function rules(): array {

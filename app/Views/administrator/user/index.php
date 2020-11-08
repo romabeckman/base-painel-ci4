@@ -24,11 +24,11 @@
             </tr>
         </thead>
         <?php
-        if (!empty($users)) {
+        if (!empty($entities)) {
             ?>
             <tbody>
                 <?php
-                foreach ($users as $user) {
+                foreach ($entities as $user) {
                     ?>
                     <tr>
                         <td>

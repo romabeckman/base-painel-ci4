@@ -2,11 +2,11 @@
 
 namespace Authorization\Config;
 
-use \Authorization\Application\Services\GroupService;
 use \Authorization\Application\Services\HmacService;
 use \Authorization\Application\Services\LoginService;
 use \Authorization\Application\Services\PermissionService;
 use \Authorization\Application\Services\UpdatePasswordService;
+use \Authorization\Application\Services\UserService;
 use \Authorization\Infraestructure\Persistence\Repository\GroupRepository;
 use \Authorization\Infraestructure\Persistence\Repository\PermissionRepository;
 use \Authorization\Infraestructure\Persistence\Repository\RecoveryRepository;
@@ -53,12 +53,8 @@ class Services extends BaseService {
         return $getShared ? static::getSharedInstance(__FUNCTION__) : new UpdatePasswordService;
     }
 
-    static function userService(bool $getShared = true): UpdatePasswordService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new UpdatePasswordService;
-    }
-
-    static function groupService(bool $getShared = true): GroupService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new GroupService;
+    static function userService(bool $getShared = true): UserService {
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new UserService;
     }
 
     static function permissionService(bool $getShared = true): PermissionService {

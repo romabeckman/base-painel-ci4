@@ -22,11 +22,11 @@
             </tr>
         </thead>
         <?php
-        if (!empty($groups)) {
+        if (!empty($entities)) {
             ?>
             <tbody>
                 <?php
-                foreach ($groups as $group) {
+                foreach ($entities as $group) {
                     ?>
                     <tr>
                         <td>

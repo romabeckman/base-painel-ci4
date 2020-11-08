@@ -14,7 +14,7 @@ namespace Shared\Persistence\Tratis;
  */
 trait Pagination {
 
-    public function getPaginated(string $search = '', string $orderBy = 'name', array ...$params) {
+    public function getPaginated(?string $search = null, string $orderBy = 'name', array ...$params) {
         $search = trim($search);
         $params['search'] = $search;
 
