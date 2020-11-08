@@ -2,15 +2,15 @@
 
 namespace App\Controllers\Authentication;
 
-use \App\Controllers\BaseController;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Authorization\Exceptions\InvalidUserEmailException;
 use \Authorization\Exceptions\InvalidUserPasswordException;
 use \Config\Services;
+use \Shared\Application\Abstracts\ControllerBase;
 use function \env;
 use function \lang;
 
-class Login extends BaseController {
+class Login extends ControllerBase {
 
     function index() {
         AuthorizationServices::authSession()->destroy();

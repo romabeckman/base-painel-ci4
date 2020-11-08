@@ -2,10 +2,10 @@
 
 namespace App\Controllers\Authentication;
 
-use \App\Controllers\BaseController;
 use \Authorization\Config\Services as AuthorizationServices;
+use \Shared\Application\Abstracts\ControllerBase;
 
-class Logout extends BaseController {
+class Logout extends ControllerBase {
 
     function index() {
         AuthorizationServices::authSession()->destroy();

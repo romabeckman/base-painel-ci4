@@ -26,11 +26,11 @@ if (isset($reCaptchaV2Api)) {
 }
 ?>
 
-<div class="checkbox my-3">
+<!--<div class="checkbox my-3">
     <label>
         <input type="checkbox" name="remember_me" value="1"> <?php echo lang('Auth.authentication_login_index_remember_me'); ?>
     </label>
-</div>
+</div>-->
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo lang('Auth.authentication_login_index_loggin'); ?></button>
 <!--<a href="authentication/login/forgot-password">Esqueci minha senha</a>-->

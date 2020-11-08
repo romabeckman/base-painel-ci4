@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Authentication;
 
-use \App\Controllers\BaseController;
+use \Shared\Application\Abstracts\ControllerBase;
 
-class Login extends BaseController {
+class Login extends ControllerBase {
 
     function index() {
 

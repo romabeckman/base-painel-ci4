@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Administrator;
 
-use \App\Controllers\BaseController;
 use \Authorization\Config\Auth;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
 use \Exception;
+use \Shared\Application\Abstracts\ControllerBase;
 use function \crudPermission;
 use function \redirect;
 
@@ -15,7 +15,7 @@ use function \redirect;
  *
  * @author Romário Beckman
  */
-class User extends BaseController {
+class User extends ControllerBase {
 
     public function index() {
         $paginate = AuthorizationServices::repository()->paginateUser($this->request->getGet('search'));

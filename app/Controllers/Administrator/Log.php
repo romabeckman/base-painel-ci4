@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Administrator;
 
-use \App\Controllers\BaseController;
 use \Config\Services;
+use \Shared\Application\Abstracts\ControllerBase;
 use \System\Config\Services as SystemServices;
 use function \helper;
 
@@ -12,7 +12,7 @@ use function \helper;
  *
  * @author Romário Beckman
  */
-class Log extends BaseController {
+class Log extends ControllerBase {
 
     public function index() {
         helper('print');

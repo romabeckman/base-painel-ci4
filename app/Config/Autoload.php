@@ -53,8 +53,9 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig {
             'App' => APPPATH, // To ensure filters, etc still found,
             APP_NAMESPACE => APPPATH, // For custom namespace
             'Config' => APPPATH . 'Config',
-            'Authorization' => ROOTPATH . 'domain/Authorization',
-            'System' => ROOTPATH . 'domain/System',
+            'Authorization' => ROOTPATH . 'modules/Authorization',
+            'System' => ROOTPATH . 'modules/System',
+            'Shared' => ROOTPATH . 'modules/Shared',
         ];
 
         /**
