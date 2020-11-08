@@ -3,7 +3,7 @@
 namespace Authorization\Infraestructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Entity\User;
+use \Authorization\Infraestructure\Persistence\Entity\User;
 
 /**
  * Description of User
@@ -22,6 +22,6 @@ class UserModel extends BaseModel {
     ];
     protected $returnType = User::class;
     protected $useTimestamps = true;
-    protected $useSoftDeletes  = true;
+    protected $useSoftDeletes = true;
 
 }

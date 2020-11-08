@@ -13,9 +13,9 @@ class Filters extends BaseConfig {
         'toolbar' => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'db_key' => \App\Filters\DBKey::class,
-        'logged_in' => \Authorization\Filters\LoggedInFilter::class,
-        'permission' => \System\Filters\PermissionFilter::class,
-        'log_register' => \System\Filters\LogRegisterFilter::class,
+        'logged_in' => \Authorization\Application\Filters\LoggedInFilter::class,
+        'permission' => \System\Application\Filters\PermissionFilter::class,
+        'log_register' => \System\Application\Filters\LogRegisterFilter::class,
     ];
     // Always applied before every request
     public $globals = [

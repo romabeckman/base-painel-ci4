@@ -2,11 +2,11 @@
 
 namespace System\Infraestructure\Persistence\Repository;
 
-use \Config\Services;
-use \Shared\Persistence\Abstracts\RepositoryBase;
-use \System\Entity\Log;
-use \System\Models\LogModel;
 use \Authorization\Config\Services as AuthorizationService;
+use \Shared\Persistence\Abstracts\RepositoryBase;
+use \System\Config\Services;
+use \System\Infraestructure\Persistence\Entity\Log;
+use \System\Infraestructure\Persistence\Models\LogModel;
 
 /**
  * Description of GroupRepository

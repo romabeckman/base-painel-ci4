@@ -3,7 +3,7 @@
 namespace Authorization\Infraestructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Entity\Recovery;
+
 
 /**
  * Description of User

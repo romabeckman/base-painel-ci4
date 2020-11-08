@@ -3,7 +3,7 @@
 namespace System\Infraestructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \System\Entity\Route;
+use \System\Infraestructure\Persistence\Entity\Route;
 
 /**
  * Description of User

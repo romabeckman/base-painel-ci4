@@ -2,10 +2,12 @@
 
 namespace Authorization\Infraestructure\Session;
 
-use \Authorization\Entity\User;
+use \Authorization\Config\Services as AuthorizationService;
+use \Authorization\Infraestructure\Persistence\Entity\User;
 use \CodeIgniter\Session\Session;
 use \Config\App;
 use \Config\Services;
+use \System\Config\System;
 
 /**
  * Description of Session
@@ -25,8 +27,8 @@ class UserSession {
 
     function create(User $user, bool $rememberMe = false): void {
         $rememberMe && $this->app->sessionExpiration = 86400;
-        \Authorization\Config\Services::repository()->saveLastLogin($user->id);
-        \System\Config\Sys::$log['auth'] = 'Successfully login';
+        AuthorizationService::userRepository()->saveLastLogin($user->id);
+        System::$log['auth'] = 'Successfully login';
 
         Services::session($this->app)->set([
             'user' => $user->id

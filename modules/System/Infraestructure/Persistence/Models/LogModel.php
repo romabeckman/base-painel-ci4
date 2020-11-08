@@ -3,7 +3,7 @@
 namespace System\Infraestructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \System\Entity\Log;
+use \System\Infraestructure\Persistence\Entity\Log;
 
 /**
  * Description of User
@@ -22,8 +22,8 @@ class LogModel extends BaseModel {
     ];
     protected $returnType = Log::class;
     protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = '';
-    protected $deletedField  = '';
+    protected $createdField = 'created_at';
+    protected $updatedField = '';
+    protected $deletedField = '';
 
 }

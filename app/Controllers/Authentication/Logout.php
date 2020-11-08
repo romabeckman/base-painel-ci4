@@ -8,7 +8,7 @@ use \Shared\Application\Abstracts\ControllerBase;
 class Logout extends ControllerBase {
 
     function index() {
-        AuthorizationServices::authSession()->destroy();
+        AuthorizationServices::userSession()->destroy();
         return $this->response->redirect('/authentication/login');
     }
 

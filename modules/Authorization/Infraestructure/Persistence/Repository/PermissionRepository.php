@@ -2,8 +2,8 @@
 
 namespace Authorization\Infraestructure\Persistence\Repository;
 
+use \Authorization\Infraestructure\Persistence\Models\PermissionModel;
 use \Shared\Persistence\Abstracts\RepositoryBase;
-use \Authorization\Models\PermissionModel;
 
 /**
  * Description of GroupRepository

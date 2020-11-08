@@ -7,7 +7,7 @@ use \Authorization\Infraestructure\Persistence\Entity\User;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
-use \Config\Services;
+use \System\Config\Services;
 use \System\Config\Services as SystemService;
 use \System\Infraestructure\Persistence\Models\RouteModel;
 use function \hasPermission;

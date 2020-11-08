@@ -2,9 +2,11 @@
 
 namespace Authorization\Infraestructure\Persistence\Repository;
 
-use \Shared\Persistence\Abstracts\RepositoryBase;
-use \Authorization\Models\UserModel;
 use \Authorization\Config\Services as AuthorizationService;
+use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infraestructure\Persistence\Models\UserModel;
+use \Shared\Persistence\Abstracts\RepositoryBase;
+use function \aesDecrypt;
 
 /**
  * Description of GroupRepository

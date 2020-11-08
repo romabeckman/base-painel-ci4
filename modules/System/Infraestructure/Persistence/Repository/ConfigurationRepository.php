@@ -3,7 +3,7 @@
 namespace System\Infraestructure\Persistence\Repository;
 
 use \Shared\Persistence\Abstracts\RepositoryBase;
-use \System\Models\ConfigurationModel;
+use \System\Infraestructure\Persistence\Models\ConfigurationModel;
 
 /**
  * Description of GroupRepository

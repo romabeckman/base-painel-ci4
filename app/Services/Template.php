@@ -6,6 +6,7 @@ use \BadMethodCallException;
 use \CodeIgniter\Config\BaseService;
 use \Config\Paths;
 use \Config\Services;
+use \System\Config\System;
 use function \env;
 use function \service;
 use function \view;
@@ -48,7 +49,7 @@ class Template extends BaseService {
         $path = new Paths();
 
         if (file_exists($path->viewDirectory . DIRECTORY_SEPARATOR . $view)) {
-            \System\Config\Sys::$log['template'] = $view;
+            System::$log['template'] = $view;
             return view($view, $data);
         }
 

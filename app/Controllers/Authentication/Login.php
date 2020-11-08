@@ -13,7 +13,7 @@ use function \lang;
 class Login extends ControllerBase {
 
     function index() {
-        AuthorizationServices::authSession()->destroy();
+        AuthorizationServices::userSession()->destroy();
         return Services::template()->templateLogin();
     }
 
@@ -42,7 +42,7 @@ class Login extends ControllerBase {
             $post = $this->request->getPost();
             $user = AuthorizationServices::loginService()->handler($post['email'], $post['password']);
 
-            AuthorizationServices::authSession()->create($user, isset($post['remember_me']));
+            AuthorizationServices::userSession()->create($user, isset($post['remember_me']));
 
             return $this->response->redirect('/');
         } catch (InvalidUserEmailException $exc) {

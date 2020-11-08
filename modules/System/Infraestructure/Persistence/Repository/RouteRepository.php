@@ -2,10 +2,10 @@
 
 namespace System\Infraestructure\Persistence\Repository;
 
-use \Shared\Persistence\Abstracts\RepositoryBase;
-use \System\Entity\Route;
-use \System\Models\RouteModel;
 use \Authorization\Config\Services as AuthorizationService;
+use \Shared\Persistence\Abstracts\RepositoryBase;
+use \System\Infraestructure\Persistence\Entity\Route;
+use \System\Infraestructure\Persistence\Models\RouteModel;
 
 /**
  * Description of GroupRepository

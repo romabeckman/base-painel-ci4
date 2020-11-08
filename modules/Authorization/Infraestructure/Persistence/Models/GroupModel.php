@@ -3,7 +3,6 @@
 namespace Authorization\Infraestructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Entity\Group;
 
 /**
  * Description of User
@@ -18,11 +17,10 @@ class GroupModel extends BaseModel {
         'name'
     ];
     protected $useTimestamps = true;
-    protected $useSoftDeletes  = true;
+    protected $useSoftDeletes = true;
     protected $validationRules = [
         'name' => 'required'
     ];
-
     protected $returnType = 'object';
 
 }

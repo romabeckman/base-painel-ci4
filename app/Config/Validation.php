@@ -18,9 +18,9 @@ class Validation {
         \CodeIgniter\Validation\FormatRules::class,
         \CodeIgniter\Validation\FileRules::class,
         \CodeIgniter\Validation\CreditCardRules::class,
-        \Authorization\Validation\AuthValidation::class,
         \App\Validation\GoogleRecaptchaValidation::class,
         \App\Validation\PainelValidation::class,
+        \Authorization\Application\Validation\AuthValidation::class
     ];
 
     /**

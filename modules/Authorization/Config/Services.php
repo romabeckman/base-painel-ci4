@@ -38,7 +38,7 @@ class Services extends BaseService {
     }
 
     static public function hmacService(bool $getShared = true): HmacService {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new SalesCommissionsRepository;
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new HmacService;
     }
 
     static public function loginService(bool $getShared = true): LoginService {
