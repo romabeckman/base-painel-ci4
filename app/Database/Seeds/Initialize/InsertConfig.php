@@ -3,7 +3,7 @@
 namespace App\Database\Seeds\Initialize;
 
 use \CodeIgniter\Database\Seeder;
-use \System\Models\ConfigurationModel;
+use \System\Infraestructure\Persistence\Models\ConfigurationModel;
 
 class InsertConfig extends Seeder {
 
