@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Authentication;
 
+use \Authorization\Application\Exceptions\InvalidUserEmailException;
+use \Authorization\Application\Exceptions\InvalidUserPasswordException;
 use \Authorization\Config\Services as AuthorizationServices;
-use \Authorization\Exceptions\InvalidUserEmailException;
-use \Authorization\Exceptions\InvalidUserPasswordException;
 use \Config\Services;
 use \Shared\Application\Abstracts\ControllerBase;
 use function \env;

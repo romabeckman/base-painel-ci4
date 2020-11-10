@@ -33,7 +33,7 @@ class Password extends ControllerBase {
             return Services::template()->templateLogin(['validation' => $validation], 'index');
         }
 
-        AuthorizationServices::updatePassword()->handler($post['password']);
+        AuthorizationServices::updatePasswordService()->handler($post['password']);
         Services::alertMessages()->setMsgSuccess('Senha foi alterada com sucesso!');
 
         return $this->response->redirect('/profile/password');

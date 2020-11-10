@@ -16,7 +16,7 @@ class Log extends ControllerBase {
 
     public function index() {
         helper('print');
-        $paginate = SystemServices::repository()->paginateLog($this->request->getGet('search'));
+        $paginate = SystemServices::logRepository()->getPaginated($this->request->getGet('search'), 'id desc');
 
         $data = [
             'logs' => $paginate['itens'],

@@ -18,7 +18,7 @@ class Configuration extends ControllerBase {
         $recaptchav3 = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');
 
         $data = [
-            'configuration' => SystemServices::repository()->getAllConfiguration(),
+            'configuration' => SystemServices::configurationRepository()->getAllConfiguration(),
             'recaptchav3' => !empty($recaptchav3),
             'recatchaScore' => array_combine(range(0, 1, 0.1), range(0, 1, 0.1))
         ];
@@ -33,7 +33,7 @@ class Configuration extends ControllerBase {
             return $this->response->redirect('/administrator/configuration');
         }
 
-        SystemServices::repository()->saveConfiguration($post);
+        SystemServices::configurationRepository()->saveConfiguration($post);
         Services::alertMessages()->setMsgSuccess('Configurações atualizadas com sucesso!');
         return $this->response->redirect('/administrator/configuration');
     }
