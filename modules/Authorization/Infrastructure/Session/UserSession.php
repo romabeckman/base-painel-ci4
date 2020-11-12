@@ -1,9 +1,9 @@
 <?php
 
-namespace Authorization\Infraestructure\Session;
+namespace Authorization\Infrastructure\Session;
 
 use \Authorization\Config\Services as AuthorizationService;
-use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Entity\User;
 use \CodeIgniter\Session\Session;
 use \Config\App;
 use \Config\Services;

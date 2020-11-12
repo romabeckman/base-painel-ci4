@@ -1,9 +1,9 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Models;
+namespace System\Infrastructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \System\Infraestructure\Persistence\Entity\Log;
+use \System\Infrastructure\Persistence\Entity\Log;
 
 /**
  * Description of User

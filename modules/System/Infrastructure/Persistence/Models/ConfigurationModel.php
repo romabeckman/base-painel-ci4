@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Models;
+namespace System\Infrastructure\Persistence\Models;
 
 use \App\Models\BaseModel;
 

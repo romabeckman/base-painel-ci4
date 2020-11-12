@@ -1,12 +1,12 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Repository;
+namespace System\Infrastructure\Persistence\Repository;
 
 use \Authorization\Config\Services as AuthorizationService;
 use \Shared\Persistence\Abstracts\RepositoryBase;
 use \System\Config\Services;
-use \System\Infraestructure\Persistence\Entity\Log;
-use \System\Infraestructure\Persistence\Models\LogModel;
+use \System\Infrastructure\Persistence\Entity\Log;
+use \System\Infrastructure\Persistence\Models\LogModel;
 
 /**
  * Description of GroupRepository

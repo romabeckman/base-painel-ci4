@@ -1,8 +1,8 @@
 <?php
 
-namespace Authorization\Infraestructure\Persistence\Repository;
+namespace Authorization\Infrastructure\Persistence\Repository;
 
-use \Authorization\Infraestructure\Persistence\Models\PermissionModel;
+use \Authorization\Infrastructure\Persistence\Models\PermissionModel;
 use \Shared\Persistence\Abstracts\RepositoryBase;
 
 /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Repository;
+namespace System\Infrastructure\Persistence\Repository;
 
 use \Authorization\Config\Services as AuthorizationService;
 use \Shared\Persistence\Abstracts\RepositoryBase;
-use \System\Infraestructure\Persistence\Entity\Route;
-use \System\Infraestructure\Persistence\Models\RouteModel;
+use \System\Infrastructure\Persistence\Entity\Route;
+use \System\Infrastructure\Persistence\Models\RouteModel;
 
 /**
  * Description of GroupRepository

@@ -3,13 +3,13 @@
 namespace System\Application\Filters;
 
 use \Authorization\Config\Auth;
-use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Entity\User;
 use \CodeIgniter\Filters\FilterInterface;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \System\Config\Services;
 use \System\Config\Services as SystemService;
-use \System\Infraestructure\Persistence\Models\RouteModel;
+use \System\Infrastructure\Persistence\Models\RouteModel;
 use function \hasPermission;
 use function \helper;
 use function \redirect;

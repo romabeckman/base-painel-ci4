@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Entity;
+namespace System\Infrastructure\Persistence\Entity;
 
 use \CodeIgniter\Entity;
 

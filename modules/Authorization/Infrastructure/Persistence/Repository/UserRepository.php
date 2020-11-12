@@ -1,10 +1,10 @@
 <?php
 
-namespace Authorization\Infraestructure\Persistence\Repository;
+namespace Authorization\Infrastructure\Persistence\Repository;
 
 use \Authorization\Config\Services as AuthorizationService;
-use \Authorization\Infraestructure\Persistence\Entity\User;
-use \Authorization\Infraestructure\Persistence\Models\UserModel;
+use \Authorization\Infrastructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Models\UserModel;
 use \Shared\Persistence\Abstracts\RepositoryBase;
 use function \aesDecrypt;
 

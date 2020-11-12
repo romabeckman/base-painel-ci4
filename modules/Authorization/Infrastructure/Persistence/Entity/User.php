@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Infraestructure\Persistence\Entity;
+namespace Authorization\Infrastructure\Persistence\Entity;
 
 use \Authorization\Config\Services;
 use \CodeIgniter\Entity;

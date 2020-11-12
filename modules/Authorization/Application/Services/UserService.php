@@ -3,7 +3,7 @@
 namespace Authorization\Application\Services;
 
 use \Authorization\Config\Services as AuthorizationService;
-use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Entity\User;
 
 /**
  * Description of UserService

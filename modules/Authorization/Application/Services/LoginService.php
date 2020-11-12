@@ -5,7 +5,7 @@ namespace Authorization\Application\Services;
 use \Authorization\Application\Exceptions\InvalidUserEmailException;
 use \Authorization\Application\Exceptions\InvalidUserPasswordException;
 use \Authorization\Config\Services as AuthorizationService;
-use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Entity\User;
 use \System\Config\System;
 use function \helper;
 use function \lang;

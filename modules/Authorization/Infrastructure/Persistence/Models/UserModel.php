@@ -1,9 +1,9 @@
 <?php
 
-namespace Authorization\Infraestructure\Persistence\Models;
+namespace Authorization\Infrastructure\Persistence\Models;
 
 use \App\Models\BaseModel;
-use \Authorization\Infraestructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Entity\User;
 
 /**
  * Description of User

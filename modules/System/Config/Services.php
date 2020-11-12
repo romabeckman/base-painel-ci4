@@ -3,9 +3,9 @@
 namespace System\Config;
 
 use \CodeIgniter\Config\BaseService;
-use \System\Infraestructure\Persistence\Repository\ConfigurationRepository;
-use \System\Infraestructure\Persistence\Repository\LogRepository;
-use \System\Infraestructure\Persistence\Repository\RouteRepository;
+use \System\Infrastructure\Persistence\Repository\ConfigurationRepository;
+use \System\Infrastructure\Persistence\Repository\LogRepository;
+use \System\Infrastructure\Persistence\Repository\RouteRepository;
 
 /**
  * Description of Services

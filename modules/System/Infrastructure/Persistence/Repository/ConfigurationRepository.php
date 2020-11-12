@@ -1,9 +1,9 @@
 <?php
 
-namespace System\Infraestructure\Persistence\Repository;
+namespace System\Infrastructure\Persistence\Repository;
 
 use \Shared\Persistence\Abstracts\RepositoryBase;
-use \System\Infraestructure\Persistence\Models\ConfigurationModel;
+use \System\Infrastructure\Persistence\Models\ConfigurationModel;
 
 /**
  * Description of GroupRepository

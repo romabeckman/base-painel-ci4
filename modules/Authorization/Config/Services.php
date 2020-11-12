@@ -7,11 +7,11 @@ use \Authorization\Application\Services\LoginService;
 use \Authorization\Application\Services\PermissionService;
 use \Authorization\Application\Services\UpdatePasswordService;
 use \Authorization\Application\Services\UserService;
-use \Authorization\Infraestructure\Persistence\Repository\GroupRepository;
-use \Authorization\Infraestructure\Persistence\Repository\PermissionRepository;
-use \Authorization\Infraestructure\Persistence\Repository\RecoveryRepository;
-use \Authorization\Infraestructure\Persistence\Repository\UserRepository;
-use \Authorization\Infraestructure\Session\UserSession;
+use \Authorization\Infrastructure\Persistence\Repository\GroupRepository;
+use \Authorization\Infrastructure\Persistence\Repository\PermissionRepository;
+use \Authorization\Infrastructure\Persistence\Repository\RecoveryRepository;
+use \Authorization\Infrastructure\Persistence\Repository\UserRepository;
+use \Authorization\Infrastructure\Session\UserSession;
 use \CodeIgniter\Config\BaseService;
 
 /**

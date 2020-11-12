@@ -1,6 +1,6 @@
 <?php
 
-namespace Authorization\Infraestructure\Persistence\Models;
+namespace Authorization\Infrastructure\Persistence\Models;
 
 use \App\Models\BaseModel;
 
