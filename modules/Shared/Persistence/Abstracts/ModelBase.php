@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Shared\Persistence\Abstracts;
 
 use \CodeIgniter\Database\ConnectionInterface;
 use \CodeIgniter\Database\Query;
@@ -9,11 +9,11 @@ use \CodeIgniter\Validation\ValidationInterface;
 use \stdClass;
 
 /**
- * Description of BaseModel
+ * Description of ModelBase
  *
  * @author Romário Beckman
  */
-class BaseModel extends Model {
+abstract class ModelBase extends Model {
 
     protected $encryptFields = [];
 
@@ -146,12 +146,12 @@ class BaseModel extends Model {
     /**
      *
      * @param string $field current model
-     * @param \App\Models\BaseModel $model
+     * @param \App\Models\ModelBase $model
      * @param string $fkField target, example: name
      * @param string $as
      * @return \self
      */
-    public function subSelect(string $field, BaseModel $model, string $fkField, string $as = ''): self {
+    public function subSelect(string $field, ModelBase $model, string $fkField, string $as = ''): self {
         $fkField = $this->escapeString($fkField);
         $field = $this->escapeString($field);
 
@@ -168,24 +168,6 @@ class BaseModel extends Model {
         $this->select('(' . $sql . ') as `' . (empty($as) ? $model->table . '_' . $fkField : $as) . '`', false);
 
         return $this;
-    }
-
-    /**
-     *
-     * @param string $fied
-     * @param string $key
-     * @param array $where
-     * @param string $orderBy
-     * @return type
-     */
-    public function dropdown(string $fied, string $key, array $where = [], string $orderBy = '') {
-        $result = $this
-                ->selectDecrypted([$fied, $key])
-                ->where($where)
-                ->orderBy($orderBy)
-                ->findAll();
-
-        return array_column($result, $fied, $key);
     }
 
 }

@@ -2,14 +2,15 @@
 
 namespace Authorization\Infrastructure\Persistence\Models;
 
-use \App\Models\BaseModel;
+use \Shared\Persistence\Abstracts\ModelBase;
+
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class GroupModel extends BaseModel {
+class GroupModel extends ModelBase {
 
     protected $table = 'auth_group';
     protected $primaryKey = 'id';

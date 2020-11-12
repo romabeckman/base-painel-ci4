@@ -2,15 +2,15 @@
 
 namespace Authorization\Infrastructure\Persistence\Models;
 
-use \App\Models\BaseModel;
 use \Authorization\Infrastructure\Persistence\Entity\User;
+use \Shared\Persistence\Abstracts\ModelBase;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class UserModel extends BaseModel {
+class UserModel extends ModelBase {
 
     protected $table = 'auth_user';
     protected $primaryKey = 'id';

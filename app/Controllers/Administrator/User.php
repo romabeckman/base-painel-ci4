@@ -34,7 +34,7 @@ class User extends ControllerBase {
         $data = [
             'validation' => $this->validator,
             'title' => 'Novo usuário',
-            'groups' => AuthorizationServices::groupRepository()->getModel()->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::groupRepository()->getToDropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
         return Services::template()->templatePainel($data, 'save');
@@ -51,7 +51,7 @@ class User extends ControllerBase {
             'validation' => $this->validator,
             'user' => $user,
             'title' => 'Alterar usuário',
-            'groups' => AuthorizationServices::groupRepository()->getModel()->dropdown('name', 'id'),
+            'groups' => AuthorizationServices::groupRepository()->getToDropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
         return Services::template()->templatePainel($data, 'save');

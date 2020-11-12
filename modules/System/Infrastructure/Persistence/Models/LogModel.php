@@ -2,7 +2,7 @@
 
 namespace System\Infrastructure\Persistence\Models;
 
-use \App\Models\BaseModel;
+use \Shared\Persistence\Abstracts\ModelBase;
 use \System\Infrastructure\Persistence\Entity\Log;
 
 /**
@@ -10,7 +10,7 @@ use \System\Infrastructure\Persistence\Entity\Log;
  *
  * @author Romário Beckman
  */
-class LogModel extends BaseModel {
+class LogModel extends ModelBase {
 
     protected $table = 'sys_log';
     protected $primaryKey = 'id';

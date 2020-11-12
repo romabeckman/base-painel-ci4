@@ -2,7 +2,6 @@
 
 namespace Shared\Persistence\Abstracts;
 
-use \App\Models\BaseModel;
 use \InvalidArgumentException;
 use \Shared\Persistence\Tratis\Pagination;
 
@@ -16,22 +15,36 @@ abstract class RepositoryBase {
     use Pagination;
 
     protected string $modelClass;
-    private BaseModel $model;
+    private ModelBase $model;
 
     function __construct() {
         $this->makeModel();
     }
 
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
     private function makeModel(): void {
         if (is_null($this->modelClass)) throw new InvalidArgumentException('$modelClass must be not empty or null.');
 
         $this->model = new $this->modelClass();
     }
 
-    public function getModel(): BaseModel {
+    /**
+     * @return \Shared\Persistence\Abstracts\ModelBase
+     */
+    public function getModel(): ModelBase {
         return $this->model;
     }
 
+    /**
+     * @param string $value
+     * @param string $key
+     * @param array $filter
+     * @param string|null $orderBy
+     * @return array
+     */
     public function getToDropdown(string $value, string $key, ?array $filter = null, ?string $orderBy = null): array {
         $filter && $this->filter($filter);
         $this->model->orderBy($orderBy ?: $value . ' asc');

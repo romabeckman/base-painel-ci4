@@ -2,14 +2,14 @@
 
 namespace System\Infrastructure\Persistence\Models;
 
-use \App\Models\BaseModel;
+use \Shared\Persistence\Abstracts\ModelBase;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class ConfigurationModel extends BaseModel {
+class ConfigurationModel extends ModelBase {
 
     protected $table = 'sys_configuration';
     protected $primaryKey = 'key';

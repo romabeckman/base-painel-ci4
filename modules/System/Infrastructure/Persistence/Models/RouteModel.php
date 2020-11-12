@@ -2,7 +2,7 @@
 
 namespace System\Infrastructure\Persistence\Models;
 
-use \App\Models\BaseModel;
+use \Shared\Persistence\Abstracts\ModelBase;
 use \System\Infrastructure\Persistence\Entity\Route;
 
 /**
@@ -10,7 +10,7 @@ use \System\Infrastructure\Persistence\Entity\Route;
  *
  * @author Romário Beckman
  */
-class RouteModel extends BaseModel {
+class RouteModel extends ModelBase {
 
     /**
      * Anyone can access
