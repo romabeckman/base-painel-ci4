@@ -32,4 +32,15 @@ abstract class RepositoryBase {
         return $this->model;
     }
 
+    public function getToDropdown(string $value, string $key, ?array $filter = null, ?string $orderBy = null): array {
+        $filter && $this->filter($filter);
+        $this->model->orderBy($orderBy ?: $value . ' asc');
+
+        $result = $this->model
+                ->selectDecrypted([$value, $key])
+                ->findAll();
+
+        return array_column($result, $value, $key);
+    }
+
 }
