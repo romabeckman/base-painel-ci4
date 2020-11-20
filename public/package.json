@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
-    "@popperjs/core": "^2.4.4",
-    "bootstrap": "^4.5.0",
-    "jquery": "^3.5.1"
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@popperjs/core": "^2.5.4",
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "jquery-mask-plugin": "^1.14.16",
+    "select2": "^4.0.13"
   }
 }

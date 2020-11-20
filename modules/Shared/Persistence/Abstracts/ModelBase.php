@@ -145,27 +145,27 @@ abstract class ModelBase extends Model {
 
     /**
      *
-     * @param string $field current model
-     * @param \App\Models\ModelBase $model
-     * @param string $fkField target, example: name
-     * @param string $as
+     * @param string $fkFieldId current model
+     * @param \App\Models\BaseModel $model
+     * @param string $seletcField target, example: name
+     * @param string $showAs
      * @return \self
      */
-    public function subSelect(string $field, ModelBase $model, string $fkField, string $as = ''): self {
-        $fkField = $this->escapeString($fkField);
-        $field = $this->escapeString($field);
+    public function subSelect(string $fkFieldId, ModelBase $model, string $seletcField, string $showAs = ''): self {
+        $seletcField = $this->escapeString($seletcField);
+        $fkFieldId = $this->escapeString($fkFieldId);
 
-        $select = in_array($fkField, $model->encryptFields) ?
-                aesDecrypt($fkField, $fkField) :
-                $fkField;
+        $select = in_array($seletcField, $model->encryptFields) ?
+                aesDecrypt($seletcField, $seletcField) :
+                $seletcField;
 
         $sql = $model
                 ->select($select, false)
-                ->where($this->table . '.' . $field, $model->table . '.' . $model->primaryKey, false)
+                ->where($this->table . '.' . $fkFieldId, $model->table . '.' . $model->primaryKey, false)
                 ->limit(1)
                 ->getCompiledSelect();
 
-        $this->select('(' . $sql . ') as `' . (empty($as) ? $model->table . '_' . $fkField : $as) . '`', false);
+        $this->select('(' . $sql . ') as `' . (empty($showAs) ? $model->table . '_' . $seletcField : $showAs) . '`', false);
 
         return $this;
     }
