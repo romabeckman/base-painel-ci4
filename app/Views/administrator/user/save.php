@@ -23,6 +23,9 @@ if (isset($user)) {
 <div class="form-group" id="password-box" style="<?php echo (isset($user) ? 'display: none;' : ''); ?>">
     <label for="password">Senha</label>
     <?php echo form_password('password', '', 'class="form-control" id="password" minlength="8"' . (isset($user) ? '' : 'required')); ?>
+
+    <br>
+    <?php echo $this->include('template/include/pager/password_requirement') ?>
 </div>
 
 <?php echo $this->include('template/include/btn/form_submit') ?>
