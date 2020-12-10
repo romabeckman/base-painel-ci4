@@ -31,7 +31,7 @@ class Login extends ControllerBase {
             'password' => ['label' => 'Senha', 'rules' => 'required'],
         ];
 
-        $reCaptchaV3Api && $rules['grecaptcha'] = ['required|grecaptchav3'];
+        $reCaptchaV3Api && $rules['grecaptcha'] = ['rules' => 'required|grecaptchav3'];
         $reCaptchaV2Api && $rules['g-recaptcha-response'] = ['label' => '"Eu não sou robô"' , 'rules' => 'required|grecaptchav2'];
 
         if (!$this->validate($rules)) {
