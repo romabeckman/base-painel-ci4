@@ -105,7 +105,7 @@ abstract class ModelBase extends Model {
 
         $pQuery->close();
 
-        return $this->db->insertID() === false ? $this->db->affectedRows() : $this->db->insertID();
+        return $this->db->insertID() ? $this->db->insertID() : true;
     }
 
     /**
