@@ -1,16 +1,25 @@
 {
-    "name": "codeigniter4/appstarter",
+    "name": "romabeckman/base-painel-ci4",
     "type": "project",
-    "description": "CodeIgniter4 starter app",
+    "description": "Base ci4 painel",
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
-        "codeigniter4/framework": "^4"
+        "php": "^7.4 || ^8.0",
+        "codeigniter4/framework": "^4.0"
     },
     "require-dev": {
-        "mikey179/vfsstream": "1.6.*",
-        "phpunit/phpunit": "8.5.*"
+        "fakerphp/faker": "^1.9",
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^9.1"
+    },
+    "suggest": {
+        "ext-fileinfo": "Improves mime type detection for files"
+    },
+    "autoload": {
+        "exclude-from-classmap": [
+            "**/Database/Migrations/**"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -18,10 +27,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
-        "post-update-cmd": [
-            "@composer dump-autoload"
-        ]
+        "test": "phpunit"
     },
     "support": {
         "forum": "http://forum.codeigniter.com/",

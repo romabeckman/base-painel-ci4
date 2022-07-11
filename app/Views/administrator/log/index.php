@@ -22,8 +22,8 @@
                     ?>
                     <tr>
                         <td>
-                            <?php echo $log->created_at->toLocalizedString('dd/MM/YYYY'); ?><br />
-                            <?php echo $log->created_at->toLocalizedString('HH:mm:ss'); ?>
+                            <?php echo $log->created_at->toLocalizedString(DISPLAY_DATE); ?><br />
+                            <?php echo $log->created_at->toLocalizedString(DISPLAY_TIME); ?>
                         </td>
                         <td><?php echo $log->user; ?></td>
                         <td>

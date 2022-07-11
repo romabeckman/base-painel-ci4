@@ -3,7 +3,7 @@
 namespace System\Infrastructure\Persistence\Repository;
 
 use \Authorization\Config\Services as AuthorizationService;
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 use \System\Config\Services;
 use \System\Infrastructure\Persistence\Entity\Log;
 use \System\Infrastructure\Persistence\Models\LogModel;
@@ -13,7 +13,7 @@ use \System\Infrastructure\Persistence\Models\LogModel;
  *
  * @author Romário Beckman <romabeckman@yahoo.com.br>
  */
-class LogRepository extends RepositoryBase {
+class LogRepository extends BaseRepository {
 
     protected string $modelClass = LogModel::class;
 
@@ -54,8 +54,8 @@ class LogRepository extends RepositoryBase {
                 $this->getModel()->like('description', $filter['search']);
     }
 
-    protected function subSelect(): void {
-        $this->getModel()->subSelect('id_auth_user', AuthorizationService::userRepository()->getModel(), 'name', 'user');
+    protected function subQueries(): void {
+        $this->subSelect('id_auth_user', AuthorizationService::userRepository()->getModel(), 'name', 'user');
     }
 
 }

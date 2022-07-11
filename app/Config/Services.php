@@ -2,9 +2,7 @@
 
 namespace Config;
 
-use CodeIgniter\Config\Services as CoreServices;
-
-require_once SYSTEMPATH . 'Config/Services.php';
+use CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -19,17 +17,17 @@ require_once SYSTEMPATH . 'Config/Services.php';
  * method format you should use for your service methods. For more examples,
  * see the core Services file at system/Config/Services.php.
  */
-class Services extends CoreServices {
-
-    //    public static function example($getShared = true)
-    //    {
-    //        if ($getShared)
-    //        {
-    //            return static::getSharedInstance('example');
-    //        }
-    //
-    //        return new \CodeIgniter\Example();
-    //    }
+class Services extends BaseService {
+    /*
+     * public static function example($getShared = true)
+     * {
+     *     if ($getShared) {
+     *         return static::getSharedInstance('example');
+     *     }
+     *
+     *     return new \CodeIgniter\Example();
+     * }
+     */
 
     static public function template(bool $getShared = true): \App\Services\Template {
         return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Services\Template();
@@ -37,10 +35,6 @@ class Services extends CoreServices {
 
     static public function alertMessages(bool $getShared = true): \App\Services\AlertMessages {
         return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Services\AlertMessages;
-    }
-
-    static public function package(bool $getShared = true): \App\Libraries\Package {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Libraries\Package;
     }
 
 }

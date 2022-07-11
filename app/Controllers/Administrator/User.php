@@ -4,10 +4,10 @@ namespace App\Controllers\Administrator;
 
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 use \Shared\Application\Traits\Breadcrumb;
 use \Shared\Application\Traits\Index;
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 use \TheSeer\Tokenizer\Exception;
 
 /**
@@ -15,9 +15,9 @@ use \TheSeer\Tokenizer\Exception;
  *
  * @author Romário Beckman
  */
-class User extends ControllerBase {
+class User extends BaseController {
 
-    protected RepositoryBase $repository;
+    protected BaseRepository $repository;
 
     use Breadcrumb,
         Index;
@@ -41,7 +41,7 @@ class User extends ControllerBase {
     }
 
     public function update(int $id) {
-        $user = AuthorizationServices::userRepository()->getModel()->selectDecrypted()->find($id);
+        $user = AuthorizationServices::userRepository()->getModel()->find($id);
         if (empty($user) || $id == 1) {
             Services::alertMessages()->setMsgWarning($id == 1 ? 'O usuário Administrador não pode ser alterado' : 'Usuário não encontrado.');
             return $this->response->redirect('/administrator/group');
@@ -115,7 +115,7 @@ class User extends ControllerBase {
         }
         $rules['name'] = ['label' => 'Nome', 'rules' => 'required'];
         $rules['id_auth_group'] = ['label' => 'Grupo', 'rules' => 'required'];
-        $rules['email'] = ['label' => 'E-mail', 'rules' => 'required|valid_email|is_unique_decrypted[auth_user.email,id,{id}]'];
+        $rules['email'] = ['label' => 'E-mail', 'rules' => 'required|valid_email|is_unique[auth_user.email,id,{id}]'];
 
         return $rules;
     }

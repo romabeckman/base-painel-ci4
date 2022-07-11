@@ -6,11 +6,11 @@ use \Authorization\Application\Exceptions\InvalidUserEmailException;
 use \Authorization\Application\Exceptions\InvalidUserPasswordException;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 use function \env;
 use function \lang;
 
-class Login extends ControllerBase {
+class Login extends BaseController {
 
     function index() {
         AuthorizationServices::userSession()->destroy();

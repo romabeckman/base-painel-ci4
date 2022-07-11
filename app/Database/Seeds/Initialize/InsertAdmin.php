@@ -2,8 +2,8 @@
 
 namespace App\Database\Seeds\Initialize;
 
-use \Authorization\Infraestructure\Persistence\Entity\User;
-use \Authorization\Infraestructure\Persistence\Models\UserModel;
+use \Authorization\Infrastructure\Persistence\Entity\User;
+use \Authorization\Infrastructure\Persistence\Models\UserModel;
 use \CodeIgniter\Database\Seeder;
 
 class InsertAdmin extends Seeder {

@@ -5,11 +5,11 @@ namespace App\Controllers\Administrator;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
 use \Exception;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 use \Shared\Application\Traits\Breadcrumb;
 use \Shared\Application\Traits\Delete;
 use \Shared\Application\Traits\Index;
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 use \System\Config\Services as SystemServices;
 use function \db_connect;
 
@@ -18,9 +18,9 @@ use function \db_connect;
  *
  * @author Romário Beckman
  */
-class Group extends ControllerBase {
+class Group extends BaseController {
 
-    protected RepositoryBase $repository;
+    protected BaseRepository $repository;
 
     use Breadcrumb,
         Index,

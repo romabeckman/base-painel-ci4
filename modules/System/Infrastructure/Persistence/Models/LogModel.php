@@ -2,7 +2,7 @@
 
 namespace System\Infrastructure\Persistence\Models;
 
-use \Shared\Persistence\Abstracts\ModelBase;
+use \Shared\Persistence\Abstracts\BaseModel;
 use \System\Infrastructure\Persistence\Entity\Log;
 
 /**
@@ -10,15 +10,12 @@ use \System\Infrastructure\Persistence\Entity\Log;
  *
  * @author Romário Beckman
  */
-class LogModel extends ModelBase {
+class LogModel extends BaseModel {
 
     protected $table = 'sys_log';
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'id_auth_user', 'description', 'ip', 'data'
-    ];
-    protected $encryptFields = [
-        'ip', 'data'
     ];
     protected $returnType = Log::class;
     protected $useTimestamps = true;

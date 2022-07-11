@@ -5,22 +5,20 @@ namespace Authorization\Infrastructure\Persistence\Repository;
 use \Authorization\Config\Services as AuthorizationService;
 use \Authorization\Infrastructure\Persistence\Entity\User;
 use \Authorization\Infrastructure\Persistence\Models\UserModel;
-use \Shared\Persistence\Abstracts\RepositoryBase;
-use function \aesDecrypt;
+use \Shared\Persistence\Abstracts\BaseRepository;
 
 /**
  * Description of GroupRepository
  *
  * @author Romário Beckman <romabeckman@yahoo.com.br>
  */
-class UserRepository extends RepositoryBase {
+class UserRepository extends BaseRepository {
 
     protected string $modelClass = UserModel::class;
 
     public function getUserFromEmail(string $email): ?User {
         $user = $this->getModel()
-                ->selectDecrypted()
-                ->whereDecrypted('email', $email)
+                ->where('email', $email)
                 ->first();
 
         return $user ?: null;
@@ -31,16 +29,22 @@ class UserRepository extends RepositoryBase {
     }
 
     protected function filter(array $filter = array()): void {
-        empty($filter['search']) ||
-                $this->getModel()->where(
-                        '(' . aesDecrypt('name') . ' like "%' . $filter['search'] . '%" or ' . aesDecrypt('email') . ' like "%' . $filter['search'] . '%")',
-                        null,
-                        false
-        );
+        if (isset($filter['search'])) {
+            $this->getModel(renew: FALSE)->where(
+                    key: '(name like "%' . $filter['search'] . '%" or email like "%' . $filter['search'] . '%")',
+                    value: null,
+                    escape: false
+            );
+        }
     }
 
-    protected function subSelect(): void {
-        $this->getModel()->subSelect('id_auth_group', AuthorizationService::groupRepository()->getModel(), 'name', 'group');
+    protected function subQueries(): void {
+        $this->subSelect(
+                fkFieldId: 'id_auth_group',
+                model: AuthorizationService::groupRepository()->getModel(renew: FALSE),
+                seletcField: 'name',
+                showAs: 'group'
+        );
     }
 
 }

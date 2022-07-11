@@ -20,12 +20,12 @@ class AddAuthUser extends Migration {
                 'unsigned' => TRUE
             ],
             'name' => [
-                'type' => 'VARBINARY',
+                'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE
             ],
             'email' => [
-                'type' => 'VARBINARY',
+                'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
                 'unique' => true,

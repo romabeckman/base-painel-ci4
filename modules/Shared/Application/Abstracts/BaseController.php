@@ -6,7 +6,7 @@ use \CodeIgniter\Controller;
 use \CodeIgniter\HTTP\RequestInterface;
 use \CodeIgniter\HTTP\ResponseInterface;
 use \Psr\Log\LoggerInterface;
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 
 /**
  * Class BaseController
@@ -20,7 +20,7 @@ use \Shared\Persistence\Abstracts\RepositoryBase;
  *
  * @package CodeIgniter
  */
-abstract class ControllerBase extends Controller {
+abstract class BaseController extends Controller {
 
     /**
      * An array of helpers to be loaded automatically upon

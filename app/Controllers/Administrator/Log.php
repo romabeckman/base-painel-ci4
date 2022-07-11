@@ -3,7 +3,7 @@
 namespace App\Controllers\Administrator;
 
 use \Config\Services;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 use \System\Config\Services as SystemServices;
 use function \helper;
 
@@ -12,12 +12,12 @@ use function \helper;
  *
  * @author Romário Beckman
  */
-class Log extends ControllerBase {
+class Log extends BaseController {
 
     public function index() {
         helper('print');
-        $paginate = SystemServices::logRepository()->getPaginated($this->request->getGet('search'), 'id desc');
-
+        $paginate = SystemServices::logRepository()->getPaginated($this->request->getGet('search') ?: '', 'id desc');
+        
         $data = [
             'logs' => $paginate['itens'],
             'pager' => $paginate['pager']

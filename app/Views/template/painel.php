@@ -5,10 +5,11 @@
         <title>Painel</title>
     </head>
 
-    <body class="bg-light">
+    <body>
         <?php echo $this->include('template/layout/top') ?>
 
-        <main role="main" class="container-fluid">
+        <main class="container">
+
             <div class="my-2">
                 <?php echo $this->include('template/layout/breadcrumb') ?>
                 <h4 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h4>

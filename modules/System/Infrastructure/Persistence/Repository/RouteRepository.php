@@ -3,7 +3,7 @@
 namespace System\Infrastructure\Persistence\Repository;
 
 use \Authorization\Config\Services as AuthorizationService;
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 use \System\Infrastructure\Persistence\Entity\Route;
 use \System\Infrastructure\Persistence\Models\RouteModel;
 
@@ -12,7 +12,7 @@ use \System\Infrastructure\Persistence\Models\RouteModel;
  *
  * @author Romário Beckman <romabeckman@yahoo.com.br>
  */
-class RouteRepository extends RepositoryBase {
+class RouteRepository extends BaseRepository {
 
     protected string $modelClass = RouteModel::class;
 

@@ -2,7 +2,7 @@
 
 namespace Authorization\Config;
 
-use \Authorization\Application\Services\HmacService;
+use \Authorization\Application\Libraries\HmacService;
 use \Authorization\Application\Services\LoginService;
 use \Authorization\Application\Services\PermissionService;
 use \Authorization\Application\Services\UpdatePasswordService;

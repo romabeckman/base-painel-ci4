@@ -1,6 +1,6 @@
-<div class="col-sm">
-    <form method="GET" class="form-inline justify-content-end">
-        <input value="<?php echo filter_input(INPUT_GET, 'search'); ?>" class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+<div class="col-sm-4">
+    <form method="GET" class="d-flex">
+        <input value="<?php echo filter_input(INPUT_GET, 'search'); ?>" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search" name="search">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
     </form>
 </div>

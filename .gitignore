@@ -84,7 +84,6 @@ phpunit
 # Composer
 #-------------------------
 vendor/
-composer.lock
 
 #-------------------------
 # IDE / Development Files
@@ -126,7 +125,5 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
-/nbproject/
-composer.phar
-
-/writable/
+public/node_modules
+public/package-lock.json

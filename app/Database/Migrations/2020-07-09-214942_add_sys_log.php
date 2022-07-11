@@ -25,8 +25,8 @@ class AddSysLog extends Migration {
                 'type' => 'TEXT'
             ],
             'ip' => [
-                'type' => 'VARBINARY',
-                'constraint' => '255',
+                'type' => 'VARCHAR',
+                'constraint' => '15',
                 'null' => TRUE
             ],
             'data' => [

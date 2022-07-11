@@ -36,7 +36,7 @@
                                     $group->name;
                             ?>
                         </td>
-                        <td class="d-flex flex-row-reverse"><?php echo $group->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $group->id], 'administrator/group/delete', 'Remover'); ?></td>
+                        <td class="d-flex flex-row-reverse"><?php echo $group->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $group->id ?? ''], 'administrator/group/delete', 'Remover'); ?></td>
                     </tr>
                     <?php
                 }

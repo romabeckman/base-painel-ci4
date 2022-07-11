@@ -8,9 +8,8 @@ $(function() {
     $('#modal-confirmation').on('show.bs.modal', function(event) {
         let button = $(event.relatedTarget)
         let formId = button.data('form-id')
-        let modal = $(this)
 
-        modal.find('.btn-continue').on('click', function() {
+        $(this).find('.btn-continue').on('click', function() {
             $('#' + formId).submit()
         })
     })

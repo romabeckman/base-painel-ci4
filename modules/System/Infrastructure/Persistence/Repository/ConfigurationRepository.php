@@ -2,7 +2,7 @@
 
 namespace System\Infrastructure\Persistence\Repository;
 
-use \Shared\Persistence\Abstracts\RepositoryBase;
+use \Shared\Persistence\Abstracts\BaseRepository;
 use \System\Infrastructure\Persistence\Models\ConfigurationModel;
 
 /**
@@ -10,7 +10,7 @@ use \System\Infrastructure\Persistence\Models\ConfigurationModel;
  *
  * @author Romário Beckman <romabeckman@yahoo.com.br>
  */
-class ConfigurationRepository extends RepositoryBase {
+class ConfigurationRepository extends BaseRepository {
 
     protected string $modelClass = ConfigurationModel::class;
 

@@ -3,7 +3,7 @@
 namespace App\Database\Seeds\Initialize;
 
 use \CodeIgniter\Database\Seeder;
-use \System\Infraestructure\Persistence\Models\RouteModel;
+use \System\Infrastructure\Persistence\Models\RouteModel;
 
 class InsertRoute extends Seeder {
 

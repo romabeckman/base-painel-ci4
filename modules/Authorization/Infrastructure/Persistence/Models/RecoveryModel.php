@@ -2,14 +2,14 @@
 
 namespace Authorization\Infrastructure\Persistence\Models;
 
-use \Shared\Persistence\Abstracts\ModelBase;
+use \Shared\Persistence\Abstracts\BaseModel;
 
 /**
  * Description of User
  *
  * @author Romário Beckman
  */
-class RecoveryModel extends ModelBase {
+class RecoveryModel extends BaseModel {
 
     protected $table = 'auth_recovery';
     protected $primaryKey = 'id';

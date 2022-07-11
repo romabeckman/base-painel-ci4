@@ -4,14 +4,14 @@ namespace App\Controllers\Profile;
 
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 
 /**
  * Description of Password
  *
  * @author Romário Beckman
  */
-class Password extends ControllerBase {
+class Password extends BaseController {
 
     public function index() {
         return Services::template()->templatePainel(['title' => 'Alterar minha senha']);

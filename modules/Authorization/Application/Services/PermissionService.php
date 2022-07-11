@@ -17,15 +17,15 @@ class PermissionService {
                 ->where(['id_auth_group' => $idGroup])
                 ->delete();
 
-        if(empty($permissions)) {
+        if (empty($permissions)) {
             return;
         }
 
         $set = array_reduce($permissions, function ($carry, $idRoute) use ($idGroup) {
-            $carry[] = ['id_auth_group' => $idGroup, 'id_sys_route' => $idRoute];
+            $carry[] = ['id_auth_group' => $idGroup, 'id_sys_route' => (int) $idRoute];
             return $carry;
         }, []);
-        $permissionModel->insertBatch($set);
+        $permissionModel->insertBatch(set: $set);
     }
 
 }

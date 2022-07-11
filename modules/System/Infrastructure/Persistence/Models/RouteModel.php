@@ -2,7 +2,7 @@
 
 namespace System\Infrastructure\Persistence\Models;
 
-use \Shared\Persistence\Abstracts\ModelBase;
+use \Shared\Persistence\Abstracts\BaseModel;
 use \System\Infrastructure\Persistence\Entity\Route;
 
 /**
@@ -10,7 +10,7 @@ use \System\Infrastructure\Persistence\Entity\Route;
  *
  * @author Romário Beckman
  */
-class RouteModel extends ModelBase {
+class RouteModel extends BaseModel {
 
     /**
      * Anyone can access
@@ -31,6 +31,6 @@ class RouteModel extends ModelBase {
     protected $allowedFields = [
         'controller', 'method', 'access', 'name', 'group'
     ];
-
     protected $returnType = Route::class;
+
 }

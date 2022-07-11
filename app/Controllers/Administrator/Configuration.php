@@ -3,7 +3,7 @@
 namespace App\Controllers\Administrator;
 
 use \Config\Services;
-use \Shared\Application\Abstracts\ControllerBase;
+use \Shared\Application\Abstracts\BaseController;
 use \System\Config\Services as SystemServices;
 use function \env;
 
@@ -12,7 +12,7 @@ use function \env;
  *
  * @author Romário Beckman
  */
-class Configuration extends ControllerBase {
+class Configuration extends BaseController {
 
     public function index() {
         $recaptchav3 = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');

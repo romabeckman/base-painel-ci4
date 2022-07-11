@@ -2,7 +2,7 @@
 
 namespace App\Database\Seeds\Initialize;
 
-use \Authorization\Infraestructure\Persistence\Models\GroupModel;
+use \Authorization\Infrastructure\Persistence\Models\GroupModel;
 use \CodeIgniter\Database\Seeder;
 
 class InsertGroup extends Seeder {

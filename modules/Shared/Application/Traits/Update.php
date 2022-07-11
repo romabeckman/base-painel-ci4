@@ -12,7 +12,7 @@ use \Config\Services;
 trait Update {
 
     public function update(?int $id = null) {
-        $entity = $this->repository->getModel()->selectDecrypted()->find($id);
+        $entity = $this->repository->getModel()->find($id);
 
         if (empty($entity)) {
             Services::alertMessages()->setMsgWarning(static::DESCRIPTION . ' não encontrada(o).');

@@ -14,13 +14,13 @@
     <?php echo $this->include('template/include/form/search') ?>
 </div>
 <div class="table-responsive">
-    <table class="table table-striped">
-        <thead class="thead-dark">
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
             <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Grupo</th>
-                <th scope="col">&ensp;</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Grupo</th>
+                <th>&ensp;</th>
             </tr>
         </thead>
         <?php
@@ -40,7 +40,11 @@
                         </td>
                         <td><?php echo $user->email; ?></td>
                         <td><?php echo $user->group; ?></td>
-                        <td class="d-flex flex-row-reverse"><?php echo $user->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $user->id], 'administrator/user/delete', 'Remover'); ?></td>
+                        <td>
+                            <div class="d-flex flex-row-reverse">
+                                <?php echo $user->id == 1 && $permission['delete'] ? '' : formDelete(['id' => $user->id ?? ''], 'administrator/user/delete', 'Remover'); ?>
+                            </div>
+                        </td>
                     </tr>
                     <?php
                 }

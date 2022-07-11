@@ -7,8 +7,4 @@
 <base href = "<?php echo base_url(); ?>" />
 
 <?php
-echo \Config\Services::package()->getStyle(['bootstrap', 'fontawesome', 'painel_main']);
-
-if (isset($linkTag)) {
-    echo \Config\Services::package()->getStyle($linkTag);
-}
+echo config('Resource')->loadCss();

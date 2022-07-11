@@ -22,12 +22,34 @@ class Template extends BaseService {
         !isset($params['title']) && $params['title'] = 'Login';
         $params['reCaptchaV3Api'] = env('GOOGLE_RECAPTCHA_V3_PUBLIC_KEY');
         $params['reCaptchaV2Api'] = env('GOOGLE_RECAPTCHA_V2_PUBLIC_KEY');
+
+        $resouces = config('Resource');
+        $resouces
+                ->addJs('jquery')
+                ->addJs('popperjs')
+                ->addJs('bootstrap');
+        $resouces
+                ->addCss('bootstrap')
+                ->addCss('fontawesome')
+                ->addCss('painel_signin');
+
         return $this->autoloadView($params, $view);
     }
 
     public function templatePainel(array $params = [], ?string $view = null) {
         !isset($params['title']) && $params['title'] = 'Login';
         $params['alertMessage'] = Services::alertMessages()->getMessage();
+
+        $resouces = config('Resource');
+        $resouces
+                ->addJs('jquery')
+                ->addJs('popperjs')
+                ->addJs('bootstrap')
+                ->addJs('painel_main');
+        $resouces
+                ->addCss('bootstrap')
+                ->addCss('fontawesome')
+                ->addCss('painel_main');
         return $this->autoloadView($params, $view);
     }
 

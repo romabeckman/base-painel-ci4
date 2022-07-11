@@ -12,10 +12,10 @@ use function \crudPermission;
 trait Index {
 
     public function index() {
-        $search = $this->request->getGet('search');
+        $search = $this->request->getGet('search') ?: '';
 
         $paginate = $this->repository->getPaginated($search, 'id desc');
-
+        
         $data = [
             'entities' => $paginate['itens'],
             'pager' => $paginate['pager'],
