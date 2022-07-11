@@ -1,18 +1,16 @@
-# Base painel PHP 7.4
+# Base painel PHP 8.1 and codeigniter 4
 
-Execute commands below:
-
-composer install
-
-php spark migrate
-
-php spark db:seed Init
+Execute commands below in main folder:
+- composer install
+- php spark migrate
+- php spark db:seed Init
 
 Run command in public folder:
-npm install
+- npm install
 
 Return to main folder and run:
-php spark serve
+- php spark serve
 
-User: admin@admin.com
-Password: admin
+Authentication with:
+- User: admin@admin.com
+- Password: admin
