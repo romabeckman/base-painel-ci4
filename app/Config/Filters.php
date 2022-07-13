@@ -24,7 +24,8 @@ class Filters extends BaseConfig {
         'invalidchars' => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'logged_in' => \Authorization\Application\Filters\LoggedInFilter::class,
-        'permission' => \System\Application\Filters\PermissionFilter::class,
+        'permission' => \Authorization\Application\Filters\PermissionFilter::class,
+        'force_change_password' => \Authorization\Application\Filters\ForceChangePassword::class,
         'log_register' => \System\Application\Filters\LogRegisterFilter::class,
     ];
 
@@ -36,11 +37,12 @@ class Filters extends BaseConfig {
      */
     public $globals = [
         'before' => [
-            'honeypot',
+//            'honeypot',
             'csrf',
             // 'invalidchars',
             'logged_in',
             'permission',
+            'force_change_password',
         ],
         'after' => [
             'toolbar',

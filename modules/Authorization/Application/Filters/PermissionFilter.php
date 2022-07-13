@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Application\Filters;
+namespace Authorization\Application\Filters;
 
 use \Authorization\Config\Auth;
 use \Authorization\Infrastructure\Persistence\Entity\User;
@@ -44,7 +44,6 @@ class PermissionFilter implements FilterInterface {
         if (empty(Auth::$user) || !Auth::$user instanceof User) {
             return redirect()->to('/authentication/logout');
         }
-
         if ($route->access == RouteModel::ACCESS_PRIVATE) {
             helper('permission');
             if (!hasPermission($router->controllerName(), $router->methodName())) {

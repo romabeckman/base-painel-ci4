@@ -8,7 +8,7 @@ use \Shared\Application\Abstracts\BaseController;
 class Home extends BaseController {
 
     public function index() {
-        return Services::template()->templatePainel(['title' => 'Página inicial']);
+        return Services::painelTemplate()->view(['title' => 'Página inicial']);
     }
 
 }

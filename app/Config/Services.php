@@ -2,7 +2,11 @@
 
 namespace Config;
 
-use CodeIgniter\Config\BaseService;
+use \App\Services\AlertMessages;
+use \App\Services\Templates\LoginTemplate;
+use \App\Services\Templates\PainelTemplate;
+use \App\Services\Templates\TemplateInterface;
+use \CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -18,23 +22,17 @@ use CodeIgniter\Config\BaseService;
  * see the core Services file at system/Config/Services.php.
  */
 class Services extends BaseService {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
-     */
 
-    static public function template(bool $getShared = true): \App\Services\Template {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Services\Template();
+    static public function loginTemplate(bool $getShared = true): TemplateInterface {
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new LoginTemplate();
     }
 
-    static public function alertMessages(bool $getShared = true): \App\Services\AlertMessages {
-        return $getShared ? static::getSharedInstance(__FUNCTION__) : new \App\Services\AlertMessages;
+    static public function painelTemplate(bool $getShared = true): TemplateInterface {
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new PainelTemplate();
+    }
+
+    static public function alertMessages(bool $getShared = true): AlertMessages {
+        return $getShared ? static::getSharedInstance(__FUNCTION__) : new AlertMessages;
     }
 
 }

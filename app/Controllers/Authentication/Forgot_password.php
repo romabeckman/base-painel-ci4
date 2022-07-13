@@ -3,20 +3,20 @@
 namespace App\Controllers\Authentication;
 
 use \Authorization\Application\Exceptions\InvalidUserEmailException;
-use \Authorization\Application\Exceptions\InvalidUserPasswordException;
+use \Authorization\Application\Exceptions\RecoveryPasswordFailException;
 use \Authorization\Config\Services as AuthorizationServices;
 use \Config\Services;
 use \Shared\Application\Abstracts\BaseController;
 use function \env;
 use function \lang;
 
-class Login extends BaseController {
+class Forgot_password extends BaseController {
 
     function index() {
         return Services::loginTemplate()->view();
     }
 
-    function auth() {
+    function recovery() {
         $post = $this->request->getPost();
         if (empty($post)) {
             return $this->response->redirect('/authentication/login');
@@ -27,7 +27,6 @@ class Login extends BaseController {
 
         $rules = [
             'email' => ['label' => 'E-amil', 'rules' => 'required|valid_email'],
-            'password' => ['label' => 'Senha', 'rules' => 'required'],
         ];
 
         $reCaptchaV3Api && $rules['grecaptcha'] = ['rules' => 'required|grecaptchav3'];
@@ -38,13 +37,14 @@ class Login extends BaseController {
         }
 
         try {
-            $user = AuthorizationServices::loginService()->handler($post['email'], $post['password']);
-            AuthorizationServices::userSession()->create($user, isset($post['remember_me']));
-            return $this->response->redirect('/');
-        } catch (InvalidUserEmailException $exc) {
-            return Services::loginTemplate()->view(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
-        } catch (InvalidUserPasswordException $exc) {
-            return Services::loginTemplate()->view(['message_erro' => lang('Auth.invalid_user_auth')], 'index');
+            db_connect()->transBegin();
+            AuthorizationServices::forgotPassowrdService()->handler($post['email']);
+            db_connect()->transCommit();
+            Services::alertMessages()->setMsgSuccess('Uma nova senha foi enviado por e-mail');
+            return $this->response->redirect('/authentication/login');
+        } catch (RecoveryPasswordFailException | InvalidUserEmailException $exc) {
+            db_connect()->transRollback();
+            return Services::loginTemplate()->view(['message_erro' => $exc->getMessage()], 'index');
         }
     }
 

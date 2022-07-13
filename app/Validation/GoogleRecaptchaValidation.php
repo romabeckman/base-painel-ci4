@@ -5,7 +5,7 @@ namespace App\Validation;
 use \CodeIgniter\HTTP\Exceptions\HTTPException;
 use \Config\Services;
 use \System\Config\Services as SystemServices;
-use \System\Config\Sys;
+use \System\Config\System;
 use function \env;
 
 /**
@@ -23,7 +23,7 @@ class GoogleRecaptchaValidation {
 
         $response = $this->curl($str, $secret);
 
-        Sys::$log['recaptchav3'] = $response;
+        System::$log['recaptchav3'] = $response;
 
         if ($response->success ?? false) {
             return $response->score >= (float) SystemServices::repository()->getConfiguration('RECAPTCHA_V3_MINIMUM_SCORE');
@@ -40,7 +40,7 @@ class GoogleRecaptchaValidation {
 
         $response = $this->curl($str, $secret);
 
-        Sys::$log['recaptchav2'] = $response;
+        System::$log['recaptchav2'] = $response;
 
         return $response->success ?? false;
     }

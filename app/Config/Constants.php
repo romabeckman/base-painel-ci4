@@ -93,8 +93,8 @@ define('EVENT_PRIORITY_NORMAL', 100);
  */
 define('EVENT_PRIORITY_HIGH', 10);
 
-define('PROJECT_NAME', "Project name");
-define('PROJECT_LOGO', 'https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg');
+define('PROJECT_NAME', "My Project");
+define('PROJECT_LOGO', '/resources/images/logo-codeigniter.jpg');
 define('PROJECT_WEBSITE_URL', '#');
 define('PAGE_ITENS', 30);
 

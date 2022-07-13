@@ -26,7 +26,7 @@ trait Update {
             'breadcrumb' => $this->breadcrumb(),
             'scriptTag' => ['jquery-mask', 'maskmoney']
         ];
-        return Services::template()->templatePainel($data, 'save');
+        return Services::painelTemplate()->view($data, 'save');
     }
 
 }

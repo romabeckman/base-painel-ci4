@@ -23,7 +23,7 @@ trait Index {
         ];
 
         $data['title'] = static::DESCRIPTION . ' (' . $paginate['total'] . ')';
-        return Services::template()->templatePainel($data);
+        return Services::painelTemplate()->view($data);
     }
 
 }

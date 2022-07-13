@@ -24,7 +24,7 @@ class Configuration extends BaseController {
         ];
 
         $data['title'] = 'Configuração';
-        return Services::template()->templatePainel($data, 'index');
+        return Services::painelTemplate()->view($data, 'index');
     }
 
     public function save() {

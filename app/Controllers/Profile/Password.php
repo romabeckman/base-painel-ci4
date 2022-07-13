@@ -14,7 +14,7 @@ use \Shared\Application\Abstracts\BaseController;
 class Password extends BaseController {
 
     public function index() {
-        return Services::template()->templatePainel(['title' => 'Alterar minha senha']);
+        return Services::painelTemplate()->view(['title' => 'Alterar minha senha']);
     }
 
     public function update() {
@@ -30,7 +30,7 @@ class Password extends BaseController {
         $validation->setRule('old_password', 'Senha atual', 'required|auth_current_password');
 
         if (!$validation->run($post)) {
-            return Services::template()->templateLogin(['validation' => $validation], 'index');
+            return Services::painelTemplate()->view(['validation' => $validation], 'index');
         }
 
         AuthorizationServices::updatePasswordService()->handler($post['password']);

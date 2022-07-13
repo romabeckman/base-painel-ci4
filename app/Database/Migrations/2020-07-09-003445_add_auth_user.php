@@ -39,6 +39,10 @@ class AddAuthUser extends Migration {
                 'default' => NULL,
                 'null' => TRUE
             ],
+            'force_change_password' => [
+                'type' => 'BOOL',
+                'default' => 0
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'default' => NULL,

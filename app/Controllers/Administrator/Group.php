@@ -41,7 +41,7 @@ class Group extends BaseController {
             'title' => 'Novo grupo',
             'breadcrumb' => $this->breadcrumb()
         ];
-        return Services::template()->templatePainel($data, 'save');
+        return Services::painelTemplate()->view($data, 'save');
     }
 
     public function update(?int $id = null) {
@@ -58,7 +58,7 @@ class Group extends BaseController {
             'title' => 'Alterar grupo',
             'breadcrumb' => $this->breadcrumb()
         ];
-        return Services::template()->templatePainel($data, 'save');
+        return Services::painelTemplate()->view($data, 'save');
     }
 
     public function save() {

@@ -14,6 +14,7 @@ class InsertRoute extends Seeder {
                 //PUBLIC
                 ['controller' => \App\Controllers\Authentication\Login::class, 'name' => 'Login', 'group' => 'Authentication', 'access' => RouteModel::ACCESS_PUBLIC],
                 ['controller' => \App\Controllers\Authentication\Logout::class, 'name' => 'Login', 'group' => 'Authentication', 'access' => RouteModel::ACCESS_PUBLIC],
+                ['controller' => \App\Controllers\Authentication\Forgot_password::class, 'name' => 'Forgot password', 'group' => 'Authentication', 'access' => RouteModel::ACCESS_PUBLIC],
                 //PROTECTED
                 ['controller' => \App\Controllers\Profile\Password::class, 'name' => 'Password', 'group' => 'Profile', 'access' => RouteModel::ACCESS_PROTECTED],
                 ['controller' => \App\Controllers\Home::class, 'name' => 'Home', 'group' => null, 'access' => RouteModel::ACCESS_PROTECTED],

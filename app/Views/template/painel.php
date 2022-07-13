@@ -15,7 +15,7 @@
                 <h4 class="border-bottom border-gray pb-2 mb-0"><?php echo $title ?? ''; ?></h4>
             </div>
 
-            <?php echo $this->include('template/include/error/list') ?>
+            <?php echo $this->include('template/include/error/painel') ?>
 
             <div class="my-3 p-3 bg-white rounded box-shadow">
                 <?php echo $this->renderSection('content') ?>

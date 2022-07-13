@@ -14,7 +14,15 @@ class UpdatePasswordService {
 
     public function handler(string $newPassword): void {
         Auth::$user->setPassword($newPassword);
-        AuthorizationService::userRepository()->getModel()->update(Auth::$user->id, ['password' => Auth::$user->password]);
+        AuthorizationService::userRepository()
+                ->getModel()
+                ->update(
+                        id: Auth::$user->id,
+                        data: [
+                            'password' => Auth::$user->password,
+                            'force_change_password' => 0
+                        ]
+        );
     }
 
 }

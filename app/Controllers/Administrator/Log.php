@@ -24,7 +24,7 @@ class Log extends BaseController {
         ];
 
         $data['title'] = 'Log (' . $paginate['total'] . ')';
-        return Services::template()->templatePainel($data);
+        return Services::painelTemplate()->view($data);
     }
 
 }

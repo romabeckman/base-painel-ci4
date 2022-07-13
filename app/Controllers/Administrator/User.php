@@ -37,7 +37,7 @@ class User extends BaseController {
             'groups' => AuthorizationServices::groupRepository()->getToDropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return Services::template()->templatePainel($data, 'save');
+        return Services::painelTemplate()->view($data, 'save');
     }
 
     public function update(int $id) {
@@ -54,7 +54,7 @@ class User extends BaseController {
             'groups' => AuthorizationServices::groupRepository()->getToDropdown('name', 'id'),
             'breadcrumb' => $this->breadcrumb()
         ];
-        return Services::template()->templatePainel($data, 'save');
+        return Services::painelTemplate()->view($data, 'save');
     }
 
     public function save() {

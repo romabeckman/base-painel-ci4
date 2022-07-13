@@ -4,6 +4,8 @@
 
 
 <link rel="canonical" href="<?php echo current_url(); ?>">
+<link rel="shortcut icon" href="https://codeigniter.com/favicon.ico" type="image/x-icon">
+<link rel="icon" href="https://codeigniter.com/favicon.ico" type="image/x-icon">
 <base href = "<?php echo base_url(); ?>" />
 
 <?php
